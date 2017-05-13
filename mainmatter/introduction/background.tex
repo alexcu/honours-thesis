@@ -1,3 +1,12 @@
 \section{Background}
 
-% RBN background?
+This study presents character recognition within the context of short, alphanumeric number sequences. We define alphanumeric number sequences as short fragments of digits within an unstructured scene.   
+
+Certain literature have focused on these kinds of sequences, namely: License Plate Recognition (LPR\newacronym{lpr}{LPR}{Licence Plate Recognition}) systems \citep{CanoPerez:2003fq, Anagnostopoulos:2008vu}; Traffic Sign Recognition (TSR\newacronym{tsr}{TSR}{Traffic Sign Recognition}), namely speed limit recognition, to better realise Advanced Driver Assistance Systems (ADAS\newacronym{adas}{ADAS}{Advanced Driver Assistance Systems}) \citep{Eichner:2008dw,Kundu:2015vq,Seo:2015ez,Lian:2016dc}; and, street number recognition, specifically two studies by \citet{Netzer:2011to}, using Google Street View\footnoteurl{https://www.google.com/streetview/}{13 May 2017} to determine the numerical value of street numbers. \todo{Figure~\ref{}} summarises the usage of these sequences.
+
+Different applications apply varying methods to parse short alphanumeric characters. There are typically two stages of any parsing method: detection of possible candidates and recognition of the text itself. Detection techniques usually are categorised as either connected component (CC)\newacronym{cc}{CC}{Connected Component}-based or learning or texture-based. CC-based detection will typically use a set of distinct properties on the image to detect relevant areas (such as width, stroke and colour) while learning-based feed images into a classifier that can distinguish candidates from false positives. The recognition phase can typically be achieved using optical image recognition OCR engines, machine learning algorithms or deep neural networks to classify the detected regions.
+
+{
+  \itshape
+  This study proposes the development of a learning-based detection and recognition pipeline using deep-learning neural networks within the context of unstructured photos, namely focusing within the context of marathon Racing Bib Numbers (RBNs)\newacronym{rbn}{RBN}{Racing Bib Number} (\todo{Figure~\ref{}}).
+}
