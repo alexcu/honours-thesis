@@ -1,48 +1,54 @@
 \section{Research Goals}
 \label{sec:research_goals}
 
-This study aims to develop a processing pipeline that both detects and recognises RBNs on a marathon runner, and then ranks the prominence of each runner detected in the photo. Using artificial deep-learning neural networks (e.g., convolutional neural networks or CNNs\newacronym{cnn}{CNN}{Convolutional Neural Network}) in this pipeline is the main objective, unlike previous studies in RBN recognition that were heavily heuristic and rule driven. This primary aim is developed into three key objectives:
+This study aims to develop a processing pipeline that both detects and recognises RBNs on a marathon runner, and then ranks the prominence of each runner detected in the photo. Using artificial deep-learning NNs (such as Convolutional Neural Networks or CNNs\newacronym{cnn}{CNN}{Convolutional Neural Network}) in this pipeline is the main objective, unlike previous studies in RBN recognition that were heavily heuristic and rule driven. This primary aim is developed into three key objectives:
 
 %By working with a large labelled dataset in the context of RBN recognition, a benchmark between existing libraries and open source tools can be assessed using techniques developed in other related works. A collated literature review of the state of the art in image processing and image segmentation from other similar areas (such as speed limit sign detection) is to be conducted. The study will also attempt to train a neural network to recognise entire numbers in an RBN, rather than segmented numbers joined together.
 
 %When compared to the wider context of alphanumeric text recognition, this study focuses solely in the area of RBN detection. A generalised approach may be evolved from the study, such as applying the pipeline to other subjects or moving images (such as parked cars).
 
-% TODO: A general overview of my research goals
 
 \subsubsection*{Goal 1: \itshape Detect RBNs using a CNN}
 
-% Can a CNN detect an RBN consistently given our dataset?
-
 % 1: Explain the hypothesis
-
+Literature has shown that heuristic-based detection algorithms (that are CC-based) are able to detect text within photos. We propose to apply these techniques to a large labelled dataset within the context of RBNs, and contrast them against a learning-based detection and recognition algorithm. By benchmarking a against existing libraries and open source tools, we suggest that heuristic-based detection algorithms (focusing namely on CC-based detection) outperforms learning-based detection methods. 
 % 2: Suggest the research question from the hypothesis
+Therefore, we suggest the following research question:
+\begin{enumerate}[label=\bfseries~RQ\arabic*), leftmargin=2cm, rightmargin=1.5cm]
+  \item\label{rq:1} Do CNNs detect RBNs with equal or higher recall and precision rates than CC-based methods?
+\end{enumerate}
 % 3: Explain what phenomenon that will be observed
 % 4: Explain possible evidence that shows this phenomenon
+The findings from these experiments offer metrics (namely, recall and precision rates) to compare the merit of learning-based versus CC-based detection methods within our dataset of marathon photos. We observed that the precision and recall rates of learning-based detection methods compared \todo{favourably$~|~$worse than} those of CC-based methods.
 
-\blindtext
-
-% TODO: Talk about goal 1 in detail
-
-\subsubsection*{Goal 2: \itshape Design a CNN that recognises RBN sequences without character segmentation}
-
-% Can a CNN recognise an entire number sequence without character segmentation?
+\subsubsection*{Goal 2: \itshape Design a CNN that can recognise RBNs}
 
 % 1: Explain the hypothesis
+Typically, traditional alphanumeric sequence parsing can be performed by character segmentation, and then piping those characters into OCR engines.
 % 2: Suggest the research question from the hypothesis
+This begs the following research questions:
+\begin{enumerate}[label=\bfseries~RQ\arabic*), leftmargin=2cm, rightmargin=1.5cm]
+  \setcounter{enumi}{1}
+  \item\label{rq:2} Does CNN-based OCR outperform or is at parity with traditional OCR with higher or equal recall and precision rates?
+  \item\label{rq:3} Does CNN-based OCR perform \textit{without} the use of character segmentation?
+\end{enumerate}
 % 3: Explain what phenomenon that will be observed
 % 4: Explain possible evidence that shows this phenomenon
-
-\blindtext
-
-% TODO: Talk about goal 2 in detail
+The findings from these experiments observed that the development of our learning-based OCR pipeline outperformed that of a traditional OCR engine by a factor of \todo{value}.
 
 \subsubsection*{Goal 3: \itshape Rank prominence of alphanumeric sequences}
 
 % 1: Explain the hypothesis
+Our research objective is aimed to compare if humans are always better at ranking the prominence of an RBN than that of a NN.
 % 2: Suggest the research question from the hypothesis
+We can therefore propose the following research question:
+\begin{enumerate}[label=\bfseries~RQ\arabic*), leftmargin=2cm, rightmargin=1.5cm]
+  \setcounter{enumi}{2}
+  \item\label{rq:4} Can a deep-learning NN be trained to rank marathon runners by prominence?, and if so
+  \item\label{rq:5} Does a deep-learning NN rank prominence of a runner better or equal to that of a human?
+\end{enumerate}
 % 3: Explain what phenomenon that will be observed
 % 4: Explain possible evidence that shows this phenomenon
-
-\blindtext
+The findings from these experiments observed that the development of a ranking system for RBNs was able to match human characteristics with a similarity factor of \todo{value}.
 
 % TODO: Talk about goal 3 in detail
