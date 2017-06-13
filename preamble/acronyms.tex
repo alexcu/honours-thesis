@@ -1,0 +1,18 @@
+\usepackage[acronym]{glossaries}
+
+\renewcommand{\acronymname}{List of Abbreviations}
+
+\makeglossaries
+
+\newacronym{cc}{CC}{Connected Component}
+\newacronym{nn}{NN}{Neural Network}
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+\newacronym{lpr}{LPR}{License Plate Recognition}
+\newacronym{tsr}{TSR}{Traffic Sign Recognition}
+\newacronym{ocr}{OCR}{Optical Character Recognition}
+\newacronym{rbn}{RBN}{Racing Bib Number}
+\newacronym{dstil}{DSTIL}{Deakin Software and Technology Innovation Laboratory}
+
+% Re-expand glossary term
+\newcommand{\glsx}[1]{\glsreset{#1}\gls{#1}}
+\newcommand{\glsplx}[1]{\glsreset{#1}\glspl{#1}}

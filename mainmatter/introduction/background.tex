@@ -1,20 +1,20 @@
 \section{Background}
 \label{sec:introduction:background}
 
-This study focuses on character recognition in unstructured scenes (Figure~\ref{fig:sample_rbns}): specifically, short, alphanumeric number sequences. Previous works present methods to extract these sequences in various areas, namely: License Plate Recognition (LPR\newacronym{lpr}{LPR}{Licence Plate Recognition}) systems \citep{CanoPerez:2003fq,Anagnostopoulos:2006wv}; Traffic Sign Recognition (TSR\newacronym{tsr}{TSR}{Traffic Sign Recognition}) \citep{Eichner:2008dw,Kundu:2015vq,Seo:2015ez,Lian:2016dc}; and, street number recognition, specifically a study by \citet{Netzer:2011to}, using Google Street View\footnoteurl{https://www.google.com/streetview/}{13 May 2017} to determine the numerical value of street numbers. Figure~\ref{fig:sample_sequences} highlights typical usage of these sequences.
+This study focuses on character recognition in unstructured scenes (Figure~\ref{fig:sample_rbns}): specifically, short, alphanumeric number sequences. Previous works present methods to extract these sequences in various areas, namely: \gls{lpr} systems \citep{CanoPerez:2003fq,Anagnostopoulos:2006wv}; \gls{tsr} \citep{Eichner:2008dw,Kundu:2015vq,Seo:2015ez, Lian:2016dc}; and, street number recognition, specifically a study by \citet{Netzer:2011to}, using Google Street View\footnoteurl{https://www.google.com/streetview/}{13 May 2017} to determine the numerical value of street numbers. Figure~\ref{fig:sample_sequences} highlights typical usage of these sequences.
 
-Different applications apply varying methods to parse short alphanumeric characters. There are typically two stages of any parsing method: \textit{detection} and \textit{recognition}. Detection refers to locating possible candidates and recognition refers to the representation of the text itself. Detection techniques usually are categorised as either Connected Component (CC)\newacronym{cc}{CC}{Connected Component}-based or learning or texture-based. CC-based detection will typically use a set of distinct properties on the image to detect relevant areas (such as width, stroke and colour) while learning-based feed images into a classifier that can distinguish candidates from false positives. The recognition phase can typically be achieved using optical image recognition OCR engines (such as Tesseract\footnoteurl{https://github.com/tesseract-ocr/tesseract}{14 May 2017}), machine learning algorithms or deep Neural Networks (NNs\newacronym{nn}{NN}{Neural Network}) to classify the detected regions. % TODO: Find citation
+Different applications apply varying methods to parse short alphanumeric characters. There are typically two stages of any parsing method: \textit{detection} and \textit{recognition}. Detection refers to locating possible candidates and recognition refers to the representation of the text itself. Detection techniques usually are categorised as either \gls{cc}-based or learning or texture-based. CC-based detection will typically use a set of distinct properties on the image to detect relevant areas (such as width, stroke and colour) while learning-based feed images into a classifier that can distinguish candidates from false positives. The recognition phase can typically be achieved using \glsreset{ocr}\gls{ocr} engines (such as Tesseract\footnoteurl{https://github.com/tesseract-ocr/tesseract}{14 May 2017}), machine learning algorithms or deep \gls{nn} to classify the detected regions. % TODO: Find citation
 
 {
   \itshape
-  This study proposes the development of a learning-based detection and recognition pipeline using deep-learning neural networks within the context of unstructured photos, with a focus on marathon Racing Bib Numbers (RBNs)\newacronym{rbn}{RBN}{Racing Bib Number}, as shown in Figure~\ref{fig:sample_rbns}.
+  This study proposes the development of a learning-based detection and recognition pipeline using deep-learning neural networks within the context of unstructured photos, with a focus on marathon \glspl{rbn}, as shown in Figure~\ref{fig:sample_rbns}.
 }
 
 \newpage
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{images/introduction/rbn}
-  \caption[Sample racing bib numbers]{Four RBNs in a sample marathon photo.}
+  \caption[Sample racing bib numbers]{Four \glspl{rbn} in a sample marathon photo.}
   \label{fig:sample_rbns}
 \end{figure}
 \vspace{\fill}
