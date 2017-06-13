@@ -1,4 +1,19 @@
 \section{Detection Strategies}
 \label{sec:detection_strategies}
 
-% Survey how detection works
+Text extraction strategies have seen continuing interest in the literature, with many comprehensive surveys assessing the state of the art \cite{Chen:2000ua, Jung:2004uwa, Zhang:2008vfa, Liang:2005uy, Jung:2004uw}. It is widely demonstrated that if text within an unstructured scene is \textit{detected} reliably, then existing \gls{ocr} engines can suitably extract these characters \citep{Smith:2007dc} once they exist in a structured context. A survey into the two prominent detection strategies is given in Sections~\ref{sec:detection:cc_based} to \ref{sec:detection:learning_based}.
+
+These two prominent strategies have a varied nomenclature: (1) the \gls{cc}-based (or \textit{region}-based) approach, that utilise different region properties (e.g., colour, edges, \glspl{cc}) \citep{Jain:1998wd, Kim:1996tw, Liu:2006wh, Chen:2011ul, Li:2012wd, Zhang:2011cl, Shivakumara:2011dn, Epshtein:2010tj, Zhang:2010wa, Shivakumara:2010wu, Liu:2008tz, Subramanian:2007tf, Lee:2010vv, Sun:2010tg} for unsupervised extraction; and, (2) learning-based (or \textit{texture}-based) approach, which uses unique texture properties to supervise extraction text from its background \citep{Wang:2009vp, Hanif:2009tm, Tu:2003tg, Ye:2005wu, Lee:2003cn, XiangrongChen:2004ha, Chen:2005wv}. Additionally, some authors have proposed methods to combine these unsupervised and supervised techniques \citep{Mutch:2006ub, Mairal:2008uw, Bengio:2006vb}.
+
+\subsection{CC-based techniques}
+\label{sec:detection:cc_based}
+
+\gls{cc}-based approaches generate separated \glspl{cc} using properties such as stroke width, pixel colour and edges, typically applying geometric and texture filters to reduce false positives. Neighbouring pixels are then `grouped' using an algorithm originally presented by \citet{Horn:1986vc}. 
+
+Previous work required the use of a scanning window \citep{XiangrongChen:2004ha, Lienhart:2002ub, Jung:2009do} which is limited by a constant image scale and discrete orientations of the sliding (thereby preventing text strokes in non-linear directions). However, a study by \citet{Epshtein:2010tj} (and coincidentally \citet{Zhang:2011cl}) introduced the concept of Stroke Width Transformation (SWT)
+
+\subsection{Learning-based techniques}
+\label{sec:detection:learning_based}
+typically referred to as a \textit{learning}-based approach, due to the common use of machine learning methods utilised
+
+Typically, texture-based approaches utilise supervised learning methods, though it is typical for these classifiers to required thousands of training images \cite{Chen:2004ux}. Additionally, these methods
