@@ -1,5 +1,5 @@
 \section{Detection Strategies}
-\label{sec:detection_strategies}
+\label{sec:background:detection_strategies}
 
 Text extraction strategies have seen continuing interest in the literature, with many comprehensive surveys assessing the state of the art \cite{Chen:2000ua, Jung:2004uwa, Zhang:2008vfa, Liang:2005uy, Jung:2004uw}. It is widely demonstrated that if text within an unstructured scene is \textit{detected} reliably, then existing \gls{ocr} engines can suitably extract these characters \citep{Smith:2007dc} once they exist in a structured context; thus not every . A survey into the two prominent detection strategies is given in Sections~\ref{sec:detection:cc_based} to \ref{sec:detection:learning_based}.
 
@@ -10,7 +10,7 @@ These two prominent strategies have a varied nomenclature: (1) the \gls{cc}-base
 
 \gls{cc}-based approaches generate separated \glspl{cc} using properties such as stroke width, pixel colour and edges, typically applying geometric and texture filters to reduce false positives. Neighbouring pixels are then `grouped' using an algorithm originally presented by \citet{Horn:1986vc}. 
 
-Previous work required the use of a scanning window \citep{XiangrongChen:2004ha, Lienhart:2002ub, Jung:2009do} which is limited by a constant image scale and discrete orientations of the sliding (thereby preventing text strokes in non-linear directions). However, a study by \citet{Epshtein:2010tj} (and coincidentally \citet{Zhang:2011cl}) introduced the concept of \gls{swt}.
+Previous work required the use of a scanning window \citep{XiangrongChen:2004ha, Lienhart:2002ub, Jung:2009do} which is limited by a constant image scale and discrete orientations of the sliding (thereby preventing text strokes in non-linear directions). However, a study by \citet{Epshtein:2010tj} (and coincidentally \citet{Zhang:2011cl}) introduced the concept of \gls{swt}, a local image operator that determines the most likely stroke of a given pixel by computing the per-pixel width. In this study, edges are initially computed using the Canny-Edge Detection algorithm \citet{Canny:1986uw}
 
 \subsection{Learning-based techniques}
 \label{sec:detection:learning_based}

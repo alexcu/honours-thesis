@@ -1,0 +1,42 @@
+\section{Metrics}
+\label{sec:background:metrics}
+
+Throughout our survey, we have utilised the evaluation scheme first proposed for use in image processing in the ICDAR text extraction competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' a text extraction pipeline can achieve.
+
+\subsection{Precision and Recall}
+\label{sec:background:metrics:precision_and_recall}
+
+Generally in information retrieval, the precision ($p$) and recall ($r$) metrics are used, first defined in the six evaluation criteria for information retrieval systems by \citet{Cleverdon:1966vd}. Precision refers to the proportion of relevant matches actually retrieved in the retrieved results, while recall refers to the proportion of relevant matches retrieved in total relevant instances. We use recall and precision metrics to assess the \textit{effectiveness} of an information retrieval system \citep{Rijsbergen:1979dw}.
+
+In the context of image processing, systems that over-estimate are punished with a low precision score, while systems that under-estimate are punished with a low recall score \citep{Lucas:2003iw}. Therefore, precision is the number of correct candidates ($c$) divided by the number of total estimates found ($E$):
+\begin{equation*}
+  p = \frac{c}{\lvert\;E\;\rvert}
+\end{equation*}
+
+And recall is defined as the number of correct estimates divided by the total number of ground-set truth targets ($T$):
+\begin{equation*}
+  r = \frac{c}{\lvert\;T\;\rvert}
+\end{equation*}
+
+However, it is not realistic for a given text extraction pipeline to \textit{exactly} agree with the rectangle bounds manually tagged by a human. \citet{Lucas:2003iw} first proposed changes to these calculations to better suit their usage in the context of information extraction from within images. They adopt a more flexible notion of what a `match' is. They define a new match measure ($m_{p}$) between two rectangles (i.e., the ground truth and the system's detected candidate) as ``the area of intersection of both rectangles divided by the area of the minimum bounding box containing both rectangles'' \citep{Lucas:2003iw}. This allows for a match value of one when the candidate is identical to the ground truth, and zero where the candidate has no intersection at all to the ground truth.
+
+Therefore, the best match, $m(r,\,R)$, of a rectangle $r$ in a set of rectangles $R$ is:
+\begin{equation*}
+  m(r,\,R) = \mathrm{max}~m_{p}(r,\,r')~|~r' \in R
+\end{equation*}
+
+Lastly, we can redefine the recall and precision metrics to be more forgiving in the image extraction context:
+\begin{align*}
+  p' &= \frac{\sum\,_{r_{e}\;\in\;E}~m(r_{e},\,T)}{\lvert\;E\;\rvert}\\ \\
+  r' &= \frac{\sum\,_{r_{t}\;\in\;T}~m(r_{t},\,E)}{\lvert\;T\;\rvert}
+\end{align*}
+
+\subsection{The \fscore}
+\label{sec:background:metrics:fscore}
+
+Common metrics used when developing text extraction pipelines utilise the use of the \fscore, a single measure of quality that combines both precision and recall values computed above. We are able to compute this metric using the standard measure across many studies, as contrasted in \todo{reference the table}.
+
+The \fscore{} algorithm is given in the context of image processing in \citet{Lucas:2003iw}. Relative weights controlled by an $\alpha$ value of 0.5 give equal weight to both precision and recall metrics:
+\begin{equation*}
+  f = \frac{1}{\frac{\alpha}{p'} + \frac{1-\alpha}{r'}}
+\end{equation*}
