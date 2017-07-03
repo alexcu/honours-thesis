@@ -84,15 +84,24 @@ Many of these features can be combined and fed into a single or multiple classif
 
 As shown in the wide range of features and classifiers, a main limitation of learning-based methods is the difficulty in selecting which combinations of features to use, the inability to detect sufficiently slanted text, as well as its reported high computational complexity due to the need to scan the image at different scales \citep{Li:2012wd, Epshtein:2010tj}. Furthermore, it is typical for these classifiers to required thousands of training images \cite{Chen:2004ux}.
 
-\begin{figure}[t]
+More recently though, deep-learning \glspl{cnn} have been utilised for instance classification and per-pixel segmentation, as emphasised in Figure~\ref{fig:background:detection:learning:he2017_maskrcnn}. While \glspl{cnn} are a relatively old concept (see \citet{Lecun:1998hy}), they lost interest within image processing to \glsplx{svm} and AdaBoost throughout the late 1990s and 2000s. In \citeyear{Krizhevsky:2012wl}, however, \citet{Krizhevsky:2012wl} sparked interest in their use by demonstrating far increased classification accuracy within images in the ImageNet Large Scale Visualisation Recognition Challenge \citep{JiaDeng:2009dl}, with only a few modifications made to the \glspl{cnn} proposed by \citeauthor{Lecun:1998hy} more than a decade prior. 
+
+This has since led to the rise of enhanced \glspl{cnn} such as FICS+++ \citep{Li:2016uj}, R-CNN \citep{Girshick:2014jx}, Fast/Faster R-CNN \citep{Girshick:2015vr, Ren:2017ug}, and Mask R-CNN \citep{He:2017ud}. A comparison of two of these networks using images in the Microsoft Common Objects in Context \cite{Lin:2014vm} dataset are shown in Figure~\ref{fig:background:detection:learning:he2017_maskrcnn}, with the Mask R-CNN framework illustrated in Figure~\ref{fig:background:detection:learning:he2017_maskrcnnframework}. The rise of these recent developments have sparked interest in multi-language machine learning libraries, such as MXNet\footnoteurl{http://mxnet.io}{30 June 2017}, which are able to combine these academic works for use in large-scale industry-focused production code \cite{Chen:2015vh}.
+
+These methods are increasingly improving per-pixel classification of objects within natural scenes. However, applicability of these deep-learning networks in the sole context of \textit{text extraction} is yet to be widely explored.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{images/background/he2017_maskrcnnframework}
+  \caption[The Mask R-CNN framework for instance segmentation]{The Mask R-CNN framework for instance segmentation \citep{He:2017ud}.}
+  \label{fig:background:detection:learning:he2017_maskrcnnframework}
+\end{figure}
+
+\begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{images/background/he2017_maskrcnn}
   \caption[Use of CNNs for object detection]{Use of \glspl{cnn} have recently been shown to have accurate per-pixel object detection and classification. \textit{Top row:} FCIS+++ \citep{Li:2016uj}. \textit{Bottom row:} Mask R-CNN \citep{He:2017ud}. Mask R-CNN outperforms FICIS+++ for overlapping instance segmentation.}
   \label{fig:background:detection:learning:he2017_maskrcnn}
 \end{figure}
 
-More recently though, deep-learning \glspl{cnn} have been utilised for instance classification and per-pixel segmentation, as emphasised in Figure~\ref{fig:background:detection:learning:he2017_maskrcnn}. While \glspl{cnn} are a relatively old concept (see \citet{Lecun:1998hy}), they lost interest within image processing to \glsplx{svm} and AdaBoost throughout the late 1990s and 2000s. In \citeyear{Krizhevsky:2012wl}, however, \citet{Krizhevsky:2012wl} sparked interest in their use by demonstrating far increased classification accuracy within images in the ImageNet Large Scale Visualisation Recognition Challenge \citep{JiaDeng:2009dl}, with only a few modifications made to the \glspl{cnn} proposed by \citeauthor{Lecun:1998hy} more than a decade prior. 
-
-This has since led to the rise of enhanced \glspl{cnn} such as FICS+++ \citep{Li:2016uj}, R-CNN \citep{Girshick:2014jx}, Fast/Faster R-CNN \citep{Girshick:2015vr, Ren:2017ug}, and Mask R-CNN \citep{He:2017ud}. A comparison of two of these networks using images in the Microsoft Common Objects in Context \cite{Lin:2014vm} dataset are shown in Figure~\ref{fig:background:detection:learning:he2017_maskrcnn}. The rise of these recent developments have sparked interest in multi-language machine learning libraries, such as MXNet\footnoteurl{http://mxnet.io}{30 June 2017}, which are able to combine these academic works for use in large-scale industry-focused production code \cite{Chen:2015vh}.
-
-These methods are increasingly improving per-pixel classification of objects within natural scenes. However, applicability of these deep-learning networks in the sole context of \textit{text extraction} is yet to be widely explored.
+\clearpage
