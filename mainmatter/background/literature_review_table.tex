@@ -1,0 +1,150 @@
+\begin{table}[]
+  \newcommand{\ccbased}[0]{\textit{\gls{cc}-based}:}
+  \newcommand{\lgbased}[0]{\textit{Learning-based}:}
+  \newcommand{\ns}[0]{N/S}
+  \newcommand{\twods}[2]{\makecell[l]{#1\\#2}}
+  \centering
+  \caption[Survey of text extraction literature]{\centering A survey of text extraction literature, separated into \gls{cc}- and learning-based detection methods.}
+  \label{tab:background:metrics:survey}
+  \tablefit{
+    \begin{tabular}{@{}lp{0.45\textwidth}p{0.15\textwidth}lllcll@{}}
+      \toprule
+        \multirow{2}{*}{\bfseries Reference} &
+        \multicolumn{2}{c}{\bfseries Scientific Background} &
+        \multirow{2}{*}{\bfseries Precision} &
+        \multirow{2}{*}{\bfseries Recall} &
+        \multirow{2}{*}{\bfseries \fscore} &
+        \multirow{2}{*}{\bfseries Dataset(s)} &
+        \multicolumn{2}{c}{\bfseries Performance} 
+      \\
+        \cmidrule(lr){2-3}
+        \cmidrule(l){8-9} &
+        \textbf{Detection} &
+        \textbf{Recognition} &
+        &
+        &
+        &
+        &
+        \textbf{Platform} &
+        \textbf{Time (s)}
+      \\
+      \midrule
+        \citep{Benami:2012jf} &
+        \ccbased{} \gls{swt}; Canny-Edges; Binary Conversion; Geometric Filtering; \gls{cc}-Alignment &
+        OCR (Tesseract) &
+        0.65 &
+        0.62 &
+        0.63 &
+        N/A &
+        \ns{} &
+        \ns{}
+      \\
+        \citep{Chen:2011ul} &
+        \ccbased{} Canny-Edges; \gls{mser}; \gls{swt}, Geometric, Template Matching &
+        OCR (\ns{}\textsuperscript{$\dagger$}) &
+        0.73 &
+        0.60 &
+        0.66 &
+        \citep{Lucas:2003iw,Lucas:2005bq} & 
+        2.5 GHz &
+        0.20
+      \\ 
+        \citep{Li:2012wd} &
+        \ccbased{} \gls{mser}; geometric and \gls{swt} filters; skeletal distance mapping &
+        \ns{} &
+        \twods{0.59 \citep{Lucas:2003iw}}{0.59 \citep{Shahab:2011hq}} &
+        \twods{0.59 \citep{Lucas:2003iw}}{0.62 \citep{Shahab:2011hq}} &
+        \twods{0.59 \citep{Lucas:2003iw}}{0.61 \citep{Shahab:2011hq}} &
+        \citep{Lucas:2005bq,Shahab:2011hq} & 
+        \ns{} &
+        \ns{}
+      \\
+        \citep{Zhang:2011cl} &
+        \ccbased{} character detection with \gls{hog} and \gls{swt}; link energies via spacial relationships between characters &
+        \ns{} &
+        0.73 &
+        0.62 &
+        0.67 &
+        \citep{Lucas:2003iw} &
+        \ns{} &
+        \ns{}
+      \\
+        \citep{Shivakumara:2011dn} &
+        \ccbased{} Fourier-Laplacian Filtering; clustering based on maximum distance via K-Means; skeletal distance mapping &
+        \ns{} &
+        \twods{0.76 \citep{Lucas:2003iw}}{0.81 \citep{Hua:2004vf}} &
+        \twods{0.86 \citep{Lucas:2003iw}}{0.93 \citep{Hua:2004vf}} &
+        \twods{0.81 \citep{Lucas:2003iw}}{0.87 \citep{Hua:2004vf}} &
+        \citep{Lucas:2003iw, Hua:2004vf} &
+        2.0 GHz &
+        7.80
+      \\
+        \citep{Epshtein:2010tj} &
+        \ccbased{} Canny-Edges; \gls{swt}; Modified \gls{cc} algorithm; Geometric Filtering &
+        OCR (\ns{}) &
+        0.73 &
+        0.60 &
+        0.66 &
+        \citep{Lucas:2003iw, Lucas:2005bq} &
+        \ns{} &
+        0.94
+      \\
+        \citep{Zhang:2010wa} &
+        \ccbased{} Canny-Edges; \gls{hog}; geometric filtering; graph spectrum &
+        \ns{} &
+        0.67 &
+        0.46 &
+        0.55 &
+        \citep{Lucas:2003iw} &
+        \ns{} &
+        \ns{}
+      \\
+      \midrule
+      \midrule
+        \citep{Ye:2005wu} &
+        \lgbased{} \gls{svm} to reject non-text; wavelet movement; \gls{hog}; \gls{ocr} filtering &
+        \ns{} &
+        \ns{} &
+        0.97 &
+        \ns{} &
+        \citep{Hua:2004vf} &
+        1.6 GHz &
+        8.30
+      \\
+        \citep{Pan:2010cj} &
+        \lgbased{} Waldboost Classifier; \gls{hog}; \gls{lbp}; Gabor Wavelets &
+        \ns{} &
+        0.56 &
+        0.70 &
+        0.68 &
+        \citep{Lucas:2003iw} &
+        3.4 GHz &
+        0.37
+      \\
+        \citep{Gllavata:2004vq} &
+        \lgbased{} Wavelet transformation; feature estimation; pixel-block classification &
+        \ns{} &
+        0.87 &
+        0.90 &
+        0.88 &
+        \citep{Hua:2001un} &
+        \ns{} &
+        \ns{}
+      \\
+        \citep{Hanif:2009tm} &
+        \lgbased{} Mean Difference, Standard Deviation and \gls{hog} features; AdaBoost and CAdaBoost classifiers; \gls{nn}-baed localiser &
+        \ns{} &
+        0.25 &
+        0.35 &
+        0.35 &
+        \citep{Lucas:2003iw} &
+        2.2 GHz &
+        \ns{}
+      \\
+      \bottomrule
+    \end{tabular}
+  }
+  \\
+  \bigskip
+  {\footnotesize \textsuperscript{$\dagger$}Not Specified}
+\end{table}

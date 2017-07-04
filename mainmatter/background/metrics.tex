@@ -34,11 +34,20 @@ Lastly, we can redefine the recall and precision metrics to be more forgiving in
 \subsection{The \fscore}
 \label{sec:background:metrics:fscore}
 
-Common metrics used when developing text extraction pipelines utilise the use of the \fscore, a single measure of quality that combines both precision and recall values computed above. We are able to compute this metric using the standard measure across many studies, as contrasted in \todo{reference the table}.
+Common metrics used when developing text extraction pipelines utilise the use of the \fscore, a single measure of quality that combines both precision and recall values computed above. We are able to compute this metric using the standard measure across many studies, as contrasted in Table~\ref{tab:background:metrics:survey}.
 
 The \fscore{} algorithm is given in the context of image processing in \citet{Lucas:2003iw}. Relative weights controlled by an $\alpha$ value of 0.5 give equal weight to both precision and recall metrics:
 \begin{equation*}
   f = \frac{1}{\frac{\alpha}{p'} + \frac{1-\alpha}{r'}}
 \end{equation*}
 
-% QUOTE: Since it is unlikely to produce estimated rectangles which exactly align with the manually labeled ground truth, the f metric can vary from 0.8 − 1.0 even when all text is correctly localized.
+As \citet{Chen:2011ul} report, even when all text is correctly localised, it is likely that the \fscore{} will vary between 0.8--1.0. This is because $E$ boundaries are unlikely to match \textit{exactly} with the manually labelled $T$ boundaries. An illustration of this is phenomena is shown in Figure~\ref{fig:background:metrics:ye2005_overlapping}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/background/ye2005_overlapping}
+  \caption[Overlapping areas of ground truth and estimated targets]{Overlapping areas of the ground truth targets, $T$, the estimated target boundaries $E$ and the best match $m(r,\;R)$. (Adapted from \citep{Ye:2005wu}.)}
+  \label{fig:background:metrics:ye2005_overlapping}
+\end{figure}
+
+\input{mainmatter/background/literature_review_table.tex}
