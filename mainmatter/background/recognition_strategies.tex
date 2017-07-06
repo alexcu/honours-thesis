@@ -71,9 +71,11 @@ However, these pipelines are still entirely dependent on good detection strategi
 \begin{equation*}
   T_{b} = (3 \times F_{h}) \times (\frac{7}{3} F_{w})
 \end{equation*}
-The location of $T_{b}$ is horizontally located at the centre of the face midpoint and vertically halfway below the face height ($0.5 \times F_{w}$). Hence, the dependency on these heuristics are heavily driven by a tolerant bounding box, which in itself depends on the face detection itself. As \citet{Fu:2015by} have also noted, even if the face is detected, the bib sheet can be obfuscated (e.g., by another runner) or if the camera is capturing on the runner's side, the \gls{ocr} engine or face-detection algorithm may produce poor results. In our study, we ignore these limitations for the intention of capturing prominent runners.
+The location of $T_{b}$ is horizontally located at the centre of the face midpoint and vertically halfway below the face height ($0.5 \times F_{w}$). Hence, the dependency on these heuristics are heavily driven by a tolerant bounding box, which in itself depends on the face detection itself. Additionally, these heuristics are not always accurate---Figure~\ref{fig:background:recognition:benami2012_missed} highlights a case where the face detection approach has missed the \gls{rbn} entirely. As \citet{Fu:2015by} have also noted, even if the face is detected, the bib sheet can be obfuscated (e.g., by another runner) or if the camera is capturing on the runner's side, the \gls{ocr} engine or face-detection algorithm may produce poor results. In our study, we ignore these limitations for the intention of capturing prominent runners.
 
-Furthermore, the use of Tesseract in the study meant significant filtering, separation and character alignment is needed for the \gls{ocr} engine to read characters correctly (Figure~\ref{fig:background:recognition:benami2012_cctags}). This is yet another step which can possibly be avoided via the use of well-trained \glspl{nn}, as demonstrated in previous works. Investigation into applying such networks in this context (i.e., alphanumeric sequences on \textit{human} subjects) is largely lacking.
+Furthermore, the use of Tesseract in the study meant significant filtering, separation and character alignment is needed for the \gls{ocr} engine to read characters correctly (Figure~\ref{fig:background:recognition:benami2012_cctags}). This is yet another step that can possibly be avoided via the use of well-trained \glspl{nn}, as demonstrated in previous works. Investigation into applying such networks in this context (i.e., alphanumeric sequences on \textit{human} subjects) is largely lacking.
+
+\vspace*{\fill}
 
 \begin{figure}[h]
   \centering
@@ -82,11 +84,20 @@ Furthermore, the use of Tesseract in the study meant significant filtering, sepa
   \label{fig:background:recognition:benami2012_pipeline}
 \end{figure}
 
-\begin{figure}[h]
+\vspace*{\fill}
+
+\begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{images/background/benami2012_cctags}
   \caption[Character processing for feeding an OCR engine]{Character processing in \citep{Benami:2012jf}. \textit{From left to right:} A detected tag; separation via \gls{swt} \gls{cc} analysis; binarised characters; \gls{cc} analysis and filtering; separation and alignment.}
   \label{fig:background:recognition:benami2012_cctags}
 \end{figure}
 
-\newpage
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{images/background/benami2012_missed}
+  \caption[Drawbacks of heuristic-driven approaches for RBN detection]{Cases where false negatives occur with the heuristic-based approach proposed in \citep{Benami:2012jf}. The expected \gls{rbn} region (shown in magenta) is missed as the subject is leaning in the photo. Face detection in this photo uses the same OpenCV implementation \citep{Lienhart:2002uo} that was used in the study.}
+  \label{fig:background:recognition:benami2012_missed}
+\end{figure}
+
+\clearpage
