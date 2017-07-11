@@ -7,9 +7,10 @@
   \caption[Survey of text extraction literature]{\centering A survey of text extraction literature, separated into \gls{cc}- and learning-based detection methods.}
   \label{tab:background:metrics:survey}
   \tablefit{
-    \begin{tabular}{@{}lp{0.45\textwidth}p{0.15\textwidth}lllcll@{}}
+    \begin{tabular}{@{}llp{0.45\textwidth}p{0.15\textwidth}lllcll@{}}
       \toprule
-        \multirow{2}{*}{\bfseries Reference} &
+        \multirow{2}{*}{\bfseries Ref.} &
+        \multirow{2}{*}{\bfseries Year} &
         \multicolumn{2}{c}{\bfseries Scientific Background} &
         \multirow{2}{*}{\bfseries Precision} &
         \multirow{2}{*}{\bfseries Recall} &
@@ -17,8 +18,9 @@
         \multirow{2}{*}{\bfseries Dataset(s)} &
         \multicolumn{2}{c}{\bfseries Performance} 
       \\
-        \cmidrule(lr){2-3}
-        \cmidrule(l){8-9} &
+        \cmidrule(lr){3-4}
+        \cmidrule(l){9-10} &
+        &
         \textbf{Detection} &
         \textbf{Recognition} &
         &
@@ -30,6 +32,7 @@
       \\
       \midrule
         \citep{Benami:2012jf} &
+        \citeyear{Benami:2012jf} &
         \ccbased{} \gls{swt}; Canny-Edges; Binary Conversion; Geometric Filtering; \gls{cc}-Alignment &
         OCR (Tesseract) &
         0.65 &
@@ -40,6 +43,7 @@
         \ns{}
       \\
         \citep{Chen:2011ul} &
+        \citeyear{Chen:2011ul} &
         \ccbased{} Canny-Edges; \gls{mser}; \gls{swt}, Geometric, Template Matching &
         OCR (\ns{}\textsuperscript{$\dagger$}) &
         0.73 &
@@ -50,6 +54,7 @@
         0.20
       \\ 
         \citep{Li:2012wd} &
+        \citeyear{Li:2012wd} &
         \ccbased{} \gls{mser}; geometric and \gls{swt} filters; skeletal distance mapping &
         \ns{} &
         \twods{0.59 \citep{Lucas:2003iw}}{0.59 \citep{Shahab:2011hq}} &
@@ -60,6 +65,7 @@
         \ns{}
       \\
         \citep{Zhang:2011cl} &
+        \citeyear{Zhang:2011cl} &
         \ccbased{} character detection with \gls{hog} and \gls{swt}; link energies via spacial relationships between characters &
         \ns{} &
         0.73 &
@@ -70,6 +76,7 @@
         \ns{}
       \\
         \citep{Shivakumara:2011dn} &
+        \citeyear{Shivakumara:2011dn} &
         \ccbased{} Fourier-Laplacian Filtering; clustering based on maximum distance via K-Means; skeletal distance mapping &
         \ns{} &
         \twods{0.76 \citep{Lucas:2003iw}}{0.81 \citep{Hua:2004vf}} &
@@ -80,6 +87,7 @@
         7.80
       \\
         \citep{Epshtein:2010tj} &
+        \citeyear{Epshtein:2010tj} &
         \ccbased{} Canny-Edges; \gls{swt}; Modified \gls{cc} algorithm; Geometric Filtering &
         OCR (\ns{}) &
         0.73 &
@@ -90,6 +98,7 @@
         0.94
       \\
         \citep{Zhang:2010wa} &
+        \citeyear{Zhang:2010wa} &
         \ccbased{} Canny-Edges; \gls{hog}; geometric filtering; graph spectrum &
         \ns{} &
         0.67 &
@@ -102,6 +111,7 @@
       \midrule
       \midrule
         \citep{Ye:2005wu} &
+        \citeyear{Ye:2005wu} &
         \lgbased{} \gls{svm} to reject non-text; wavelet movement; \gls{hog}; \gls{ocr} filtering &
         \ns{} &
         \ns{} &
@@ -112,6 +122,7 @@
         8.30
       \\
         \citep{Pan:2010cj} &
+        \citeyear{Pan:2010cj} &
         \lgbased{} Waldboost Classifier; \gls{hog}; \gls{lbp}; Gabor Wavelets &
         \ns{} &
         0.56 &
@@ -122,6 +133,7 @@
         0.37
       \\
         \citep{Gllavata:2004vq} &
+        \citeyear{Gllavata:2004vq} &
         \lgbased{} Wavelet transformation; feature estimation; pixel-block classification &
         \ns{} &
         0.87 &
@@ -132,6 +144,7 @@
         \ns{}
       \\
         \citep{Hanif:2009tm} &
+        \citeyear{Hanif:2009tm} &
         \lgbased{} Mean Difference, Standard Deviation and \gls{hog} features; AdaBoost and CAdaBoost classifiers; \gls{nn}-baed localiser &
         \ns{} &
         0.25 &

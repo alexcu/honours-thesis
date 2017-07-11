@@ -2,14 +2,17 @@
 \label{ch:background}
 
 
-We have introduced the context of image processing and neural networks in the field, and discussed how text capturing within photos is typically achieved in two stages: detection and recognition. Detection techniques are classified as either \gls{cc}- or learning-based. The recognition phase uses traditional \gls{ocr} engines or, more recently, using artificial \glspl{nn}. 
+Text capturing within unstructured photos from the wild are typically achieved in two stages: detection and recognition. Detection techniques are classified as either \gls{cc}- or learning-based. The recognition phase uses traditional \gls{ocr} engines or, more recently, artificial \glspl{nn}. 
 
-In this chapter, we survey a number of broad applications where \gls{rbn} recognition (and related works) are investigated using such phases. Various detection and recognition techniques discussed in literature are also detailed. We broadly define previous applications of artificial deep-learning \glspl{nn} in these contexts.
+In this chapter, we survey different applications where \gls{rbn} recognition (and related works) are investigated. Various detection and recognition techniques discussed in literature are detailed.
 
 \input{mainmatter/background/detection_strategies.tex}
 \input{mainmatter/background/recognition_strategies.tex}
 \input{mainmatter/background/metrics.tex}
 
-\section*{Summary}
+\newpage
+\section*{Conclusion}
 
-In this chapter, we have surveyed a range of literature in various application contexts: \gls{rbn} and \gls{tsr} recognition, recognition of alphanumeric sequences `in the wild', and additionally object instance segmentation. We have also investigated the varied range of techniques used to both detect and recognise the text, using both heuristic-based and \gls{nn}-based approaches. Our following chapter will discusses a means to capture data for the purposes of training a deep-learning \gls{nn}. 
+In this chapter, we have presented a survey of literature in various application contexts: \gls{rbn} and \gls{tsr} recognition, recognition of alphanumeric sequences `in the wild', and additionally object instance segmentation. We also present the varied range of techniques used to both detect and recognise the text, using both heuristic-based and \gls{nn}-based approaches. This said, we acknowledge that datasets within the survey are not always recent (ranging as far back as \citeyear{Lucas:2003iw}) due to tendencies for researchers to use the more popular (though aged) \gls{icdar} datasets.
+
+The state of the art of learning-based detection approaches such as \glspl{cnn} for have gained wide popularity, albeit for object segmentation. These approaches are yet to be applied within the context of alphanumeric sequences. Recent years have had a heavier focus on heuristic-based detection strategies using \gls{cc}-based methods, while a majority of learning-based detection methods have had far fewer recent investigations. Furthermore, recognition of characters using \glspl{nn} are not yet widely used, and off-the-shelf \gls{ocr} packages are still standard.
