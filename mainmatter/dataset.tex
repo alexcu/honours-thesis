@@ -15,32 +15,135 @@ We therefore propose a grammar to describe layered-approach of a data-capturing 
 \subsection{Methodology}
 \label{sec:dataset:architecture:methodology}
 
-A partial implementation of this metamodel, which we call \textit{Argus}\footnoteurl{http://www.deakin.edu.au/~ca/argus}{5 July 2017}\footnote{Inspired by the \textit{all-seeing} giant of the same name from Greek mythology: ``With his multiple sets of eyes, Argus could see nearly everything in his vicinity''. See \url{http://www.loggia.com/myth/argus.html}.}, was developed for the purposes of capturing our dataset. Refer to Section~\ref{} for more about this implementation.
+To understand the methodology on how we captured our dataset, we must first introduce the three key notions behind \gls{mde}: technical spaces, models and systems. A system is a concrete ``group or set of related or associated elements perceived or thought of as a unity or complex whole'' \citep{oed:system}. Technical spaces were introduced \citet{Bezivin:2002} as a model management framework based on algebraic structures (e.g., trees, (hyper)graphs, categories). Technical spaces are usually based on a three-tier conjecture: metametamodels, metamodels and models. Whereas a model is an abstract representation a concrete system of specific purpose, a \textit{meta}model, in contrast, describes the way to describe those models. A \textit{metameta}model can be used to describe the representation structure of our metamodels and defines a type system that supports all underlying layers \citep{Bezivin:2006gw}. Figure~\ref{fig:dataset:bezivin2006_metamodel} captures these concepts in further detail.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{images/dataset/bezivin2006_metamodel}
+  \caption[An overview of systems, models and technical spaces]{Systems, models and technical spaces. (From \citep{Bezivin:2006gw}.)}
+  \label{fig:dataset:bezivin2006_metamodel}
+\end{figure}
+
+We captured these concepts in a prototypical exploration process, first by developing a prototype system iteratively with a data tagging team who manually curated the data. Once this prototype was stable, we developed a model (Section~\ref{sec:dataset:architecture:what_to_capture}) around the prototype. We generalised the system we had developed, expanding from a model we had designed that was marathon-specific, into a more generalisable metamodel (Section~\ref{sec:dataset:architecture:metamodel}). Our process is outlined in Figure~\ref{fig:dataset:methodology}.
+
+The initial phase in our dataset development was to create a prototype system with the specific purpose of tagging our marathon runner context (using the dataset provided by the industry client). We name this partial implementation \textit{Argus}\footnoteurl{http://www.deakin.edu.au/~ca/argus}{5 July 2017}\footnote{Whose name is inspired by the \textit{all-seeing} giant of the same name from Greek mythology: ``With his multiple sets of eyes, Argus could see nearly everything in his vicinity''. See \url{http://www.loggia.com/myth/argus.html}.}. Refer to Section~\todo{Write up this section} for more about this implementation. 
+
+To develop this initial model (and thus to then what our metamodel would be), we began by discussing what requirements were needed---that is, the key features that we thought were necessary for extracting from our image. Five features were decided: (1) the crowdedness of the photo, (2) the visible bib sheets within the photo, (3) the faces corresponding to those bib sheets, (4) the prominence of runners of the photo and (5) the colours of runners' clothing in the photo. We also decided that the system must be primarily keyboard-driven, to increase the speed at which taggers can mark up photos.
+
+Once an initial prototype was developed, we conducted informal usability tests with members from \gls{dstil}, which captured minor flaws in the workflow (namely required conditions that were missing in annotations) as well as general usability enhancements. Once the internal testing had concluded, we developed instructional video guides on how to use Argus, and then deployed the tool to a data tagging team that made the data publicly available.
+
+After deployment, we ran four iterations of tagging with our external data tagging team. These iterations consisted of 460 photos from five different marathon races in our dataset. (To ensure variance in tagging, there were some races at night and some races with alphanumeric components in the \gls{rbn}.) After each iteration we assessed the tagging for quality. Feedback identified further restrictions that needed to be placed on Argus as poor approximations or incorrect tagging would cause our \gls{ai} to learn poorly. 
+
+The following issues were identified:
+
+\begin{itemize}
+  \item face region was too far away from the bib region,
+  \item face region was overlapping the bib region,
+  \item \glspl{rbn} had spaces,
+  \item misidentified \glspl{rbn} where the alphabetic `I' was tagged as the numeric `1'.
+\end{itemize}
+
+\noindent
+Furthermore, we added geometric restrictions and conditions into the tool to prevent these errors from occurring at all (i.e., ensuring faces could only be marked above and horizontally near bibs). Some of these issues are highlighted in Figure~\ref{fig:dataset:issues_with_tagging}.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/dataset/methodology}
+  \caption[Implementation methodology]{An overview of the methodology used to discover our metamodel.}
+  \label{fig:dataset:methodology}
+\end{figure}
+
+
+\begin{figure}[p]
+  \centering
+  
+  \begin{subfigure}[b]{0.8\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BadTagging_TooFar}
+  \end{subfigure}\\
+  \vspace{1cm}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BadTagging_Overlap}
+  \end{subfigure}
+    \hspace{\fill}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BadTagging_NotAroundFace}
+  \end{subfigure}
+  \hspace{\fill}  
+  \begin{subfigure}[b]{0.2\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BadTagging_NotAroundBib}
+  \end{subfigure}
+  \hspace{\fill}
+  
+  \caption[Product testing issues identified]{Issues identified from rounds of external testing to the tagging team. Cyan lines indicate face regions, lime lines indicate bib regions, magenta lines indicate bib-to-face guidelines. \textit{Clockwise:} Face region is too far away from bib region; bib region is poorly marked (dotted lines expected); face region is too small (dotted lines expected); face region overlaps bib region.}
+  \label{fig:dataset:issues_with_tagging}
+\end{figure}
 
 % Logical implementation vs declarative?
+
+\clearpage
 
 \subsection{What to Capture?}
 \label{sec:dataset:architecture:what_to_capture}
 
-What features do we want to capture from our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as Figure~\ref{fig:introduction:background:sample_rbns}). There are two annotations to describe features of the entire photo:
+What features do we want to capture from images within our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as Figure~\ref{fig:introduction:background:sample_rbns}). There are two annotations to describe features of the entire photo:
 
 \begin{enumerate}
   \item whether or not the photo is considered as \textbf{crowded} (\textsc{true} or \textsc{false}), and
   \item an \textit{optional} collection of \textbf{runners} in the photo, given that the photo is not crowded.
 \end{enumerate}
 
-% TODO: Example of crowded photo and photo with no runners
+\begin{figure}[th]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/ImageFeatures_Crowded}
+    \caption{\footnotesize A crowded photo.}
+    \label{fig:dataset:image_features:crowded}
+  \end{subfigure}
+  \hspace{0.05\textwidth}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/ImageFeatures_Optional_RBNsCropped}
+    \caption{\footnotesize A photo where all \glspl{rbn} are cropped.}
+    \label{fig:dataset:image_features:rbns_cropped}
+  \end{subfigure}\\
+  \vspace{1cm}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/ImageFeatures_Optional_NoRBNs}
+    \caption{\footnotesize A photo where there are no \glspl{rbn} present.}
+    \label{fig:dataset:image_features:no_rbns}
+  \end{subfigure} 
+  \caption[Various image-level features]{Image-level features. In (a), the $PhotoCrowded$ annotation would be marked as \textsc{true}. Note the obstruction of all \glspl{rbn} in this photo. In (b) and (c), $PhotoCrowded$ is \textsc{false}, but there are no $Runners$ to tag.}
+  \label{fig:dataset:image_features}
+\end{figure}
 
-We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any bias on the network. We can only tag runners on the condition that the photo is not marked as  crowded. Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all. We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{implicit attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
+We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any bias on the network. We can only tag runners on the condition that the photo is not marked as crowded (Figure~\ref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (Figures~\ref{fig:dataset:image_features:rbns_cropped} and \ref{fig:dataset:image_features:no_rbns}). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{implicit attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
 
-We identify the following two annotations of what we would label for a given runner's bib sheet, a feature important to identify \glspl{rbn}:
+We identify the following two annotations of what we would label for a given runner's bib sheet. This is summarised in Figure~\ref{fig:dataset:bib_sheet_features}. Within this feature we identify the following annotations for \glspl{rbn}:
 
 \begin{enumerate}
   \item a polygon around the runner's \textbf{bib sheet} that contains the $x$ and $y$ coordinates, given that there are exactly four vertices of this polygon
   \item a string with the runner's \textbf{\gls{rbn}}, once the bib sheet is tagged (exists).
 \end{enumerate}
 
-A further feature that is important is the runner's face region, which could compromise of five annotations:
+\begin{figure}[p]
+  \centering
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BibSheet_Detection}
+  \end{subfigure}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BibSheet_Area}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/BibSheet_RBN}
+  \end{subfigure} 
+  \hspace{\fill}
+  \caption[Bib Sheet segment-level features]{The bib segment-level feature. \textit{From left to right}: The manually annotated bib sheets in the original photo (outlined in magenta); the relative $BibSheet$ annotations with the four respective vertices; the detected $RBN$ input strings for the corresponding $BibSheet$.}
+  \label{fig:dataset:bib_sheet_features}
+\end{figure}
+
+A further feature that is important is the runner's face region (Figure~\ref{fig:dataset:face_features}), which could compromise of five annotations:
 
 \begin{enumerate}
   \item a rectangle around the runner's \textbf{face} that contains the two $x$ and $y$ coordinates of the two opposite vertices, given that the $bottom$ of this rectangle are above the $top$ of the bib sheet,
@@ -58,7 +161,20 @@ and once this face bounds has been tagged, more annotations can be extracted:
 
 The bib sheet polygon would contain four \textit{explicit attributes} required as input by the tagger: the coordinates of its four vertices, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}), (x_{4}, y_{4}) \}$. Similarly, there are two explicit attributes required for the runner's face rectangle: the coordinates of the top left and the bottom right of the rectangle (i.e., the two opposite vertices) of the runner's face bounds, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}) \}$. As both of these are shapes, we can automatically calculate the implicit attributes from these coordinates:  $\{ top, left, bottom, right, width, height \}$.
 
-% TODO: Example of bib + face coordinates and RBN
+\begin{figure}[p]
+  \centering
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/FaceBounds_Detection}
+  \end{subfigure}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/FaceBounds_Area}
+  \end{subfigure}
+  \hspace{\fill}
+  \caption[Face Bounds segment-level features]{The face segment-level feature. \textit{Left}: The manually tagged face regions (cyan) that comply with the conditions that the bottom must be above the top of the bib (red arrows). \textit{Right}: the relative $FaceBounds$ annotations with the two opposite vertices. Other annotations in this feature would be: $WearingHat{1,2} = WearingGlasses{1,2} = \textsc{false}$, $Gender_{1} = \textsc{male}$, $Gender_{2} = \textsc{female}$.}
+  \label{fig:dataset:face_features}
+\end{figure}
 
 %Given that the face region is tagged, we can then annotate:
 %
@@ -66,6 +182,8 @@ The bib sheet polygon would contain four \textit{explicit attributes} required a
 %  \item the `base classifications' of the person, and
 %  \item the `colour classifications' of the person.
 %\end{enumerate}
+
+\clearpage
 
 We can now identify another feature, the prominence of the runner within the photo. These would consist of three annotations:
 
@@ -75,10 +193,51 @@ We can now identify another feature, the prominence of the runner within the pho
   \item the \textbf{\gls{lop}} that the runner buys the photo (\textsc{no}, \textsc{maybe}, \textsc{yes}),
 \end{enumerate}
 
-A runner's face is considered `invisible' if it is obstructed by another object, cropped out of the image, or if the runner is looking down. Runners are more likely purchase a photo if they are looking at the camera, and likewise if they are blurry in the image; these therefore have a significant impact on their prominence. We also define the \glsx{lop} value as a qualitative metric. We ask the data tagger to `picture' themselves as runner, and if so, we ask if they would purchase it. We then use this metric to train positive samples of good photos (\gls{lop} = \textsc{yes}) and samples of bad photos (\gls{lop} = \textsc{no}). Where \textsc{maybe} is provided, the runner is ignored to prevent training the network with indeterminate samples.
+A runner's face is considered `invisible' if it is obstructed by another object, cropped out of the image, or if the runner is looking down. See Figure~\ref{fig:dataset:face_prominence}. Runners are more likely purchase a photo if they are looking at the camera, and likewise if they are blurry in the image; these therefore have a significant impact on their prominence. We also define the \glsx{lop} value as a qualitative metric. We ask the data tagger to `picture' themselves as runner, and if so, we ask if they would purchase it. We then use this metric to train positive samples of good photos (\gls{lop} = \textsc{yes}) and samples of bad photos (\gls{lop} = \textsc{no}). Where \textsc{maybe} is provided, the runner is ignored to prevent training the network with indeterminate samples. Refer to Figure~\ref{fig:dataset:lop_prominence} for examples of the varying \gls{lop} values. 
 
-% TODO: Example of face visibility (cropped, hidden and looking down)
-% TODO: Example of LoP
+\begin{figure}[p]
+  \centering
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/Prominence_FaceNotVisible_Covered}
+    \caption{Face obstructed}
+  \end{subfigure}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/Prominence_FaceNotVisible_Cropped}
+      \caption{Face cropped}
+  \end{subfigure}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/Prominence_FaceNotVisible_LookingDown}
+    \caption{Face looking down}
+  \end{subfigure}
+  \hspace{\fill}
+  \caption[Face visibility and its effect on prominence]{The $FaceVisible$ plays a significant impact on the prominence feature. Above are cases where the face would be marked as not visible.}
+  \label{fig:dataset:face_prominence}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/Prominence_LoP_Yes}
+    \caption{\gls{lop} = \textsc{yes}}
+  \end{subfigure}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/Prominence_LoP_Maybe}
+    \caption{\gls{lop} = \textsc{maybe}}
+  \end{subfigure}
+  \hspace{\fill}
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/dataset/Prominence_LoP_No}
+    \caption{\gls{lop} = \textsc{no}}
+  \end{subfigure}
+  \hspace{\fill}
+  \caption[Variant Purchase Likelihoods]{Various examples of the $\gls{lop}$ values. In (a), the woman is clearly posing and is the primary subject of the photo. In (b), the runner is in focus in a pose, but is behind another runner and there are other runners behind him. In (c), the woman is out of focus, is blurry, and this photo has very poor lighting conditions.}
+  \label{fig:dataset:lop_prominence}
+\end{figure}
 
 Another feature we can capture is a way to identify runners by the colour of their clothing. (Within our dataset, various clothing items of distinct colours are given to runners for particular races.) These features comprise of four annotations:
 
@@ -151,7 +310,7 @@ In summary, we have identified a total of 5 features of 15 annotations, which ar
       \\
         &
         $\gls{rbn}$ &
-        String &
+        Label &
         None &
         $BibSheet$ &
         None &
@@ -168,16 +327,6 @@ In summary, we have identified a total of 5 features of 15 annotations, which ar
         $\{ x_{1}, y_{1}, x_{2}, y_{2}\}$ &
         $\{ top, left, bottom, right, width, height \}$ &
         N/A &
-        No
-      \\
-        &
-        $FaceVisible$ &
-        Boolean &
-        None &
-        $FaceBounds$ &
-        None &
-        None &
-        $\{ \textsc{true}, \textsc{false} \}$&
         No
       \\
         &
@@ -219,6 +368,16 @@ In summary, we have identified a total of 5 features of 15 annotations, which ar
         None &
         None &
         $\{ \textsc{no}, \textsc{maybe}, \textsc{yes} \}$ &
+        No
+      \\
+        &
+        $FaceVisible$ &
+        Boolean &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{true}, \textsc{false} \}$&
         No
       \\
         &
@@ -283,46 +442,62 @@ In summary, we have identified a total of 5 features of 15 annotations, which ar
 % Activity diagram of things we need to classify (break down diagram).
 
 \subsection{Describing the Metamodel}
+\label{sec:dataset:architecture:metamodel}
 
 % Conceptualise what we have in our workflow as a meta model.
 % What are the components, and constraints? Discuss why we needed to add in constraints... Feedback from India
 
-In the example above, we have seen some components that make up an annotation. We can now develop our metamodel using the terminology described: types, conditions and dependencies, explicit and implicit attributes, possible values, and
-    optionality.
+In the example above, we describe a basic model which was derived using information discovered from Argus' incremental development. In this section, we generalise this information and develop a metamodel from that model. This metamodel is represented as a UML class diagram, shown in Figure~\ref{fig:dataset:metamodel_class_diagram}.
 
-\paragraph{Types} We have so far identified \textit{Boolean}, which is just a restricted \textit{Category} consisting of the possible values $\{ \textsc{true}, \textsc{false} \}$. We have \textit{Polygon}s and \textit{Rectangle}s, and therefore we must conceptualise some form of \textit{Shape}. We also have \textit{Colour}s, which can be represented as an RGB represented hexadecimal \textit{String}. This only leaves our \textit{Collection} of runners: a data type which encompasses multiple annotations. We therefore a data schema that is  generalisable from \textit{Strings}, \textit{Shapes}, \textit{Collections} and \textit{Categories}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{images/dataset/metamodel_class_diagram}
+  \caption[Class diagram of our proposed metamodel]{A class diagram of our proposed metamodel.}
+  \label{fig:dataset:metamodel_class_diagram}
+\end{figure}
 
-\paragraph{Conditions} A condition is simply a construction rule which disallows a data tagger to create an annotation until a condition is met by the annotator. For instance, we can never have a $BibSheet$ above a $FaceBounds$, so when we can specify this as a condition. These are not bound to just geometric constraints; we also see that we cannot tag $Runners$ if the $PhotoCrowded$ annotation is marked as \textsc{true}.
+At the centre of this metamodel is an annotation, which (collectively) describe a feature within an image. Annotations may contain additional attributes to further extend what information they contain, and are governed by a set constrictions which we call `Construction Rules'.
 
-\paragraph{Dependencies} Some annotations are dependent on others existing. These are construction rules which we label as dependencies. We cannot annotate an \gls{rbn} if there is no $BibSheet$ annotated. Likewise, a $FaceBounds$ is dependent on where the $BibSheet$ is, and so the $BibSheet$ must be marked up first. These dependencies add order in which features are being extracted, which is important to the tagger marking up the photo.
+These form layers of data within images that we annotate, which can be represented in a hierarchical data format (e.g., a tree) that describes the layering of a fully annotated photo's features.
 
-\paragraph{Possible Values} In the instance where a data type must be restricted to a set of values (i.e., \textit{Categorical} data), we set what those restrictions are as a construction rules of our annotations.
+We describe each of these classes in the following sections.
 
-\paragraph{Optionality} Not all annotations are needed---in these cases the annotation is considered optional, but by default is required.
+\paragraph{Image Frame}
 
-\paragraph{Attributes} Attributes exist to as a means capture further information about an annotation. We represent attributes in our metamodel as either implicit or explicit. As stated in Section~\ref{sec:dataset:architecture:what_to_capture}, those attributes which are required for the tagger to manually markup are explicit (i.e., manually must be added) whereas those that can be computed by the system are implicit (i.e., inferred from explicit attributes).
+An image frame is any visual representation of a graphic. We extend the possibilities of our metamodel beyond just static images---these frames may be those found in videos also.
 
-These begin to form layers of data within the images we annotate. This layer can then be represented in a hierarchical data format (e.g., a tree) to describe the layering of a fully annotated photo. % TODO: Insert fully annotated photo
+\paragraph{Feature}
 
-
-
- We therefore highlight some components which allow us to describe this architecture in a more generalisable way.
+Image frames contain a certain number of features. These features are the key `concepts' within the image that we want to capture. There are two main features: (1) image-level features, and (2) segment-level features. Image-level features are those that apply to the entire frame and do not exist in a broken down context---we can't break down these features into their own subjects. This contrasts to segment-level features, which are features that only apply to a segmented region of the image. We identified four segment-level features in our example (all of which relate to one runner): Bib, Face, Prominence and Colours.
 
 
-Runners: [Collection]
+\paragraph{Annotation}
 
-\begin{enumerate}
-  \item Annotation, and further, an optional annotation
-  \item A condition
-\end{enumerate}
+Annotations are simply a set of feature descriptors that describes what the feature is compromised of. From Table~\ref{tab:dataset:annotation_summary}, we describe a simple type system consisting of the following: \textit{Boolean}s, a restricted form of the \textit{Category} type (where possible values are $\{ \textsc{true}, \textsc{false} \}$); \textit{Polygon}s and \textit{Rectangle}s, generalised into a high-level \textit{Boundary} type; and \textit{Colour}s, represented as an RGB represented hexadecimal \textit{Label} (a generic labelling type). This only leaves our \textit{Collection} of runners: a data type which encompasses multiple annotations. Attributes can therefore be described by a relatively simple type system that is generalisable from \textit{Labels}, \textit{Boundaries}, \textit{Collections} and \textit{Categories}. We further develop this into a more extensive type tree (Figure~\ref{fig:metamodel_class_diagrams:annotation}).
+
+\paragraph{Construction Rules} 
+
+Construction Rules govern how attributes can be made. We break these down into four types: Dependencies, Conditions, Optionality and Restrictions (Figrue~\ref{fig:metamodel_class_diagrams:construction_rules}). Some annotations are dependent on others existing---these are rules that we name \textit{Dependencies}. For instance, we cannot annotate an \gls{rbn} if there is no $BibSheet$ annotated. Likewise, a $FaceBounds$ is dependent on where the $BibSheet$ is, and so the $BibSheet$ must be marked up first. These dependencies add order in which features are being extracted, which is important to the tagger marking up the photo. A \textit{Condition} is a construction rule that disallows a data tagger to create an annotation until a condition is met by the annotator. For instance, we can never have a $BibSheet$ above a $FaceBounds$, so when we can specify this as a condition. These are not bound to just geometric constraints; we also see that we cannot tag $Runners$ if the $PhotoCrowded$ annotation is marked as \textsc{true}. Not all annotations are needed---in these cases the annotation is restricted by an \textit{Optional} construction rule; by default, all annotations are required, but we can specify these to be optional using such a rule. Lastly, \textit{Restrictions} exist to prevent invalid data from being tagged. In our example, we implemented two restrictions in Argus: (1) a face region must be tagged within an aspect ratio of $3 \times BibSheet_{width} : 5 \times BibSheet_{height}$, and (2) the opposite edges of a face region must be at least 15 pixels apart. This helps prevent issues shown in Figure~\ref{fig:dataset:issues_with_tagging}.
+
+
+\paragraph{Attributes}
+
+Attributes exist to as a means capture further information about an annotation. We represent attributes in our metamodel as either implicit or explicit. As stated in Section~\ref{sec:dataset:architecture:what_to_capture}, those attributes which are required for the tagger to manually markup are explicit (i.e., manually must be added) whereas those that can be computed by the system are implicit (i.e., inferred from explicit attributes).
 
 \subsection{The Data Capturing Process}
 
-Now that we have defined which annotations exist, we describe the process by which we are able to capture this data. At its core, this is an \gls{etl} process: we extract the data from our 
+Now that we have defined which annotations exist, we describe the process by which we are able to capture this data. At its core, this is an \gls{etl} process. \todo{Include activity diagram. Consider readjusting for metamodel .}
 
-\subsection{Layering}
+% Talk about automatic mappings. e.g. drag and drop, UI generation with descriptive labels etc. Things we can make the UI automate
+% Then discuss provenance and how we can track using git
 
+\subsection{Metamodel Grammar}
 
+\todo{Develop metamodel grammar}
+
+\section{Data Augmentation}
+
+\section{Argus}
 
 % motivation
 % methodology
