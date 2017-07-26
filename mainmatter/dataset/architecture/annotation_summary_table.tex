@@ -1,0 +1,181 @@
+\begin{landscape}
+
+\begin{table}[p]
+  \centering
+  \caption[Summary of annotations captured in the dataset]{\centering A summary of the annotations we wish to capture from our dataset. Image and segment-level features are separated using the double line.}
+  \label{tab:dataset:annotation_summary}
+  \tablefitlandscape{
+    \begin{tabular}{lllllllll}
+      \toprule
+        \textbf{Feature} &
+        \textbf{Name} &
+        \textbf{Type} &
+        \textbf{Conditions} &
+        \textbf{Dependencies} &
+        \textbf{Explicit Attributes} &
+        \textbf{Implicit Attributes} &
+        \textbf{Possible Values} &
+        \textbf{Optional}
+      \\
+      \midrule
+        \multirow{2}{*}{Image-Level} &
+        $PhotoCrowded$ &
+        Boolean &
+        None &
+        None &
+        None &
+        None &
+        $\{ \textsc{true}, \textsc{false} \}$&
+        No
+      \\
+        &
+        $Runners$ &
+        Collection &
+        $\{ PhotoCrowded = \textsc{false} \}$ &
+        None &
+        None &
+        $\{count\}$ &
+        N/A &
+        Yes
+      \\
+      \midrule
+      \midrule
+        \multirow{2}{*}{Bib} &
+        $BibSheet$ &
+        Polygon &
+        $\{ vertices = 4 \}$ &
+        None &
+        $\{ x_{1} \dots x_{4}, y_{1} \dots y_{4} \}$ &
+        $\{ top, left, bottom, right, width, height \}$ &
+        N/A &
+        No
+      \\
+        &
+        $\gls{rbn}$ &
+        Label &
+        None &
+        $BibSheet$ &
+        None &
+        None &
+        N/A &
+        No
+      \\
+      \midrule
+        \multirow{2}{*}{Face} &
+        $FaceBounds$ &
+        Rectangle &
+        $\{ bottom > BibSheet_{top} \}$  &
+        $BibSheet$ &
+        $\{ x_{1}, y_{1}, x_{2}, y_{2}\}$ &
+        $\{ top, left, bottom, right, width, height \}$ &
+        N/A &
+        No
+      \\
+        &
+        $WearingHat$ &
+        Boolean &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{true}, \textsc{false} \}$&
+        No
+      \\
+        &
+        $WearingGlasses$ &
+        Boolean &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{true}, \textsc{false} \}$&
+        No
+      \\
+        &
+        $Gender$ &
+        Category &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{male}, \textsc{female} \} $&
+        No
+      \\
+      \midrule
+        \multirow{2}{*}{Prominence} &
+        $\gls{lop}$ &
+        Category &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{no}, \textsc{maybe}, \textsc{yes} \}$ &
+        No
+      \\
+        &
+        $FaceVisible$ &
+        Boolean &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{true}, \textsc{false} \}$&
+        No
+      \\
+        &
+        $Blurry$ &
+        Boolean &
+        None &
+        $FaceBounds$ &
+        None &
+        None &
+        $\{ \textsc{true}, \textsc{false} \}$&
+        No
+      \\
+      \midrule
+        \multirow{2}{*}{Colours} &
+        $ShirtColor$ &
+        Color &
+        None &
+        $FaceBounds$ &
+        $\{ red, green, blue \}$ &
+        None &
+        N/A &
+        No
+      \\
+        &
+        $ShoeColor$ &
+        Color &
+        None &
+        $FaceBounds$ &
+        $\{ red, green, blue \}$ &
+        None &
+        N/A &
+        Yes
+      \\
+        &
+        $ShortsColor$ &
+        Color &
+        None &
+        $FaceBounds$ &
+        $\{ red, green, blue \}$ &
+        None &
+        N/A &
+        Yes
+      \\
+        &
+        $HatColor$ &
+        Color &
+        $\{ WearingHat = \textsc{true} \}$ &
+        $FaceBounds$ &
+        $\{ red, green, blue \}$ &
+        None &
+        N/A &
+        Yes
+      \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table}
+
+\end{landscape}
