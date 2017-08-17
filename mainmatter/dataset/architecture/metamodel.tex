@@ -4,7 +4,7 @@
 % Conceptualise what we have in our workflow as a meta model.
 % What are the components, and constraints? Discuss why we needed to add in constraints... Feedback from India
 
-In the example above, we describe a basic model which was derived using information discovered from Argus' incremental development. In this section, we generalise this information and develop a metamodel from that model. This metamodel is represented as a UML class diagram, shown in Figure~\ref{fig:dataset:metamodel_class_diagram}.
+In the example above, we describe a basic model which was derived using information discovered from Argus' incremental development. In this section, we generalise this information and develop a metamodel from that model. This metamodel is represented as a \gls{uml} class diagram, shown in Figure~\ref{fig:dataset:metamodel_class_diagram}. A more extensive overview of the metamodel is provided in Appendix~\ref{ch:metamodel_class_diagrams}.
 
 \begin{figure}[h]
   \centering
@@ -38,4 +38,4 @@ Construction Rules govern how attributes can be made. We break these down into f
 
 \paragraph{Attributes}
 
-Attributes exist to as a means capture further information about an annotation. We represent attributes in our metamodel as either implicit or explicit. As stated in Section~\ref{sec:dataset:architecture:what_to_capture}, those attributes which are required for the tagger to manually markup are explicit (i.e., manually must be added) whereas those that can be computed by the system are implicit (i.e., inferred from explicit attributes).
+Attributes exist to as a means capture further information about an annotation. We represent attributes in our metamodel as either implicit or explicit. As stated in Section~\ref{sec:dataset:architecture:what_to_capture}, those attributes which are required for the tagger to manually markup are explicit (i.e., manually must be added) whereas those that can be computed by the system are implicit (i.e., inferred from explicit attributes). A useful example of implicit attributes may be the bounding box and area that inferred from a polygon, both of which are key values required in training \glspl{nn}.

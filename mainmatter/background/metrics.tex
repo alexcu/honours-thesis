@@ -1,7 +1,9 @@
 \section{Metrics}
 \label{sec:background:metrics}
 
-Throughout our survey, we note the standard the evaluation scheme for text extraction first proposed for use in image processing in the \glsx{icdar} competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq, Karatzas:2013by, Karatzas:2015tj}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' a text extraction pipeline can achieve.
+Within the field of text detection, various evaluation protocols exist. For an extensive survey of these protocols, see \citep{Wolf:2006gv,Ye:2014bs}. Throughout our survey, we note the standard the evaluation scheme for text extraction first proposed for use in image processing in the \glsx{icdar} competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq, Karatzas:2013by, Karatzas:2015tj}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' a text extraction pipeline can achieve. 
+
+In the \gls{icdar} competitions, two are used: the initial \gls{icdar} 2003 evaluation protocol proposed by \citet{Lucas:2003iw}, and, more recently, the \textit{DetEval} evaluation protocol \citep{Shivakumara:2011dn} (based on \citep{Wolf:2006gv}), as used in the \gls{icdar} 2011 and 2013 robust reading competitions. The simplicity and continued wide use of the \gls{icdar} 2003 for text localisation evaluation is chosen over the \textit{DetEval} approach, especially as it complements our use case.
 
 \subsection{Precision and Recall}
 \label{sec:background:metrics:precision_and_recall}
@@ -18,20 +20,23 @@ And recall is defined as the number of correct estimates divided by the total nu
   r = \frac{c}{\lvert\;T\;\rvert}
 \end{equation*}
 
-However, it is not realistic for a given text extraction pipeline to \textit{exactly} agree with the rectangle bounds manually tagged by a human. \citet{Lucas:2003iw} first proposed changes to these calculations to better suit their usage in the context of information extraction from within images. They adopt a more flexible notion of what a `match' is. They define a new match measure ($m_{p}$) between two rectangles (i.e., the ground truth and the system's detected candidate) as ``the area of intersection of both rectangles divided by the area of the minimum bounding box containing both rectangles'' \citep{Lucas:2003iw}. This allows for a match value of one when the candidate is identical to the ground truth, and zero where the candidate has no intersection at all to the ground truth.
-
-Therefore, the best match, $m(r,\,R)$, of a rectangle $r$ in a set of rectangles $R$ is:
+However, it is not realistic for a given text extraction pipeline to \textit{exactly} agree with the rectangle bounds manually tagged by a human. \citet{Lucas:2003iw} first proposed changes to these calculations to better suit their usage in the context of information extraction from within images. They adopt a more flexible notion of what a `match' is. They define a new match measure, the match area $m_{a}$, between two rectangles (i.e., the ground truth and the system's detected candidate) as the area of intersection of both rectangles divided by the minimum bounding box containing both rectangles (i.e., the union of both) \citep{Lucas:2003iw, Lucas:2005bq, Lucas:2005hl}. This metric is otherwise commonly referred to as the \gls{iou} \citep{Karatzas:2015tj,Lin:2014vma,Jaderberg:2016wj}. Using $a(r)$ to denote the area of the rectangle, we can represent this as:
 \begin{equation*}
-  m(r,\,R) = \mathrm{max}~m_{p}(r,\,r')~|~r' \in R
+  m_{a}(r_{1}, r_{2}) = \frac{a(r_{1} \cap r_{2})}{a(r_{1} \cup r_{2})}
+\end{equation*}
+
+This allows for a match value of one when the candidate is identical to the ground truth, and zero where the candidate has no intersection at all to the ground truth. Therefore, the best match, $m(r,\,R)$, of a rectangle $r$ in a set of rectangles $R$ is:
+\begin{equation*}
+  m(r,\,R) = \mathrm{max}~\{~m_{a}(r,\,r')~|~r' \in R~\}
 \end{equation*}
 
 Lastly, we can redefine the recall and precision metrics to be more forgiving in the image extraction context:
 \begin{align*}
-  p' &= \frac{\sum\,_{r_{e}\;\in\;E}~m(r_{e},\,T)}{\lvert\;E\;\rvert}\\ \\
+  p' &= \frac{\sum\,_{r_{e}\;\in\;E}~m(r_{e},\,T)}{\lvert\;E\;\rvert}\\\\
   r' &= \frac{\sum\,_{r_{t}\;\in\;T}~m(r_{t},\,E)}{\lvert\;T\;\rvert}
 \end{align*}
 
-One issue with the calculation is that the metric assumes a rectangular bounding box. This limitation means that words of non-rectangular nature, such as curved or rhomboidal text, are not well-represented.
+One issue with the calculation is that it assumes a rectangular bounding box. Words of non-rectangular nature, such as curved or rhomboidal text, are not well-represented.
 
 \subsection{The \fscore}
 \label{sec:background:metrics:fscore}

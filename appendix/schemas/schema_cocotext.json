@@ -1,0 +1,33 @@
+{
+  "info" : info,
+  "imgs" : [image],
+  "anns" : [annotation]
+}
+
+info {
+  "version" : str,
+  "description" : str,
+  "author" : str,
+  "url" : str,
+  "date_created" : datetime
+}
+
+image {
+  "id" : int,
+  "file_name" : str,
+  "width" : int,
+  "height" : int,
+  "set" : str // train or val
+}
+
+annotation {
+  "id" : int,
+  "image_id" : int,
+  "class" : str,      // machine printed or handwritten or others
+  "legibility" : str, // legible or illegible
+  "language" : str,   // english or not english or na
+  "area" : float,
+  "bbox" : [x,y,width,height],
+  "utf8_string" : str,
+  "polygon" : []
+}

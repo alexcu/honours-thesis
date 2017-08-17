@@ -88,7 +88,14 @@ More recently though, deep-learning \glspl{cnn} have been utilised for instance 
 
 This has since led to the rise of enhanced \glspl{cnn} such as FICS+++ \citep{Li:2016uj}, R-CNN \citep{Girshick:2014jx}, Fast/Faster R-CNN \citep{Girshick:2015vr, Ren:2017ug}, and Mask R-CNN \citep{He:2017ud}. A comparison of two of these networks using images in the Microsoft Common Objects in Context \cite{Lin:2014vm} dataset are shown in Figure~\ref{fig:background:detection:learning:he2017_maskrcnn}, with the Mask R-CNN framework illustrated in Figure~\ref{fig:background:detection:learning:he2017_maskrcnnframework}. The rise of these recent developments have sparked interest in multi-language machine learning libraries, such as MXNet\footnoteurl{http://mxnet.io}{30 June 2017}, which are able to combine these academic works for use in large-scale industry-focused production code \cite{Chen:2015vh}.
 
-These methods are increasingly improving per-pixel classification of objects within natural scenes. However, applicability of these deep-learning networks in the sole context of \textit{text extraction} is yet to be widely explored.
+These methods are increasingly improving per-pixel classification of objects within natural scenes. However, applicability of these deep-learning networks in the sole context of \textit{text extraction} is yet to be widely explored, though a \citeyear{Jaderberg:2016wj} paper by \citet{Jaderberg:2016wj} did show the viability of a real-time text reading pipeline based on \glspl{cnn} (Figure~\ref{fig:background:detection:learning:jaderberg2016_cnn}) that successfully extracts any text query from 2.3 million frames of BBC News footage\footnoteurl{http://zeus.robots.ox.ac.uk/textsearch}{14 August 2017}.
+
+\begin{figure}[h]
+  \centering 
+  \includegraphics[width=\textwidth]{images/background/jaderberg2016_cnn}
+  \caption[A pipeline for text extraction using CNNs]{The pipeline for text extraction proposed in \citep{Jaderberg:2016wj}.}
+  \label{fig:background:detection:learning:jaderberg2016_cnn}
+\end{figure}
 
 \begin{figure}[p]
   \centering

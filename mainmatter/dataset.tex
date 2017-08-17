@@ -5,14 +5,48 @@ How do we capture large and annotated datasets to train an \gls{ai} model at sca
 
 \input{mainmatter/dataset/architecture.tex}
 \input{mainmatter/dataset/process.tex}
+\input{mainmatter/dataset/postprocessing.tex}
+\input{mainmatter/dataset/argus.tex}
+\input{mainmatter/dataset/evaluation.tex}
 
-\subsection{Metamodel Grammar}
+\section{Conclusions}
 
-\todo{Develop metamodel grammar}
+This chapter describes an inductive approach used for developing a generalisable metamodel from empirical iterations of systems development to gap the missing epistemology in the area of data capturing architectures. By developing tagging system, Argus, and theorising and reflecting upon the implementation, we were able to refine and discover a concrete metamodel. This metamodel alleviates the difficulties in maintaining data provenance when training \gls{ai} models by making the serialisable, the therefore trackable with any version control system.
 
-\section{Data Augmentation}
+How may this metamodel be used elsewhere? It seems easily adaptable to similar areas in the field of computer vision processing, such as \gls{lpr} or \gls{tsr}. However, could we move this to beyond static images? Future works may extend our metamodel to multiple image frames, and therefore annotating videos frame-by-frame is within reach. Some current limitations of the metamodel (in its current form) is the difficulty to apply it to non-vision-related topics, such as \gls{nlp}, audio processing or sensor data processing. Some key concepts may be missing from our metamodel in these areas, and we speculate this for work that researchers with domain knowledge in relevant areas could discover. This said, the fundamental features of a \textit{feature} that an \gls{ai} is to learn from this data still remains, so perhaps it is plausible.
 
-\section{Argus}
+Is the methodological approach we used extendable? Is it wise to develop concrete systems, and then develop back toward a metamodel? These are questions that we leave for future research in metamodel development. The area of scalable and crowdsourced dataset annotation is becoming evermore increasing, with services such as \gls{amt} and ScaleAPI rising in popularity.
+
+\bigskip
+
+\noindent
+The primary contributions of this chapter are:
+
+\begin{itemize}
+  \item a metamodel that describes a schema to annotate large image datasets, and
+  \item an exploratory methodological approach in designing a metamodel from a concrete system.
+\end{itemize}
+
+\noindent
+Minor contributions in this chapter include:
+
+\begin{itemize}
+  \item an overview of metrics gathered to determine the throughput of annotating a large dataset of images,
+  \item an overall pipeline in how to handle and deal with data provenance in \gls{ai} models, and
+  \item a basic methodology and metrics to assess the quality of annotations.
+\end{itemize}
+
+% Concluding remarks:
+% - Speculate if this metamodel is extensible?
+% -- Videos?
+% -- Audio?
+% -- LIDAR + RFID / Sensor Data?
+% - Is the methodological approach extendable?
+% -- Using a concrete system to redevelop back toward a metamodel?
+% - Perhaps compare with how ICDAR was annotated
+% - Compare with the online websites... like integrating with Scale and the other thing?
+% - "Left for future research"
+
 
 % motivation
 % methodology

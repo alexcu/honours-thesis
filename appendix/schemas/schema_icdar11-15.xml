@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="textGt">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="textLine" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="width" type="xs:integer" use="required" />
+      <xs:attribute name="height" type="xs:integer" use="required" />
+      <xs:attribute name="imageFileName" type="xs:string" use="required" />
+      <xs:attribute name="areaImageFilename" type="xs:string" use="optional" />
+      <xs:attribute name="skeletonImageFilename" type="xs:string" use="optional" />
+      <xs:attribute name="docVersion" type="xs:integer" use="required" fixed="3" />
+      <xs:attribute name="author" type="xs:string" use="required" />
+      <xs:attribute name="comments" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textLine">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="word" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="atom" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:integer" use="required" />
+      <xs:attribute name="transcription" type="xs:string" use="required" />
+      <xs:attribute name="xmin" type="xs:integer" use="required" />
+      <xs:attribute name="xmax" type="xs:integer" use="required" />
+      <xs:attribute name="ymin" type="xs:integer" use="required" />
+      <xs:attribute name="ymax" type="xs:integer" use="required" />
+      <xs:attribute name="dontCare" type="xs:boolean" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="word">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="atom" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:integer" use="required" />
+      <xs:attribute name="transcription" type="xs:string" use="required" />
+      <xs:attribute name="xmin" type="xs:integer" use="required" />
+      <xs:attribute name="xmax" type="xs:integer" use="required" />
+      <xs:attribute name="ymin" type="xs:integer" use="required" />
+      <xs:attribute name="ymax" type="xs:integer" use="required" />
+      <xs:attribute name="dontCare" type="xs:boolean" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="colorHex">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="#[0-9a-fA-F]{6}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="atom">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:integer" use="required" />
+      <xs:attribute name="transcription" type="xs:string" use="required" />
+      <xs:attribute name="splitByDesign" type="xs:boolean" use="required" />
+      <xs:attribute name="mergedByDesign" type="xs:boolean" use="required" />
+      <xs:attribute name="color" type="colorHex" use="required" />
+      <xs:attribute name="dontCare" type="xs:boolean" use="required" />
+      <xs:attribute name="textParts" type="xs:integer" use="required" />
+      <xs:attribute name="xmin" type="xs:integer" use="required" />
+      <xs:attribute name="xmax" type="xs:integer" use="required" />
+      <xs:attribute name="ymin" type="xs:integer" use="required" />
+      <xs:attribute name="ymax" type="xs:integer" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -2,8 +2,14 @@
 
 \renewcommand{\acronymname}{List of Abbreviations}
 
+% Re-expand glossary term
+\newcommand{\glsx}[1]{\glsreset{#1}\gls{#1}}
+\newcommand{\glsplx}[1]{\glsreset{#1}\glspl{#1}}
+\newcommand{\glsac}[1]{\acrshort{#1}}
+
 \makeglossaries
 
+\newacronym{ui}{UI}{User Interface}
 \newacronym{ai}{AI}{Artificial Intelligence}
 \newacronym{cc}{CC}{Connected Component}
 \newacronym{nn}{NN}{Neural Network}
@@ -19,14 +25,34 @@
 \newacronym{hog}{HOG}{Histogram of Oriented Gradient}
 \newacronym{lbp}{LBP}{Local Binary Patterns}
 \newacronym{mlp}{MLP}{Multilayer Perceptron}
+\newacronym{nlp}{NLP}{Natural Language Processing}
+\newacronym{uml}{UML}{Unified Modelling Language}
 \newacronym{etl}{ETL}{Extract-Transform-Load}
 \newacronym{lop}{LoP}{Likelihood of Purchase}
+\newacronym{cvc}{CVC}{Computer Vision Center} 
+\newacronym{iou}{IoU}{Intersection over Union}
+\newacronym{adf}{ADF}{Argus Data Format}
+\newacronym{acl}{ACL}{Argus Constraint Language}
+\newacronym{xml}{XML}{eXtensible Markup Language}
+\newacronym{csv}{CSV}{Comma-Separated Values}
+\newacronym{amt}{AMT}{Amazon Mechanical Turk}
+\newacronym{rle}{RLE}{Run Length Encoding}
+\newacronym{hit}{HIT}{Human Intelligent Task}
+\newacronym{voc}{VOC}{Visual Object Classes}
+\newacronym{xsd}{XSD}{\glsac{xml} Schema Definition}
+\newacronym{sun}{SUN}{Scene UNderstanding}
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{html}{HTML}{HyperText Markup Language}
+\newacronym{json}{JSON}{JavaScript Object Notation}
+\newacronym{yaml}{YAML}{YAML Ain't Markup Language}
 \newacronym{mser}{MSER}{Maximally Stable Extremal Region}
 \newacronym{sift}{SIFT}{Scale Invariant Feature Transform}
+\newacronym{svhn}{SVHN}{Street View House Numbers}
 \newacronym{surf}{SURF}{Speeded-Up Robust Features}
+\newacronym{saas}{SaaS}{Software as a Service}
+\newacronym{apep}{APEP}{Annotation and Performance Evaluation Platform}
+\newacronym{coco}{COCO}{Common Objects in COntext}
 \newacronym{dstil}{DSTIL}{Deakin Software and Technology Innovation Laboratory}
 \newacronym{icdar}{ICDAR}{International Conference on Document Analysis and Recognition}
-
-% Re-expand glossary term
-\newcommand{\glsx}[1]{\glsreset{#1}\gls{#1}}
-\newcommand{\glsplx}[1]{\glsreset{#1}\glspl{#1}}
+\newacronym{vatic}{VATIC}{Video Annotation Tool from Irvine, California}
+\newacronym{pascal}{PASCAL}{Pattern Analysis, Statistical Modelling and Computational Learning}

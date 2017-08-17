@@ -1,0 +1,23 @@
+<tagset>
+  <image>
+    <imageName>scene/ComputerScienceSmall.jpg</imageName>
+    <resolution x="338" y="255" />
+    <taggedRectangles>
+      <taggedRectangle x="99" y="94" width="128" height="20" offset="0" rotation="0">
+      <tag>Department</tag>
+      <segmentation>
+        <xOff>16</xOff>
+        <xOff>29</xOff>
+        <xOff>43</xOff>
+        <xOff>54</xOff>
+        <xOff>64</xOff>
+        <xOff>74</xOff>
+        <xOff>93</xOff>
+        <xOff>106</xOff>
+        <xOff>117</xOff>
+      </segmentation>
+    </taggedRectangle>
+    ...
+  </image>
+...
+</tagset>
