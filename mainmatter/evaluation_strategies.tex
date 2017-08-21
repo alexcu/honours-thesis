@@ -1,0 +1,29 @@
+\chapter{Evaluation Strategies}
+\label{ch:evaluation_strategies}
+
+% Benchmark current approaches (precision and recall) using our manually curated dataset
+
+% TODO: Discuss about `metric' for accuracy
+
+% TODO: Tidy this up
+
+Develop a number of different evaluation strategies for the bib and number detection pipeline. First pass (ideal case) of this calculation would be 100 images that contain 1 bib only. Accuracy would be number of detected bibs / total bibs. Second pass (realistic case) would be to select random number of bibs per photo in a sample size of 100 photos, aggregate the number of bibs we have, then run our pipeline to see how many bibs were detected. Evaluation strategy will also consist of the following factors:
+
+Run detection with and without segment the runner figure (i.e., with and without person detection filter).
+
+Run with 1 training image augmented n times; 100 training images (10 from 10 races) augmented n times; 500 training images (50 from 10 races) augmented n times; all training images from all races augmented n times. 
+
+This would therefore produce 2 * 4 = 8 models to validate with and calculate accuracies (thereby seeing how accuracies change given the different models).
+
+Passing cropped bib regions into OpenCV's Neural Network image detection or Tesseract to see how well the recognition works.
+
+
+\section{Open Source Tools}
+
+\section{Existing Pipelines From Literature}
+
+\section{Hermes Approach}
+
+% -> You can use open source tools
+% -> Current (existing) pipelines
+% -> Hermes approach
