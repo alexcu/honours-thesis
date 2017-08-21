@@ -1,7 +1,7 @@
 \subsection{What to Capture?}
 \label{sec:dataset:architecture:what_to_capture}
 
-What features do we want to capture from images within our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as Figure~\ref{fig:introduction:background:sample_rbns}). There are two features to describe components of the entire photo that we call \textit{Image-level} features:
+What features do we want to capture from images within our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as \cref{fig:introduction:background:sample_rbns}). There are two features to describe components of the entire photo that we call \textit{Image-level} features:
 
 \begin{enumerate}
   \item whether or not the photo is considered as \textbf{crowded} (\textsc{true} or \textsc{false}), and
@@ -31,9 +31,9 @@ What features do we want to capture from images within our dataset? To answer th
   \label{fig:dataset:image_features}
 \end{figure}
 
-We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any bias on the network. We can only tag runners on the condition that the photo is not marked as crowded (Figure~\ref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (Figures~\ref{fig:dataset:image_features:rbns_cropped} and \ref{fig:dataset:image_features:no_rbns}). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{implicit attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
+We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any bias on the network. We can only tag runners on the condition that the photo is not marked as crowded (\cref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (\cref{fig:dataset:image_features:rbns_cropped,fig:dataset:image_features:no_rbns}). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{implicit attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
 
-We identify the following two annotations of what we would label for a given runner's bib sheet. This is summarised in Figure~\ref{fig:dataset:bib_sheet_features}. Within this feature we identify the following annotations for \glspl{rbn}:
+We identify the following two annotations of what we would label for a given runner's bib sheet. This is summarised in \cref{fig:dataset:bib_sheet_features}. Within this feature we identify the following annotations for \glspl{rbn}:
 
 \begin{enumerate}
   \item a polygon around the runner's \textbf{bib sheet} that contains the $x$ and $y$ coordinates, given that there are exactly four vertices of this polygon
@@ -58,7 +58,7 @@ We identify the following two annotations of what we would label for a given run
   \label{fig:dataset:bib_sheet_features}
 \end{figure}
 
-A further feature that is important is the runner's face region (Figure~\ref{fig:dataset:face_features}), which could compromise of five annotations:
+A further feature that is important is the runner's face region (\cref{fig:dataset:face_features}), which could compromise of five annotations:
 
 \begin{enumerate}
   \item a rectangle around the runner's \textbf{face} that contains the two $x$ and $y$ coordinates of the two opposite vertices, given that the $bottom$ of this rectangle are above the $top$ of the bib sheet,
@@ -108,7 +108,7 @@ We can now identify another feature, the prominence of the runner within the pho
   \item the \textbf{\gls{lop}} that the runner buys the photo (\textsc{no}, \textsc{maybe}, \textsc{yes}),
 \end{enumerate}
 
-A runner's face is considered `invisible' if it is obstructed by another object, cropped out of the image, or if the runner is looking down. See Figure~\ref{fig:dataset:face_prominence}. Runners are more likely purchase a photo if they are looking at the camera, and likewise if they are blurry in the image; these therefore have a significant impact on their prominence. We also define the \glsx{lop} value as a qualitative metric. We ask the data tagger to `picture' themselves as runner, and if so, we ask if they would purchase it. We then use this metric to train positive samples of good photos (\gls{lop} = \textsc{yes}) and samples of bad photos (\gls{lop} = \textsc{no}). Where \textsc{maybe} is provided, the runner is ignored to prevent training the network with indeterminate samples. Refer to Figure~\ref{fig:dataset:lop_prominence} for examples of the varying \gls{lop} values. 
+A runner's face is considered `invisible' if it is obstructed by another object, cropped out of the image, or if the runner is looking down. See \cref{fig:dataset:face_prominence}. Runners are more likely purchase a photo if they are looking at the camera, and likewise if they are blurry in the image; these therefore have a significant impact on their prominence. We also define the \glsx{lop} value as a qualitative metric. We ask the data tagger to `picture' themselves as runner, and if so, we ask if they would purchase it. We then use this metric to train positive samples of good photos (\gls{lop} = \textsc{yes}) and samples of bad photos (\gls{lop} = \textsc{no}). Where \textsc{maybe} is provided, the runner is ignored to prevent training the network with indeterminate samples. Refer to \cref{fig:dataset:lop_prominence} for examples of the varying \gls{lop} values. 
 
 \begin{figure}[p]
   \centering
@@ -169,7 +169,7 @@ The colour of a runner's shirt is required, as we expect that a bib would be det
 
 We can segment groups of the annotations we extract into features of two categories: annotations that feature at the \textit{image}-level and those that do not, which we call \textit{segment}-level features. The image-level features are those which apply to the entire image (i.e., $PhotoCrowded$, $Runners$). Those that apply at the segment level can be grouped into what types of features we are extracting: the runner's bib, face, their prominence and their colour identification.
 
-In summary, we have identified a total of 5 features of 15 annotations, which are summarised within Table~\ref{tab:dataset:annotation_summary}. Each of these annotations can be classified with a name and type, conditions for the annotation to be valid, dependencies on other annotations to exist before the annotation can be made, explicit attributes which the tagger must specify, implicit attributes which we can automatically compute, possible values which limit the range of data for that annotation, and whether or not the annotation is optional.
+In summary, we have identified a total of 5 features of 15 annotations, which are summarised within \cref{tab:dataset:annotation_summary}. Each of these annotations can be classified with a name and type, conditions for the annotation to be valid, dependencies on other annotations to exist before the annotation can be made, explicit attributes which the tagger must specify, implicit attributes which we can automatically compute, possible values which limit the range of data for that annotation, and whether or not the annotation is optional.
 
 \input{mainmatter/dataset/architecture/annotation_summary_table.tex}
 

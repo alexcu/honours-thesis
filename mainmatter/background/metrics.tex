@@ -41,14 +41,14 @@ One issue with the calculation is that it assumes a rectangular bounding box. Wo
 \subsection{The \fscore}
 \label{sec:background:metrics:fscore}
 
-A common metric used when developing text extraction pipelines is the \fscore, a single measure of quality that combines both precision and recall values. We are able to compute this metric using the standard measure across many studies, as contrasted in Table~\ref{tab:background:metrics:survey}.
+A common metric used when developing text extraction pipelines is the \fscore, a single measure of quality that combines both precision and recall values. We are able to compute this metric using the standard measure across many studies, as contrasted in \cref{tab:background:metrics:survey}.
 
 The \fscore{} algorithm is given in the context of image processing in \citet{Lucas:2003iw}. Relative weights controlled by an $\alpha$ value of 0.5 give equal weight to both precision and recall metrics:
 \begin{equation*}
   f = \frac{1}{\frac{\alpha}{p'} + \frac{1-\alpha}{r'}}
 \end{equation*}
 
-As \citet{Chen:2011ul} report, even when all text is correctly localised, it is likely that the \fscore{} will vary between 0.8--1.0. This is because $E$ boundaries are unlikely to match \textit{exactly} with the manually labelled $T$ boundaries. An illustration of this is phenomena is shown in Figure~\ref{fig:background:metrics:ye2005_overlapping}.
+As \citet{Chen:2011ul} report, even when all text is correctly localised, it is likely that the \fscore{} will vary between 0.8--1.0. This is because $E$ boundaries are unlikely to match \textit{exactly} with the manually labelled $T$ boundaries. An illustration of this is phenomena is shown in \cref{fig:background:metrics:ye2005_overlapping}.
 
 \begin{figure}[p]
   \centering

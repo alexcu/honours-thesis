@@ -1,16 +1,16 @@
 \section{The Data-Capturing Process}
 \label{sec:dataset:process}
 
-Now that we have defined \textit{what} to mark up, we now describe the process to define \textit{how} we capture it. To do this, we need to first consider a way to encode both the  \textit{description} and \textit{constraints} of the data we wish to capture from within our dataset. The following sections refer to \textit{Argus} as a generic labelling tool, rather than its concrete implementation referred to in Section~\ref{sec:dataset:argus}.
+Now that we have defined \textit{what} to mark up, we now describe the process to define \textit{how} we capture it. To do this, we need to first consider a way to encode both the  \textit{description} and \textit{constraints} of the data we wish to capture from within our dataset. The following sections refer to \textit{Argus} as a generic labelling tool, rather than its concrete implementation referred to in \cref{sec:dataset:argus}.
 
 This can be done in a four-step process: (1) informing Argus about what it is that we want to capture; (2) extracting information from our dataset; (3) transforming the data into an encodable format; and, (4) loading the data into an \gls{ai} model. Thus, the following sections describes the data capturing process as an informed \gls{etl} process. 
 
 \subsection{Informing Argus}
 \label{sec:dataset:process:informing}
 
-Let us consider that the data we capture from Section~\ref{sec:dataset:architecture} can be placed into a structured hierarchical data format, represented using our metamodel. For convenience, we will refer to this hypothetical format as the \gls{adf}. Let's also assume that we can restrict the kind of data we want to capture using a set of constraint rules, which can be encoded into a hypothetical \gls{acl}. This, also, can be represented by our metamodel.
+Let us consider that the data we capture from \cref{sec:dataset:architecture} can be placed into a structured hierarchical data format, represented using our metamodel. For convenience, we will refer to this hypothetical format as the \gls{adf}. Let's also assume that we can restrict the kind of data we want to capture using a set of constraint rules, which can be encoded into a hypothetical \gls{acl}. This, also, can be represented by our metamodel.
 
-The first step is to feed in the constrains into a data capturer that restricts what kind of data we wish to read from our image dataset. This declarative format informs the capturer of the potential features, annotations and construction rules that is marked up by the annotator. For example, a concrete implementation of an \gls{acl} in an \glsac{xml} schema is given in Listing~\ref{lst:dataset:process:acl_sample}, where we define the features, annotations, conditions and dependencies of the image-level and $Bib$ segment-level features, using ID referencing inspired by \glsac{html}.
+The first step is to feed in the constrains into a data capturer that restricts what kind of data we wish to read from our image dataset. This declarative format informs the capturer of the potential features, annotations and construction rules that is marked up by the annotator. For example, a concrete implementation of an \gls{acl} in an \glsac{xml} schema is given in \cref{lst:dataset:process:acl_sample}, where we define the features, annotations, conditions and dependencies of the image-level and $Bib$ segment-level features, using ID referencing inspired by \glsac{html}.
 
 \clearpage
 
@@ -46,7 +46,7 @@ Argus is therefore told what it is that it needs to capture, and---by using this
 \subsection{Extracting Features}
 \label{sec:dataset:process:extracting}
 
-Raw images are loaded into an `Annotate' mode of Argus, whereby the user interface is generated using the constraints discussed in Section~\ref{sec:dataset:process:informing}. Additionally, errors are now automatically shown when conditions or restrictions are not met. Each of the specific features can now be extracted using a number of the elements within the generated \gls{ui} as per those shown in Table~\ref{tab:dataset:process:ui_elements}, whereby the annotator follows the required steps (i.e., in dependency order) to carry out annotations. This, therefore, becomes the workflow of extraction which the annotator runs through---a concrete example of such a workflow for our case is shown in Figure~\ref{fig:dataset:process:argus_workflow}, as represented as a \gls{uml} activity diagram.
+Raw images are loaded into an `Annotate' mode of Argus, whereby the user interface is generated using the constraints discussed in \cref{sec:dataset:process:informing}. Additionally, errors are now automatically shown when conditions or restrictions are not met. Each of the specific features can now be extracted using a number of the elements within the generated \gls{ui} as per those shown in \cref{tab:dataset:process:ui_elements}, whereby the annotator follows the required steps (i.e., in dependency order) to carry out annotations. This, therefore, becomes the workflow of extraction which the annotator runs through---a concrete example of such a workflow for our case is shown in \cref{fig:dataset:process:argus_workflow}, as represented as a \gls{uml} activity diagram.
 
 \begin{table}
   \centering
@@ -91,7 +91,7 @@ Additionally, the \gls{ui} elements can provide guidance to the tagger in the fo
 
 Keyboard shortcuts can be automatically implemented to improve keyboard-driven navigation, reducing the need to use a mouse and automating responses (i.e., enter `Y' for `Yes' and `N' for `No')---ultimately to speed up the progression by which taggers extract these features.
 
-Lastly, annotators can mark the image as `complete', indicating they are finished with all possible annotations in the dataset. This then produces an \glsx{adf} based on the image (Section~\ref{sec:dataset:process:transformation}). Once all images in the dataset are fully `complete', Argus informs that the extraction process on the entire dataset is now complete.
+Lastly, annotators can mark the image as `complete', indicating they are finished with all possible annotations in the dataset. This then produces an \glsx{adf} based on the image (\cref{sec:dataset:process:transformation}). Once all images in the dataset are fully `complete', Argus informs that the extraction process on the entire dataset is now complete.
 
 \begin{landscape}
 \begin{figure}[p]
@@ -107,7 +107,7 @@ Lastly, annotators can mark the image as `complete', indicating they are finishe
 
 The features, once extracted, are automatically encoded into an \glsx{adf} upon marking the image as complete. To prevent data loss, files are encoded as the annotator progresses onto the next feature within the workflow of exatraction. All implicit attributes can be calculated given the explicit attributes manually entered by the runner at this stage.
 
-A sample of an \gls{adf} in a language-agnostic tree format is shown in Figure~\ref{fig:dataset:adf_representation} for a photo with one runner. This could be serialised into any human-readable hierarchical format, such as a \glsac{yaml}, \glsac{json} or \gls{xml} file. Additionally, workflows from the \gls{acl} input file may be generated by a \gls{uml} activity diagram (as we have done in Figure~\ref{fig:dataset:process:argus_workflow}) to assist annotators in understanding how to mark up the photo. Thus, the transformation step \textit{universalises} the annotated data into a format readable by any supported parser of the \gls{adf} or \gls{acl} files. We propose examples of how this data is loaded in the following section.
+A sample of an \gls{adf} in a language-agnostic tree format is shown in \cref{fig:dataset:adf_representation} for a photo with one runner. This could be serialised into any human-readable hierarchical format, such as a \glsac{yaml}, \glsac{json} or \gls{xml} file. Additionally, workflows from the \gls{acl} input file may be generated by a \gls{uml} activity diagram (as we have done in \cref{fig:dataset:process:argus_workflow}) to assist annotators in understanding how to mark up the photo. Thus, the transformation step \textit{universalises} the annotated data into a format readable by any supported parser of the \gls{adf} or \gls{acl} files. We propose examples of how this data is loaded in the following section.
 
 \renewcommand*\DTstyle{\small\rmfamily}
 \setlength{\DTbaselineskip}{15pt}
@@ -172,9 +172,9 @@ Once the data is transformed into a consistent format (i.e., an \gls{adf}), we a
 
 \begin{enumerate}
   \item Argus is executed in `Review' mode, whereby a second annotator reviews the parsed annotations by loading a directory containing multiple \glspl{adf}. There they can run through a number checks to ensure the annotated data is accurate when training the \gls{ai} models.
-  \item Custom augmenters load the \glspl{adf} as well as the source images to produce a number of variations on the image, essentially turning one image and its respective \gls{adf} into many variant images and \glspl{adf}. This is imperative when training our \gls{nn}, as explained in Section~\ref{sec:dataset:postprocessing:augmentation}.
-  \item An adapter created for our \gls{nn} is used to load in an \gls{adf} and convert it into a \glsac{csv} of file paths to images, bounding boxes and labels. The \gls{nn} reads this file and uses it to learn where bib locations are in an image. This is later discussed in Chapter~\ref{ch:processing_pipeline}.
-  \item We used Git\footnoteurl{https://git-scm.com}{11 Aug 2017} to track changes within our \gls{adf}. The benefit of serialising the data into a text file is that any version control management software can handle provenance for us (as suggested in Section~\ref{sec:dataset:architecture}), thereby sourcing changes in our \gls{ai} models easier by sourcing how the training data (i.e., \gls{adf} file) has derived over time.
+  \item Custom augmenters load the \glspl{adf} as well as the source images to produce a number of variations on the image, essentially turning one image and its respective \gls{adf} into many variant images and \glspl{adf}. This is imperative when training our \gls{nn}, as explained in \cref{sec:dataset:postprocessing:augmentation}.
+  \item An adapter created for our \gls{nn} is used to load in an \gls{adf} and convert it into a \glsac{csv} of file paths to images, bounding boxes and labels. The \gls{nn} reads this file and uses it to learn where bib locations are in an image. This is later discussed in \cref{ch:processing_pipeline}.
+  \item We used Git\footnoteurl{https://git-scm.com}{11 Aug 2017} to track changes within our \gls{adf}. The benefit of serialising the data into a text file is that any version control management software can handle provenance for us (as suggested in \cref{sec:dataset:architecture}), thereby sourcing changes in our \gls{ai} models easier by sourcing how the training data (i.e., \gls{adf} file) has derived over time.
 \end{enumerate}
 
 % GIT!
