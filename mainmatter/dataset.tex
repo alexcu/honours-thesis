@@ -1,21 +1,21 @@
 \chapter{Dataset}
 \label{ch:dataset}
 
-How do we capture large and annotated datasets to train an \gls{ai} model at scale? What is an annotation, and how can we constrain them? These are important questions when supplying data to train graphics-based \glspl{ai}. In this chapter, we discuss a theoretical data tagging metamodel that enables us to concisely describe the architecture of how quality labelled data is captured for these purposes. Additionally, we discuss a partial implementation of this metamodel that we have used to gather our training dataset.
+How do we efficiently create, organise and use labelled datasets to permit useful machine learning? What is a label, and how can we constrain them? In this chapter, we present a offers the metamodel that offers the conceptual vocabulary and an organising principle to improve efficiency of labelling.
 
 \input{mainmatter/dataset/architecture.tex}
 \input{mainmatter/dataset/process.tex}
 \input{mainmatter/dataset/postprocessing.tex}
-\input{mainmatter/dataset/argus.tex}
 \input{mainmatter/dataset/evaluation.tex}
 
+\newpage
 \section{Conclusions}
 
-This chapter describes an inductive approach used for developing a generalisable metamodel from empirical iterations of systems development to gap the missing epistemology in the area of data capturing architectures. By developing tagging system, Argus, and theorising and reflecting upon the implementation, we were able to refine and discover a concrete metamodel. This metamodel alleviates the difficulties in maintaining data provenance when training \gls{ai} models by making the serialisable, the therefore trackable with any version control system.
+This chapter describes an inductive approach used for developing a generalisable metamodel from empirical iterations of systems development to gap the missing epistemology in the area of data capturing architectures. By developing a concrete implementation and reflecting upon the implementation, we were able to refine and discover a concrete metamodel. This metamodel alleviates the difficulties in maintaining data provenance when training \gls{ai} models by making the serialisable, the therefore trackable with version control systems.
 
-How may this metamodel be used elsewhere? It seems easily adaptable to similar areas in the field of computer vision processing, such as \gls{lpr} or \gls{tsr}. However, could we move this to beyond static images? Future works may extend our metamodel to multiple image frames, and therefore annotating videos frame-by-frame is within reach. Some current limitations of the metamodel (in its current form) is the difficulty to apply it to non-vision-related topics, such as \gls{nlp}, audio processing or sensor data processing. Some key concepts may be missing from our metamodel in these areas, and we speculate this for work that researchers with domain knowledge in relevant areas could discover. This said, the fundamental features of a \textit{feature} that an \gls{ai} is to learn from this data still remains, so perhaps it is plausible.
+How may this metamodel be used elsewhere? It seems easily adaptable to similar areas in the field of computer vision processing, such as \gls{lpr} or \gls{tsr}. However, could we move this to beyond static images? Future works may extend our metamodel to multiple image frames, and therefore annotating videos frame-by-frame is within reach. Some current limitations of the metamodel (in its current form) is the difficulty to apply it to non-vision-related topics, such as \gls{nlp}, audio processing or sensor data processing. Some key concepts may be missing from our metamodel in these areas, and we expect that these can be closed by researchers with relevant domain expertise who can further extend it. We also propose that our approach could be used as a background for future works in metamodel development.
 
-Is the methodological approach we used extendable? Is it wise to develop concrete systems, and then develop back toward a metamodel? These are questions that we leave for future research in metamodel development. The area of scalable and crowdsourced dataset annotation is becoming evermore increasing, with services such as \gls{amt} and ScaleAPI rising in popularity.
+Additionally, we have shown that our metamodel is consistent with four popular existing data formats, and therefore is aligned to requirements of previous annotation systems. Hence, adapters can be used to map such formats, thereby unifying all datasets into one readable format which can be used for \gls{ai} training and validation. We leave this open for future work.
 
 \bigskip
 

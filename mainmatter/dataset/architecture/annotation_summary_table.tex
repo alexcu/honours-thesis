@@ -5,37 +5,40 @@
   \caption[Summary of annotations captured in the dataset]{\centering A summary of the annotations we wish to capture from our dataset. Image and segment-level features are separated using the double line.}
   \label{tab:dataset:annotation_summary}
   \tablefitlandscape{
-    \begin{tabular}{lllllllll}
+    \begin{tabular}{llllllllll}
       \toprule
         \textbf{Feature} &
-        \textbf{Name} &
+        \textbf{Annotation} &
         \textbf{Type} &
         \textbf{Conditions} &
         \textbf{Dependencies} &
         \textbf{Explicit Attributes} &
-        \textbf{Implicit Attributes} &
+        \textbf{Derived Attributes} &
         \textbf{Possible Values} &
+        \textbf{Default} &
         \textbf{Optional}
       \\
       \midrule
         \multirow{2}{*}{Image-Level} &
         $PhotoCrowded$ &
         Boolean &
-        None &
-        None &
-        None &
-        None &
+        N/A &
+        N/A &
+        N/A &
+        N/A &
         $\{ \textsc{true}, \textsc{false} \}$&
+        \textsc{false} &
         No
       \\
         &
         $Runners$ &
         Collection &
         $\{ PhotoCrowded = \textsc{false} \}$ &
-        None &
-        None &
+        N/A &
+        N/A &
         $\{count\}$ &
         N/A &
+        \textsc{null} &
         Yes
       \\
       \midrule
@@ -44,20 +47,22 @@
         $BibSheet$ &
         Polygon &
         $\{ vertices = 4 \}$ &
-        None &
+        N/A &
         $\{ x_{1} \dots x_{4}, y_{1} \dots y_{4} \}$ &
         $\{ top, left, bottom, right, width, height \}$ &
         N/A &
+        \textsc{null} &
         No
       \\
         &
         $\gls{rbn}$ &
         Label &
-        None &
-        $BibSheet$ &
-        None &
-        None &
         N/A &
+        $BibSheet$ &
+        N/A &
+        N/A &
+        N/A &
+        \textsc{null} &
         No
       \\
       \midrule
@@ -69,98 +74,108 @@
         $\{ x_{1}, y_{1}, x_{2}, y_{2}\}$ &
         $\{ top, left, bottom, right, width, height \}$ &
         N/A &
+        \textsc{null} &
         No
       \\
         &
         $WearingHat$ &
         Boolean &
-        None &
+        N/A &
         $FaceBounds$ &
-        None &
-        None &
+        N/A &
+        N/A &
         $\{ \textsc{true}, \textsc{false} \}$&
+        \textsc{false} &
         No
       \\
         &
         $WearingGlasses$ &
         Boolean &
-        None &
+        N/A &
         $FaceBounds$ &
-        None &
-        None &
+        N/A &
+        N/A &
         $\{ \textsc{true}, \textsc{false} \}$&
+        \textsc{false} &
         No
       \\
         &
         $Gender$ &
         Category &
-        None &
+        N/A &
         $FaceBounds$ &
-        None &
-        None &
-        $\{ \textsc{male}, \textsc{female} \} $&
+        N/A &
+        N/A &
+        $\{ \textsc{male}, \textsc{female}, \textsc{unsure} \} $ &
+        \textsc{male} &
         No
       \\
       \midrule
         \multirow{2}{*}{Prominence} &
         $\gls{lop}$ &
         Category &
-        None &
+        N/A &
         $FaceBounds$ &
-        None &
-        None &
+        N/A &
+        N/A &
         $\{ \textsc{no}, \textsc{maybe}, \textsc{yes} \}$ &
+        \textsc{maybe} &
         No
       \\
         &
         $FaceVisible$ &
         Boolean &
-        None &
+        N/A &
         $FaceBounds$ &
-        None &
-        None &
+        N/A &
+        N/A &
         $\{ \textsc{true}, \textsc{false} \}$&
+        \textsc{true} &
         No
       \\
         &
         $Blurry$ &
         Boolean &
-        None &
+        N/A &
         $FaceBounds$ &
-        None &
-        None &
+        N/A &
+        N/A &
         $\{ \textsc{true}, \textsc{false} \}$&
+        \textsc{false} &
         No
       \\
       \midrule
         \multirow{2}{*}{Colours} &
         $ShirtColor$ &
         Color &
-        None &
+        N/A &
         $FaceBounds$ &
         $\{ red, green, blue \}$ &
-        None &
         N/A &
+        N/A &
+        \textsc{null} &
         No
       \\
         &
         $ShoeColor$ &
         Color &
-        None &
+        N/A &
         $FaceBounds$ &
         $\{ red, green, blue \}$ &
-        None &
         N/A &
+        N/A &
+        \textsc{null} &
         Yes
       \\
         &
         $ShortsColor$ &
         Color &
-        None &
+        N/A &
         $FaceBounds$ &
         $\{ red, green, blue \}$ &
-        None &
         N/A &
+        N/A &
+        \textsc{null} &
         Yes
       \\
         &
@@ -169,8 +184,9 @@
         $\{ WearingHat = \textsc{true} \}$ &
         $FaceBounds$ &
         $\{ red, green, blue \}$ &
-        None &
         N/A &
+        N/A &
+        \textsc{null} &
         Yes
       \\
       \bottomrule

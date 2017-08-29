@@ -1,12 +1,12 @@
 \section{Detection Strategies}
 \label{sec:background:detection_strategies}
 
-Text extraction strategies have seen continuing interest in the literature, with many comprehensive surveys assessing the state of the art \cite{Chen:2000ua, Jung:2004uwa, Zhang:2008vfa, Liang:2005uy, Jung:2004uw}. It is widely demonstrated that if text within an unstructured scene is \textit{detected} reliably, then existing \gls{ocr} engines can suitably extract these characters \citep{Smith:2007dc} once they exist in a structured context; thus not every extraction pipeline needs to self-contain a recognition strategy if commercial \gls{ocr} packages suffice. A survey into the two prominent detection strategies are given in \cref{sec:detection:cc,sec:detection:learning}.
+Text extraction strategies have seen continuing interest in the literature, with many comprehensive surveys assessing the state of the art \cite{Chen:2000ua, Jung:2004uwa, Zhang:2008vfa, Liang:2005uy, Jung:2004uw}. It is widely demonstrated that if text within an unstructured scene is \textit{detected} reliably, then existing \gls{ocr} engines can suitably extract these characters \citep{Smith:2007dc} once they exist in a structured context; thus not every extraction pipeline needs to self-contain a recognition strategy if commercial \gls{ocr} packages suffice. A survey into the two prominent detection strategies are given in \cref{sec:background:detection:cc,sec:background:detection:learning}.
 
 These two prominent strategies have a varied nomenclature: (1) the \gls{cc}-based (or \textit{region}-based) approach, that utilise different region properties (e.g., colour, edges, \glspl{cc}) \citep{Jain:1998wd, Kim:1996tw, Liu:2006wh, Chen:2011ul, Li:2012wd, Zhang:2011cl, Shivakumara:2011dn, Epshtein:2010tj, Zhang:2010wa, Shivakumara:2010wu, Liu:2008tz, Subramanian:2007tf, Lee:2010vv, Sun:2010tg} for unsupervised extraction; and, (2) learning-based (or \textit{texture}-based) approach, which uses unique texture properties to supervise extraction text from its background \citep{Ye:2005wu,XiangrongChen:2004ha,Pan:2010cj,Gllavata:2004vq,Minetto:2010tg,Phan:2009bc,Lee:2003cn,Lienhart:2002ub,Li:2000uf,Wang:2009il,Dalal:2005jq,Hanif:2009tm,Tu:2003tg,Chen:2005wv}. Some authors have proposed methods that mix both supervised and unsupervised techniques \citep{Mutch:2006ub, Mairal:2008uw, Bengio:2006vb}.
 
 \subsection{Connected Component-based techniques}
-\label{sec:detection:cc}
+\label{sec:background:detection:cc}
 
 \glsx{cc}-based approaches generate separated \glspl{cc} using properties such as stroke width, pixel colour and edges, typically applying geometric and texture filters to reduce false positives. Neighbouring pixels are then `grouped' using an algorithm such as the one originally presented by \citet{Horn:1986vc}. 
 
@@ -72,7 +72,7 @@ A significant requirement of all \gls{cc}-based techniques are the requirements 
 \clearpage
 
 \subsection{Learning-based techniques}
-\label{sec:detection:learning}
+\label{sec:background:detection:learning}
 
 The learning-based approach has had a varied popularity over the years. While also referred to as a \textit{texture}-based approach, it typically utilises learning-based methods to train a classifier using these textures, considering text as a special texture within the image. This is done by extracting certain features over a portion of the image (i.e., the texture) either via heuristics or machine learning. The texture is typically extracted by scanning at varying scales, then classifying areas of pixels based on certain features. A classifier uses these features to identify text from non-text to extract text from its background.
 

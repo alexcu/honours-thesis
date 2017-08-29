@@ -1,7 +1,11 @@
-\subsection{What to Capture?}
+\section{Motivating Case Study: What to Capture?}
 \label{sec:dataset:architecture:what_to_capture}
 
-What features do we want to capture from images within our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as \cref{fig:introduction:background:sample_rbns}). There are two features to describe components of the entire photo that we call \textit{Image-level} features:
+Let us consider the motivating case study of marathon races and determine the model of our dataset. What features do we want to capture from images within our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as \cref{fig:introduction:background:sample_rbns}). We will consider five distinct features in the following sections.
+
+\subsection{Feature 1: Image-Level Features}
+
+There are two features to describe components of the entire photo that we call \textit{Image-level} features:
 
 \begin{enumerate}
   \item whether or not the photo is considered as \textbf{crowded} (\textsc{true} or \textsc{false}), and
@@ -31,7 +35,9 @@ What features do we want to capture from images within our dataset? To answer th
   \label{fig:dataset:image_features}
 \end{figure}
 
-We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any bias on the network. We can only tag runners on the condition that the photo is not marked as crowded (\cref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (\cref{fig:dataset:image_features:rbns_cropped,fig:dataset:image_features:no_rbns}). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{implicit attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
+We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any potential bias tat the \gls{ai} could learn. We can only tag runners on the condition that the photo is not marked as crowded (\cref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (\cref{fig:dataset:image_features:rbns_cropped,fig:dataset:image_features:no_rbns}). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{derived attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
+
+\subsection{Feature 2: Bibs}
 
 We identify the following two annotations of what we would label for a given runner's bib sheet. This is summarised in \cref{fig:dataset:bib_sheet_features}. Within this feature we identify the following annotations for \glspl{rbn}:
 
@@ -58,6 +64,8 @@ We identify the following two annotations of what we would label for a given run
   \label{fig:dataset:bib_sheet_features}
 \end{figure}
 
+\subsection{Feature 3: Faces}
+
 A further feature that is important is the runner's face region (\cref{fig:dataset:face_features}), which could compromise of five annotations:
 
 \begin{enumerate}
@@ -74,7 +82,7 @@ and once this face bounds has been tagged, more annotations can be extracted:
   \item the \textbf{gender} of the runner (\textsc{male}, \textsc{female}, or \textsc{unsure}).
 \end{enumerate}
 
-The bib sheet polygon would contain four \textit{explicit attributes} required as input by the tagger: the coordinates of its four vertices, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}), (x_{4}, y_{4}) \}$. Similarly, there are two explicit attributes required for the runner's face rectangle: the coordinates of the top left and the bottom right of the rectangle (i.e., the two opposite vertices) of the runner's face bounds, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}) \}$. As both of these are shapes, we can automatically calculate the implicit attributes from these coordinates:  $\{ top, left, bottom, right, width, height \}$.
+The bib sheet polygon would contain four \textit{explicit attributes} required as input by the tagger: the coordinates of its four vertices, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}), (x_{4}, y_{4}) \}$. Similarly, there are two explicit attributes required for the runner's face rectangle: the coordinates of the top left and the bottom right of the rectangle (i.e., the two opposite vertices) of the runner's face bounds, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}) \}$. As both of these are shapes, we can automatically calculate the derived attributes from these coordinates:  $\{ top, left, bottom, right, width, height \}$.
 
 \begin{figure}[p]
   \centering
@@ -98,7 +106,7 @@ The bib sheet polygon would contain four \textit{explicit attributes} required a
 %  \item the `colour classifications' of the person.
 %\end{enumerate}
 
-\clearpage
+\subsection{Feature 4: Prominence}
 
 We can now identify another feature, the prominence of the runner within the photo. These would consist of three annotations:
 
@@ -154,6 +162,8 @@ A runner's face is considered `invisible' if it is obstructed by another object,
   \label{fig:dataset:lop_prominence}
 \end{figure}
 
+\subsection{Feature 5: Colours}
+
 Another feature we can capture is a way to identify runners by the colour of their clothing. (Within our dataset, various clothing items of distinct colours are given to runners for particular races.) These features comprise of four annotations:
 
 \begin{enumerate}
@@ -169,9 +179,9 @@ The colour of a runner's shirt is required, as we expect that a bib would be det
 
 We can segment groups of the annotations we extract into features of two categories: annotations that feature at the \textit{image}-level and those that do not, which we call \textit{segment}-level features. The image-level features are those which apply to the entire image (i.e., $PhotoCrowded$, $Runners$). Those that apply at the segment level can be grouped into what types of features we are extracting: the runner's bib, face, their prominence and their colour identification.
 
-In summary, we have identified a total of 5 features of 15 annotations, which are summarised within \cref{tab:dataset:annotation_summary}. Each of these annotations can be classified with a name and type, conditions for the annotation to be valid, dependencies on other annotations to exist before the annotation can be made, explicit attributes which the tagger must specify, implicit attributes which we can automatically compute, possible values which limit the range of data for that annotation, and whether or not the annotation is optional.
+In summary, we have identified a total of 5 features of 15 annotations, which are summarised within \cref{tab:dataset:annotation_summary}. Each of these annotations can be classified with a name and type, conditions for the annotation to be valid, dependencies on other annotations to exist before the annotation can be made, explicit attributes which the tagger must specify, derived attributes which we can automatically compute, possible values which limit the range of data for that annotation, and whether or not the annotation is optional.
 
 \input{mainmatter/dataset/architecture/annotation_summary_table.tex}
 
 % Run through an example of what it is we need to capture for our study & why (Refer to meeting 1 notes).
-% Activity diagram of things we need to classify (break down diagram).
+% state diagram of things we need to classify (break down diagram).
