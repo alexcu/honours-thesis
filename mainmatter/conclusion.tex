@@ -1,4 +1,35 @@
 \chapter{Conclusions and Future Work}
 \label{ch:conclusion}
 
-% We need more datasets, think about PhD topic...
+The unification of smartphones and cameras has sparked a vast amount of applications in image processing from natural scenes. Motivated by information extraction from the unstructured data within a natural image, many applications have sought to process images via heuristics, as opposed to deep-learning neural networks, for the purposes of object detection. Potential issues begin to arise when researchers rely on heuristics. In the context of marathon runners,  facial detection is used in conjunction with a predefined ratio to determine the torso area \citep{Benami:2012jf}. In others---such as \glsx{lpr}---we find that distinct image properties (e.g., stroke, width and colour) are utilised, and thus as images become more complex, the performance is likely to degrade \citep{Li:2012wd}.
+
+Overcoming the limitations of this \glsx{cc}-based detection strategy has been investigated within this study, by only using deep-learning \glsplx{nn} for learning-based object detection. We find that detection with learning-based methods work just as well---% TODO: State Metrics.
+
+This thesis also aimed to tackle the issue of different \gls{ocr} strategies. 
+
+\section{Primary Contributions}
+
+% RQ -> Contributon
+
+% This is what I started with, relate back to introduction and research questions
+% What were the main contributions that solved the RQs?
+% Everything in the pipeline is generally reusable, except for training images and OCR NN font training.
+
+\section{Future Work}
+
+% Runtime speed improvements
+%% Where was the biggest bottleneck? Engineering of Keras FRCNN to be improved architecturally to always be running on a all image basis, not spin up one per image
+
+% OCR improvements
+%% Use a NN to detect text better on a per-character basis.
+%% Train a NN with domain-specific font. E.g., Vic License Plate typeface, typeface for electric box readers
+
+% Wider applicability (other contexts)
+%% Speed limit signs
+%% License plate recognition
+%% Electric box/water meters
+%% Use a NN to train the OCR for font-specific applicability
+
+\section{Closing Remarks}
+
+% General wrap-up

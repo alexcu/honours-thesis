@@ -29,8 +29,8 @@ This allows for a match value of one when the candidate is identical to the grou
 \begin{equation*}
   m(r,\,R) = \mathrm{max}~\{~m_{a}(r,\,r')~|~r' \in R~\}
 \end{equation*}
-
-Lastly, we can redefine the recall and precision metrics to be more forgiving in the image extraction context:
+\noindent
+Lastly, we can redefine the recall and precision metrics to be more forgiving:
 \begin{align*}
   p' &= \frac{\sum\,_{r_{e}\;\in\;E}~m(r_{e},\,T)}{\lvert\;E\;\rvert}\\\\
   r' &= \frac{\sum\,_{r_{t}\;\in\;T}~m(r_{t},\,E)}{\lvert\;T\;\rvert}

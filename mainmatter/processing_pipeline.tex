@@ -1,20 +1,22 @@
 \chapter{Processing Pipeline}
 \label{ch:processing_pipeline}
 
-\cref{ch:dataset,ch:argus} discussed methods by which we can curate large, augmented datasets. This chapter proposes how we utilise these datasets to train \glsplx{nn} to detect bib sheets `in-the-wild' on any given marathon photo. We discuss our end-to-end pipeline that improves the overall accuracy of \gls{rbn} detection by introducing filters that reduces noise in a sample photo, thereby increasing detections and decreasing false negatives. Lastly, we explain our method of \gls{ocr} to convert our \gls{rbn} candidates into text. We achieve this pipeline by solely working with \glspl{nn}. An overview of our pipeline is shown in \cref{fig:processing_pipeline:pipeline}.
+%We discuss our end-to-end pipeline that improves the overall accuracy of \gls{rbn} detection by introducing filters that reduces noise in a sample photo, thereby increasing detections and decreasing false negatives.
 
-\bigskip
+\cref{ch:dataset,ch:argus} discussed methods to can curate and augment datasets. This chapter describes how the data processing pipeline and training method were used, applying them to detect bib sheets `in-the-wild' on any given marathon photo. Lastly, we explain our method of \gls{ocr} to convert our \gls{rbn} candidates into text.  An overview of our pipeline is shown in \cref{fig:processing_pipeline:pipeline}.
+
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{images/processing/pipeline}
-  \caption[Overview of our processing pipeline]{A high level overview of our processing pipeline. Highlighted components indicate optional steps that, when included, increase accuracy.}
+  \caption[Overview of our processing pipeline]{A high level overview of our processing pipeline. Highlighted components indicate optional steps that, when included, increase accuracy. We use the stereotypes \texttt{$<<$NN$>>$} and \texttt{$<<$Heuristic$>>$} to differentiate between \gls{nn}-based and heuristic-based components.}
   \label{fig:processing_pipeline:pipeline}
 \end{figure}
 
 \section{Bib Detection}
 \label{sec:processing_pipeline:pipeline}
 
-Detecting bibs in an image is simply a image segmentation problem. There are multiple approaches which can explore this issue: typical approaches from literature in the area have used heuristic-based methods to segment an image, as highlighted in \cref{sec:background:detection_strategies}. As this research is part of a wider project under \gls{dstil}, three heuristic-based approaches were investigated in addition to the  \gls{ai} approach proposed by this study. 
+Detecting bibs in an image is a image segmentation problem. There are multiple approaches that address this issue: typical approaches from literature in the area have used heuristic-based methods to segment an image, as highlighted in \cref{sec:background:detection_strategies}. As this research is part of a wider project under \gls{dstil}, three heuristic-based approaches were investigated in addition to the  \gls{ai} approach proposed by this study. 
 
 \subsection{Existing Approaches}
 \label{sec:processing_pipeline:bib_detection:existing_approaches}
@@ -30,7 +32,7 @@ But---as per the aims of this research---can a detection strategy be achieved wi
 
 \cref{sec:background:detection:learning} introduced applications of deep-learning, specifically \glsplx{cnn}, that were successfully applied on object instance segmentation within images. We investigate similar approaches for recognising racer's bib sheets using the data collected from Argus  (\cref{ch:argus}).
 
-To implement our approach, we explored the viability of using region-based \glspl{cnn}, known as \glspl{rcnn}. These were first introduced by \citet{Girshick:2014jx} in \citeyear{Girshick:2014jx}, and more than doubled the accuracy of previous object detection methods such as \gls{hog} \citep{Dalal:2005jq} and \gls{sift} \citep{Lowe:2004kp}. The \gls{rcnn} approach was improved upon with \textit{Fast\gls{rcnn}} \citep{Girshick:2015vr}. Given its increasing support, we adopted the \gls{rcnn} approach that was improved upon in a  recent \citeyear{Ren:2017ug} study, \textit{\frcnn{}} \citep{Ren:2017ug}, to predict bib regions. \frcnn{} combines \glspl{cnn} with state-of-the-art object detection networks. The sharing of convolutional layers of a \gls{cnn} with object detection networks produces an \gls{rpn} that is utilised using \frcnn{}.
+To implement our approach, we explored the viability of using region-based \glspl{cnn}, known as \glspl{rcnn}. These were first introduced by \citet{Girshick:2014jx} in \citeyear{Girshick:2014jx}, and more than doubled the accuracy of previous object detection methods such as \gls{hog} \citep{Dalal:2005jq} and \gls{sift} \citep{Lowe:2004kp}. The \gls{rcnn} approach was improved upon with \textit{Fast\gls{rcnn}} \citep{Girshick:2015vr} that increased detections speed. We adopted the \gls{rcnn} approach that was improved upon in a  recent \citeyear{Ren:2017ug} study, \textit{\frcnn{}} \citep{Ren:2017ug}, to predict bib regions. \frcnn{} combines \glspl{cnn} with state-of-the-art object detection networks (e.g., region proposal algorithms). The sharing of convolutional layers of a \gls{cnn} with object detection networks produces an \gls{rpn} that is utilised by \frcnn{}.
 
 We applied \frcnn{} to the context of bib detection by the process of transfer learning \cite{Caruana:1997wk,Thrun:1996wh,Baxter:1997wr}: this involves adjusting the final layer of a pre-trained \gls{nn} and adding a context-specific layer (in our case, racing bibs). The concept of transfer learning mimics that of human learning in that humans do not learn tasks in isolation, but a sequence of training tasks over a lifetime. (If one has learnt English and Latin, then learning French is easier due to transfer learning.) Transfer learning has successfully been applied to various contexts such as spam filtering \citep{Bickel:2006ul} and text classification \citep{Raina:2006tv, Do:2005uz}.
 
@@ -72,10 +74,12 @@ The last stage of the bib detection was to aggregate all detections of separate 
 
 Thus, given $N$ detected runners in a single image with $N$ cropped images, let $R$ represent the union\footnote{Here, \textit{union} refers to a union in set theory.} of all regions $r$ for the $n$th crop to produce \cref{fig:processing_pipeline:person_filtering:yolo_crop_aggregated_detections}. The final regions, $R_{f}$, of an image are all regions, $R$, and union regions, $R_{u}$ but not intersection regions, $R_{i}$. Therefore, the process of overlapping (\cref{fig:processing_pipeline:person_filtering:yolo_crop_unioned_detections}) can formally be described in set notation:
 \begin{align*}
-A(r_{1}, r_{2}, r_{x}) &= a(r_{1} \cap r_{2}) > 0.75 \times a(r_{x})\\
-R &= \{\ r\ |\ r \in R_{n} \wedge n \in \{ 1 \dots N \}\ \}\\
-R_{u} &= \{\ r_{1} \cup r_{2}\ |\ r_{1} \neq r_{2} \wedge r_{1} \in R \wedge r_{2} \in R \wedge (\ A(r_{1}, r_{2}, r_{1}) \vee A(r_{1}, r_{2}, r_{2})\ )\ \}\\
-R_{i} &= \{\ (r_{1}, r_{2})\ |\ r_{1} \neq r_{2} \wedge r_{1} \in R \wedge r_{2} \in R \wedge (\ A(r_{1}, r_{2}, r_{1}) \vee A(r_{1}, r_{2}, r_{2})\ )\ \}\\
+% A(r1, r2) is a function that accepts both r1 and r2 and returns true if a(r1 or r2) > 0.75 a(intersection(r1, r2)) 
+A(r_{1}, r_{2}) &= (\ a(r_{1} \cap r_{2}) > 0.75 \times a(r_{1})\ ) \ \vee \ (\ a(r_{1} \cap r_{2}) > 0.75 \times a(r_{2})\ )\\
+% Ru is the union of all intersections that match A(..)
+R_{u} &= \{\ r_{1} \cup r_{2}\ |\ (r_{1}, r_{2}) \in R \ \wedge\ r_{1} \neq r_{2} \ \wedge\  A(r_{1}, r_{2})\ \}\\
+% Ri is there exists a single r in R and for all other rx's in R, r ≠ rx and A(..), we return that r as rx will be swapped in the forall
+R_{i} &= \{\ r \ |\ (\exists r \in R)(\forall r_{x} \in R)[\ r \neq r_{x}\ \wedge\  A(r, r_{x})\ ]\ \}\\
 R_{f} &= \{\ r\ |\ r \in R \wedge r \in R_{u} \wedge r \not\in R_{i}\ \}
 \end{align*}
 
@@ -196,6 +200,12 @@ Before we feed the text area into an \gls{ocr} engine, we preprocess the extract
 \end{figure}
 
 All preprocessed images are provided as input to Tesseract 4 alpha\footnoteurl{https://github.com/tesseract-ocr/tesseract/tree/4.00.00alpha}{5 September 2017}. We use this \gls{ocr} engine as it supports \gls{lstm} \gls{nn}-based character recognition. From all output of our various candidates shown in \cref{fig:processing_pipeline:ocr_postprocessing}, multiple text candidates are extracted from Tesseract. To clean our output, we strip out characters that are not within our known character range of A--Z, 0--9 and figure dashes. Additionally, we only accept unique \gls{rbn} sequences per bib region to prevent duplicates.
+
+\section{Runtime Performance}
+% TODO: Talk about speeds and bottlenecks (get avg times for):
+% Algorithm complexity...
+% Person Detection, Bib Detection, Text Detection, Character Detection + OCR
+% Discuss engineering limitations here of Keras FRCNN and talk about how we could improve it architecturally... time complexity just waft a bit about scale it up on AWS. Handball to architecture land/literature (future works). Memory complexity is also not an issue.
 
 % Find paper that discusses OCR via NNs using Tesseract 4 alpha.
 % Could discuss Luis's fallback pipeline?
