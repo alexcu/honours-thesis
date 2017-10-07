@@ -1,0 +1,50 @@
+\chapter{Supplementary Data}
+\label{ch:results_tables}
+
+\begin{landscape}
+
+\csvtable{csv/summary_stats.csv}
+         {Summary of Bib Detection}
+         {tab:results:summary:bib}
+         {llllll}
+         {1=\EvaluationID, 7=\MeanBibDetModelPerformance,	8=\MeanBibDetConfidence, 9=\MeanBibDetPrecision,	10=\MeanBibDetRecall, 11=\MeanBibDetFScore}
+         {\textbf{Evaluation ID} & \textbf{Model Performance} & \textbf{Confidence} & \textbf{Precision} & \textbf{Recall} & \textbf{\fscore}}
+         {\textbf{\EvaluationID} & \MeanBibDetModelPerformance & \MeanBibDetConfidence & \MeanBibDetPrecision & \MeanBibDetRecall & \MeanBibDetFScore}
+
+\newpage 
+\csvtable{csv/summary_stats.csv}
+         {Summary of Text Detection}
+         {tab:results:summary:text}
+         {lll}
+         {1=\EvaluationID, 12=\NumberOfDetectedTextRegions, 13=\MeanTextDetectionPerformance}
+         {\textbf{Evaluation ID} & \textbf{Number of Regions} & \textbf{Mean Performance}}
+         {\textbf{\EvaluationID} & \NumberOfDetectedTextRegions & \MeanTextDetectionPerformance}
+
+\newpage 
+\csvtable{csv/summary_stats.csv}
+         {Summary of OCR}
+         {tab:results:summary:ocr}
+         {lllll}
+         {1=\EvaluationID, 14=\MeanMaxCharacterPerformance, 15=\MeanTruePositivesRate, 16=\MeanFalseNegativeRate, 17=\MeanFalsePositivesRate}
+         {\textbf{Evaluation ID} & \textbf{Model Performance} & \textbf{TP Rate} & \textbf{FN Rate} & \textbf{FP Rate}}
+         {\textbf{\EvaluationID} & \MeanMaxCharacterPerformance & \MeanTruePositivesRate & \MeanFalseNegativeRate & \MeanFalsePositivesRate}
+         
+\newpage 
+\csvtable{csv/summary_stats.csv}
+         {Summary of Runtime}
+         {tab:results:summary:runtime}
+         {llllll}
+         {1=\EvaluationID, 18=\BibRuntime, 19=\OcrRuntime, 20=\PersonRuntime, 21=\TextRuntime, 22=\TotalRuntime}
+         {\textbf{Evaluation ID} & \textbf{Person Runtime} & \textbf{Bib Runtime} & \textbf{Text Runtime} & \textbf{OCR Runtime} & \textbf{Total Runtime}}
+         {\textbf{\EvaluationID} & \PersonRuntime & \BibRuntime & \OcrRuntime & \TextRuntime & \TotalRuntime}
+
+\newpage 
+\csvtable{csv/manual_sum.csv}
+         {Summary of Manual Inspections}
+         {tab:results:summary:man}
+         {llllllllll}
+         {1=\EvaluationKey, 4=\BibPerf, 7=\TextPerf, 10=\CharPerf}
+         {\textbf{Evaluation ID} & \textbf{Bib Performance} & \textbf{Text Performance} & \textbf{Character Performance} }
+         {\textbf{\EvaluationKey} & \BibPerf & \TextPerf & \CharPerf}
+
+\end{landscape}

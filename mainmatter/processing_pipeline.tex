@@ -3,13 +3,13 @@
 
 %We discuss our end-to-end pipeline that improves the overall accuracy of \gls{rbn} detection by introducing filters that reduces noise in a sample photo, thereby increasing detections and decreasing false negatives.
 
-\cref{ch:dataset,ch:argus} discussed methods to can curate and augment datasets. This chapter describes how the data processing pipeline and training method were used, applying them to detect bib sheets `in-the-wild' on any given marathon photo. Lastly, we explain our method of \gls{ocr} to convert our \gls{rbn} candidates into text.  An overview of our pipeline is shown in \cref{fig:processing_pipeline:pipeline}.
+\cref{ch:dataset,ch:argus} discussed methods to can curate and augment datasets. This chapter describes how the data processing pipeline and training method were used, applying them to detect bib sheets `in-the-wild' on any given marathon photo. Lastly, we explain our method of \gls{ocr} to convert our \gls{rbn} candidates into text.  An overview of our pipeline is shown in \cref{fig:processing_pipeline:pipeline} and the source code is available online\footnoteurl{http://github.com/alexcu/hermes-bib-detect}{25 September 2017}.
 
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{images/processing/pipeline}
-  \caption[Overview of our processing pipeline]{A high level overview of our processing pipeline. Highlighted components indicate optional steps that, when included, increase accuracy. We use the stereotypes \texttt{$<<$NN$>>$} and \texttt{$<<$Heuristic$>>$} to differentiate between \gls{nn}-based and heuristic-based components.}
+  \caption[Overview of our processing pipeline]{A high level overview of our processing pipeline. Highlighted components indicate optional steps that, when included, are proposed to increase accuracy. We use the stereotypes \texttt{$<<$NN$>>$} and \texttt{$<<$Heuristic$>>$} to differentiate between \gls{nn}-based and heuristic-based components.}
   \label{fig:processing_pipeline:pipeline}
 \end{figure}
 
@@ -28,7 +28,7 @@ But---as per the aims of this research---can a detection strategy be achieved wi
 \subsection{Deep-Learning Approaches}
 \label{sec:processing_pipeline:bib_detection:deep_learning}
 
-\def \frcnn {Faster-\gls{rcnn}}
+\def \frcnn {Faster \gls{rcnn}}
 
 \cref{sec:background:detection:learning} introduced applications of deep-learning, specifically \glsplx{cnn}, that were successfully applied on object instance segmentation within images. We investigate similar approaches for recognising racer's bib sheets using the data collected from Argus  (\cref{ch:argus}).
 
@@ -41,7 +41,7 @@ To implement this detection pipeline, we chose a Keras \citep{chollet2015keras} 
 \begin{figure}[h]
   % TODO: Make the image more noticable
   \includegraphics[width=\textwidth]{images/processing/bib_only}
-  \caption[Bib detection results using FRCNN]{Results from using \frcnn{} Keras implementation running on TensorFlow. Note the false negative for the second runner from the right.}
+  \caption[Bib detection results using FRCNN]{Results from using \frcnn{} Keras implementation running on TensorFlow. Note the false negative for the third runner from the right and the false positive on the second runner's shoe from the left.}
   \label{fig:processing_pipeline:bib_only}
 \end{figure}
 
@@ -139,16 +139,8 @@ Text detection used for two key purposes. Firstly, this helps to reduce false po
   \label{fig:processing_pipeline:text_detection}
 \end{figure}
 
-% TODO: Minor contributions: determining that FRCNN is not a suitable NN for text detection.
-% TODO: Add URL to our implementation?
-% TODO: Add image
-% TODO: Explain why text extraction is important (see below).                                                                                                                                                                                                                              
-
 % DID USE THE Scene Text in The Wild....
-
 % Tried to re-use FRCNN, but this network was not good enough. What dataset did we use, tried with COCO-Text but did not work. Tried with SynthText90k?
-
-% 
 % Once we find the largest text region on the bib, we can then feed this into tesseract-4 alpha
 
 \section{Text Recognition}
@@ -202,7 +194,11 @@ Before we feed the text area into an \gls{ocr} engine, we preprocess the extract
 All preprocessed images are provided as input to Tesseract 4 alpha\footnoteurl{https://github.com/tesseract-ocr/tesseract/tree/4.00.00alpha}{5 September 2017}. We use this \gls{ocr} engine as it supports \gls{lstm} \gls{nn}-based character recognition. From all output of our various candidates shown in \cref{fig:processing_pipeline:ocr_postprocessing}, multiple text candidates are extracted from Tesseract. To clean our output, we strip out characters that are not within our known character range of A--Z, 0--9 and figure dashes. Additionally, we only accept unique \gls{rbn} sequences per bib region to prevent duplicates.
 
 \section{Runtime Performance}
-% TODO: Talk about speeds and bottlenecks (get avg times for):
+
+Our pipeline's runtime takes, on average, 23 seconds end-to-end per image (determined over all evaluations given in \cref{ch:evaluation}). \gls{ocr} and person detection runs in less than a second. The algorithmic complexity of our pipeline bottlenecks typically at the bib and text detection stages: when cropping is introduced in the pipeline, bib detection increases by a range of 2 to 10 extra seconds. Given the wide samples used to train the text detection network, this is the slowest stage, at an average of 13 seconds. Further breakdowns of the runtime performance is given in \cref{tab:results:summary:runtime}.
+
+The engineering limitations of the \frcnn{} implementation may be improved architecturally by running the system at scale on a cloud cluster such as \gls{aws}. While memory complexity is not an issue, the time complexity is. We leave the improvements to our pipeline's runtime up to future works in systems architecture literature.
+
 % Algorithm complexity...
 % Person Detection, Bib Detection, Text Detection, Character Detection + OCR
 % Discuss engineering limitations here of Keras FRCNN and talk about how we could improve it architecturally... time complexity just waft a bit about scale it up on AWS. Handball to architecture land/literature (future works). Memory complexity is also not an issue.
@@ -210,8 +206,27 @@ All preprocessed images are provided as input to Tesseract 4 alpha\footnoteurl{h
 % Find paper that discusses OCR via NNs using Tesseract 4 alpha.
 % Could discuss Luis's fallback pipeline?
 
-\section*{Summary}
+\section{Summary}
 
 This chapter presents an end-to-end pipeline that solely uses \glspl{nn} for object detection and text recognition to find the \glspl{rbn} in a given marathon photo. We successfully utilised transfer-learning on \frcnn{} to train it to detect both bibs sheets and text regions within those bib sheets. To improve our results, we use the \gls{yolo} object detection system to reduce background noise and only check for bib sheets on a given crop of a detected human's bounding box region. We evaluate this pipeline in the following chapter.
+
+\bigskip
+
+\noindent
+The primary contributions of this chapter are:
+
+\begin{itemize}
+  \item an end-to-end \gls{nn}-based pipeline to detect and recognise \gls{rbn} in a natural scene, and
+  \item a proposed method to increase accuracies by human extraction within photos.
+\end{itemize}
+
+\noindent
+Minor contributions in this chapter include:
+
+\begin{itemize}
+  \item evolvement in the area of object detection and transfer learning,
+  \item a methodology for improving the results from an \gls{ocr} system given images without binarised text colours, and
+  \item a methodology for removing false positive cases from an \gls{ocr} system.
+\end{itemize}
 
 % Overview of pipeline?
