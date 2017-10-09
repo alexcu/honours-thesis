@@ -23,7 +23,7 @@ Our end-to-end \gls{nn} pipeline shows significant fallbacks on human cropping--
 
 While we have developed a system to label the prominence of runners, we still leave the implementation of a classifier to understand what prominence is open to future work. By proposing a method by which all crowded photos are discarded and teaching a classifier on biased \glsx{lop} (i.e., by removing the intermediary \textsc{maybe} candidates), such prominence ranking of subjects is within reach.
 
-Similarly, the degrading text area detection may be improved by applying transfer learning to other \gls{rcnn}-based networks on a per-pixel level. As mentioned in \cref{sec:background:detection:learning}, Mask-\gls{rcnn}, has recently appeared as a preprint in early \citeyear{He:2017ud}. Improvements to Argus to record data points on a per-pixel basis may allow for improvement in the areas of per-pixel detection, thereby extracting digits from a \gls{rbn} within a bib even easier. An illustration of potential such applications are shown in \cref{}.
+Similarly, the degrading text area detection may be improved by applying transfer learning to other \gls{rcnn}-based networks on a per-pixel level. As mentioned in \cref{sec:background:detection:learning}, Mask-\gls{rcnn}, has recently appeared as a preprint in early \citeyear{He:2017ud}. Improvements to Argus to record data points on a per-pixel basis may allow for improvement in the areas of per-pixel detection, thereby extracting digits from a \gls{rbn} within a bib even easier. An illustration of potential such applications are shown in \cref{fig:conclusion:future_work:mask_rcnn}.
 
 We propose to mitigate this bottleneck limitation of poor character detection by applying transfer learning to \frcnn{} in a similar fashion to that described in \cref{sec:processing_pipeline:bib_detection:deep_learning}. By producing a synthetic \gls{rbn} dataset similar to that of \citet{Jaderberg:2014uy,Jaderberg:2016wj} (with ground truth bounding boxes of each character known), we can augment these sample \glspl{rbn} and therefore re-train \frcnn{} to understand positions of characters. Each character from the detected regions can be extracted and piped into a \gls{cnn} trained on recognising specific digits, or perhaps---in addition to training \frcnn{} to learn the positions of characters---the characters themselves can be trained in the same process. We leave such an implementation open to future works.
 
@@ -57,9 +57,7 @@ The objective is to change the feature of interest: if one is interested in trai
 
 In his \citeyear{Schwab:2017vd} book, \citet{Schwab:2017vd}, the founder and executive chairman of the World Economic Forum, discusses the impact on human society with the impending fourth industrial revolution, coined Industry 4.0 by \citet{kagermann2011industrie}. Schwab discusses that such a revolution will fundamentally be underpinned by \glsx{ai} systems. Thus, improvements in object detection, prominence ranking, and alphanumeric sequence recognition are just a slice of how the impact of automation may lessen the need for humanity to rely on heuristic-driven systems.
 
-\bigskip
+% General wrap-up
 \bigskip
 \noindent
 We anticipate that this thesis encompasses the body of how \gls{ai} systems, like the pipeline developed within this work, show that we are only at the beginning for what is soon to come\ldots
-
-% General wrap-up
