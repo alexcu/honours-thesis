@@ -1,31 +1,31 @@
 \chapter{Evaluation}
 \label{ch:evaluation}
 
-This chapter discusses our evaluation strategies to test the performance of our pipeline. From an inspection of our results, we discuss the contributions made to the field, and the limitations of our pipeline that we leave for future work.
+This chapter discusses our evaluation strategies to test the performance of our pipeline. From an inspection of our results, we discuss the contributions and key limitations.
 
 \section{Evaluation Strategies}
 \label{sec:evaluation:strategies}
 
-To apply a robust evaluation on our pipeline, we randomly sampled 200 images from our dataset that were not used in training or validation and tagged using Argus. Half of these images only contained one bib marked up in the image (100 \glspl{rbn}), while the other half had more than one bib in the image (221 \glspl{rbn}).
+To apply a robust evaluation on our pipeline, we randomly sampled 200 images from our dataset that were not used in training or validation. Half of these evaluation images only contained one bib marked up in the image (100 \glspl{rbn}), while the other half had more than one bib in the image (a total of 221 \glspl{rbn}).
 
-Our approach uses a two-stage pass on this set: the first pass applies to the first hundred images that we consider as an `ideal' case for the pipeline to handle (i.e., to detect the only bib in the image). The second pass considers the `realistic' case where there is more than one bib per image. Henceforth, we refer to our two subsets as `ideal' and `realistic'.
+We use a two-stage pass on this set: the first pass applies to the first hundred images that we consider as an `ideal' case for the pipeline to handle (i.e., to detect the only bib in the image). The second pass considers the `realistic' case where there is more than one bib per image. Henceforth, we refer to our two subsets as `ideal' and `realistic'.
 
-In addition to categorising the sets as ideal and realistic, we also considered what the minimal amount of training data required is to make the bib detection robust. We trained three additional models using \frcnn{} for bib detection on 1, 100 and 500 training images. Each of these images are extracted from the same source dataset consisting of the 722 training samples\footnote{We refer to this as `all' images in our training dataset.} indicated in \cref{tab:dataset:postprocessing:augmentation_quantities}. Each of these images are sourced from a number of different races with different lighting conditions, all augmented 50 times each (\cref{sec:dataset:postprocessing:augmentation}).
+In addition to categorising the sets as ideal and realistic, we also considered what the minimal amount of training data required is to make the bib detection robust. We evaluated three additional trained models using \frcnn{} for bib detection on 1, 100 and 500 training bibs, following the process outlined in \cref{sec:dataset:postprocessing:augmentation}. Each of these images are extracted from the same source dataset consisting of the 722 training samples\footnote{We refer to this as `all' images in our training dataset.} indicated in \cref{tab:dataset:postprocessing:augmentation_quantities}. 
 
-Lastly, we consider how the person filtering stage (\cref{sec:processing_pipeline:person_filtering}) affects the overall performance of the pipeline. We therefore produce two further evaluations for each of the four trained models evaluated on both the realistic and ideal subsets: a total of sixteen evaluations as shown in \cref{tab:evaluation:overview}. We generate a dash-separated identifier to refer to each of these evaluations based on \textit{I} or \textit{R} for \textit{ideal} and \textit{realistic}, respectively, then the number of training images (using \textit{all} to refer to all training images) and lastly whether to crop on the image or not crop (\textit{CR} for \textbf{cr}op, and \textit{NC} for \textbf{n}o \textbf{c}ropping).
+Lastly, we evaluated how the person filtering stage (\cref{sec:processing_pipeline:person_filtering}) affects the overall performance of the pipeline. The permutations of these evaluation methods results in a total of sixteen different evaluations, shown in \cref{tab:evaluation:overview}. We generate a dash-separated identifier to refer to each of these evaluations based on \textit{I} or \textit{R} for \textit{ideal} and \textit{realistic}, respectively, then the number of training images (using \textit{all} to refer to all training images) and lastly whether to crop on the image or not crop (\textit{CR} for \textbf{cr}op, and \textit{NC} for \textbf{n}o \textbf{c}ropping).
 
 \csvtable{csv/summary_stats.csv}
          {Summary of Evaluations}
          {tab:evaluation:overview}
          {llll}
          {1=\EvaluationID, 3=\EvaluationSet, 4=\TrainingImgs, 5=\CropHuman}
-         {\textbf{Evaluation ID} & \textbf{Evaluation Set} & \textbf{Training Images} & \textbf{Crop Human}}
+         {\textbf{Evaluation ID} & \textbf{Evaluation Set} & \textbf{Training Bibs} & \textbf{Crop Human}}
          {\textbf{\EvaluationID} & \EvaluationSet & \TrainingImgs & \CropHuman}
 
 \section{Metrics}
 \label{sec:evaluation:metrics}
 
-We breakdown the evaluation of our pipeline into the four following stages: (1) bib detection, (2) text detection within a bib crop, (3) \gls{ocr} within a single bib crop against the ground truth, (4) overall performance on an entire image.
+We breakdown the evaluation of our pipeline mapped to the four stages in the pipeline: (1) bib detection, (2) text detection within a bib crop, (3) \gls{ocr} within a single bib crop against the ground truth, (4) overall performance on an entire image.
 
 \subsection{Bib Detection Performance}
 \label{sec:evaluation:metrics:bib}
@@ -36,7 +36,7 @@ We breakdown the evaluation of our pipeline into the four following stages: (1) 
 
 In addition to the standard precision, recall and \fscore{} metrics defined in \cref{sec:background:metrics}, we develop a secondary measure for our model performance based on the number of bib detections made in an image. For the ideal case, we assess the bib's detection accuracy assuming a binary scenario (the pipeline either finds the bib or it does not) and, where more than one detection is made, we limit its performance to 1. For the realistic case, the bib detection model performance is assessed as the number of estimated bibs found in the image divided by the total number of ground truth bibs (the resulting performance metric is, therefore, in the range $[0, 1]$).
 
-This means that, regardless of the number of bibs that are identified, as long as the number estimated bibs is equal to or greater than the number of ground bibs, it is identified as a hit. Any more identified bibs are either classified as false positive estimates, or cases that were not considered for ground truth annotation.
+This means that, regardless of the number of bibs that are identified, as long as the number of estimated bibs is equal to or greater than the number of ground truth bibs, it is identified as a hit. Any more identified bibs are either classified as false positive estimates, or cases that were not considered for ground truth annotation.
 
 Thus, given a set of ground truth bibs, $T_{bib}$, and estimates $E_{bib}$, we define the addition metric of bib performance, $p_{bib}$, as:
 \begin{align*}
@@ -48,7 +48,7 @@ Thus, given a set of ground truth bibs, $T_{bib}$, and estimates $E_{bib}$, we d
 \end{align*}
 
 \noindent
-Therefore, this performance metric captures \textit{at least} all valid and correct bibs in the image, while ignoring the false positives. As this stage metric is only dealing with bib \textit{detection}, our primary concern is with regards to \textit{detecting} and not \textit{recognising} bibs: having false positives detected in this stage is not an issue as we are likely to eliminate them in further stages should the estimated region not be a bib at all, thus maintaining our overall performance (\cref{sec:evaluation:metrics:overall}).
+Therefore, this performance metric captures \textit{at least} all valid and correct bibs in the image, while ignoring the false alarms. As this stage metric is only dealing with bib \textit{detection}, our primary concern is with regards to \textit{detecting} and not \textit{recognising} bibs: having false positives detected in this stage is not an issue as we are likely to eliminate them in further stages should the estimated region not be a bib at all, thus maintaining our overall performance (\cref{sec:evaluation:metrics:overall}).
 
 \subsection{Text Detection Performance}
 
@@ -126,7 +126,7 @@ In this section, we discuss the results of our findings from the evaluation stra
 \subsection{Summarised Performance over all Evaluations}
 \label{sec:evaluation:results}
 
-Presented in \cref{fig:evaluation:results:performance_all} are the bib, text and character performance collated of all 16 evaluations. These values were calculated automatically by the pipeline at a post-evaluation stage by comparing the output results with the Argus ground truth \gls{adf} file. For further results, refer to \cref{tab:results:summary:bib,tab:results:summary:text,tab:results:summary:ocr}. For bib region accuracies detected by the pipeline, a mean \fscore{} 0.14 is observed for ideal cases and 0.07 for realistic cases. A comparison between cropping and not cropping in both evaluation sets is presented in \cref{tab:evaluation:fscore_comparison}.
+Presented in \cref{fig:evaluation:results:performance_all} are the bib, text and character performance collated of all 16 evaluations. These values were calculated at a post-evaluation stage by comparing the output results with the ground truth. For further results, refer to \cref{tab:results:summary:bib,tab:results:summary:text,tab:results:summary:ocr}. For bib region accuracies detected by the pipeline, a mean \fscore{} 0.14 is observed for ideal cases and 0.07 for realistic cases. A comparison between cropping and not cropping in both evaluation sets is presented in \cref{tab:evaluation:fscore_comparison}.
 
 Generally, not cropping improves the \fscore{} value in both evaluation sets, though our performance in the ideal cases are improved due to an increased false negative rate observed in the realistic cases (i.e., generally not all bibs are detected when there are more than one runner). This is most likely caused by the randomised dataset used to evaluate our pipeline as well as the quality of tagging made of ground truth accuracies on our pipeline: should a dataset of photos that have only been \textit{sold} (and thus implicitly imply a greater prominence of the runner within each photo) with more fine-tuned tagging using Argus, we suggest that these detection rates would improve. We leave such evaluations up for future work.
 
@@ -232,7 +232,7 @@ Presented in \cref{fig:evaluation:results:ocr} are the \gls{ocr} performance met
 \end{figure}
 
 \clearpage
-\section{Conclusions}
+\section{Summary}
 
 In this chapter, we have presented an evaluation strategy of our pipeline that extends that of previous literature. Using previous evaluation strategies, discussed in \cref{sec:background:metrics}, a comparison of a higher \fscore{} metric of 0.59 in \citet{Benami:2012jf} is noted, compared to our best of 0.17. This said, we suggest that this may be due to randomly sampled photos chosen from our dataset. An evaluation of the dataset and pipeline used by \citeauthor{Benami:2012jf} against our own is not possible, since neither are publicly available. We cannot comment for the other metrics of text and character performance defined in this chapter as such metrics have not been applied in other works. 
 
