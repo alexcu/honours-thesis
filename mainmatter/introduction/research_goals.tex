@@ -1,7 +1,7 @@
 \section{Research Goals}
 \label{sec:introduction:research_goals}
 
-This study aims to develop a processing pipeline that both detects and recognises \glspl{rbn} on a marathon runner, and then ranks the prominence of each runner detected in the photo. The intention is to explore the viability of artificial deep-learning \glspl{nn}---such as \glspl{cnn}---in the pipeline. Previous studies in \gls{rbn} recognition \citep{Benami:2012jf} and similar areas \citep{Kundu:2015vq, Eichner:2008dw, Torresen:2004jl} were heavily heuristic and rule driven.
+This study aims to develop a processing pipeline that both detects and recognises \glspl{rbn} on a marathon runner, and determining ways to rank the prominence of each runner detected in the photo. The intention is to explore the viability of artificial deep-learning \glspl{nn}---such as \glspl{cnn}---in the pipeline. Previous studies in \gls{rbn} recognition \citep{Benami:2012jf} and similar areas \citep{Kundu:2015vq, Eichner:2008dw, Torresen:2004jl} were heavily heuristic and rule driven.
 
 This primary aim is developed into three key objectives:
 
@@ -13,7 +13,7 @@ This primary aim is developed into three key objectives:
 \subsubsection*{Goal 1: \itshape Detect \glspl{rbn} using a \gls{cnn}}
 
 % 1: Explain the hypothesis
-Literature has shown that heuristic-based detection algorithms (that are \gls{cc}-based) are able to detect text within photos \citep{Li:2012wd, Chen:2011ul, Eichner:2008dw}. We propose to apply these rule-based techniques to a large labelled dataset within the context of \gls{rbn}, and contrast them against a learning-based detection and recognition algorithms (using \glspl{nn}). By developing an end-to-end recognition pipeline, we explore if learning-based detection methods can detect these sequences just as heuristic-based detection algorithms (focusing namely on \gls{cc}-based detection) can.
+Literature has shown that heuristic-based detection algorithms (that are \gls{cc}-based) are able to detect text within photos \citep{Li:2012wd, Chen:2011ul, Eichner:2008dw}. We propose to apply these rule-based techniques to a large labelled dataset within the context of \gls{rbn} detection, and contrast them against a learning-based detection and recognition algorithms (using \glspl{nn}). By developing an end-to-end recognition pipeline, we explore if learning-based detection methods can detect these sequences just as heuristic-based detection algorithms can (focusing namely on \gls{cc}-based detection).
 % 2: Suggest the research question from the hypothesis
 For this goal the research questions are framed as:
 \begin{enumerate}[label=\bfseries~RQ\arabic*), leftmargin=2cm, rightmargin=1.5cm]
@@ -32,8 +32,8 @@ Typically, traditional alphanumeric sequence parsing can be performed by charact
 In the context of marathon photos, we explore answers to the following:
 \begin{enumerate}[label=\bfseries~RQ\arabic*), leftmargin=2cm, rightmargin=1.5cm]
   \setcounter{enumi}{2}
-  \item\label{rq:3} Can a \gls{nn}-based \gls{ocr} approach recognise segmented extracted \gls{rbn} detected from an image?
-  \item\label{rq:4} Does a \gls{cnn}-based \gls{ocr} algorithm perform \textit{without} the use of character segmentation?
+  \item\label{rq:3} Can a \gls{nn}-based \gls{ocr} approach recognise extracted \glspl{rbn} detected from an image?
+  \item\label{rq:4} Can a \gls{cnn}-based \gls{ocr} algorithm perform this \textit{without} the use of character segmentation?
 \end{enumerate}
 % 3: Explain what phenomenon that will be observed
 % 4: Explain possible evidence that shows this phenomenon
@@ -42,12 +42,12 @@ In the context of marathon photos, we explore answers to the following:
 \subsubsection*{Goal 3: \itshape Defining prominence of alphanumeric sequences}
 
 % 1: Explain the hypothesis
-Our research objective focuses on whether prominence of \glspl{rbn} can be captured and then fed into \gls{nn}.
+Our research objective focuses on whether prominence of \glspl{rbn} can be captured and then fed into a \gls{nn}.
 % 2: Suggest the research question from the hypothesis
 We can therefore propose the followings research questions:
 \begin{enumerate}[label=\bfseries~RQ\arabic*), leftmargin=2cm, rightmargin=1.5cm]
   \setcounter{enumi}{3}
-  \item\label{rq:5} How can quantifiable prominence be collected for the purposes of data collection?
+  \item\label{rq:5} How can prominence be quantified and collected for the purposes of data collection?
 \end{enumerate}
 % 3: Explain what phenomenon that will be observed
 % 4: Explain possible evidence that shows this phenomenon
