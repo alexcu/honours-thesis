@@ -1,21 +1,20 @@
 \section{Metrics}
 \label{sec:background:metrics}
 
-Within the field of text detection, various evaluation protocols exist. For an extensive survey of these protocols, see \citep{Wolf:2006gv,Ye:2014bs}. Throughout our survey, we note the standard the evaluation scheme for text extraction first proposed for use in image processing in the \glsx{icdar} competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq, Karatzas:2013by, Karatzas:2015tj}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' a text extraction pipeline can achieve. 
+Within the field of text detection, various evaluation protocols exist. For an extensive survey of these protocols, see \citep{Wolf:2006gv,Ye:2014bs}. Throughout our survey, we note the standard the evaluation scheme for text extraction first proposed for use in image processing in the \glsx{icdar} competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq, Karatzas:2013by, Karatzas:2015tj}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' that a text extraction pipeline can achieve. 
 
-In the \gls{icdar} competitions, two are used: the initial \gls{icdar} 2003 evaluation protocol proposed by \citet{Lucas:2003iw}, and, more recently, the \textit{DetEval} evaluation protocol \citep{Shivakumara:2011dn} (based on \citep{Wolf:2006gv}), as used in the \gls{icdar} 2011 and 2013 robust reading competitions. The simplicity and continued wide use of the \gls{icdar} 2003 for text localisation evaluation is chosen over the \textit{DetEval} approach, especially as it complements our use case.
+In the \gls{icdar} competitions, two metrics are used: the initial \gls{icdar} 2003 evaluation protocol proposed by \citet{Lucas:2003iw}, and, more recently, the \textit{DetEval} evaluation protocol \citep{Shivakumara:2011dn} (based on \citep{Wolf:2006gv}), as used in the \gls{icdar} 2011 and 2013 robust reading competitions. The simplicity and continued wide use of the \gls{icdar} 2003 for text localisation evaluation is chosen over the \textit{DetEval} approach.
 
 \subsection{Precision and Recall}
 \label{sec:background:metrics:precision_and_recall}
 
-Generally in information retrieval, the precision ($p$) and recall ($r$) metrics are used, first defined in the six evaluation criteria for information retrieval systems by \citet{Cleverdon:1966vd}. Precision refers to the proportion of relevant matches actually retrieved in the results, while recall refers to the proportion of relevant matches retrieved in total relevant instances. We use recall and precision metrics to assess the \textit{effectiveness} of an information retrieval system \citep{Rijsbergen:1979dw}.
+Generally in information retrieval, the precision ($p$) and recall ($r$) metrics are used. They were first defined in the six evaluation criteria for information retrieval systems by \citet{Cleverdon:1966vd}. Precision refers to the proportion of relevant matches actually retrieved in the results, while recall refers to the proportion of relevant matches retrieved in total relevant instances. We use recall and precision metrics to assess the \textit{effectiveness} of an information retrieval system \citep{Rijsbergen:1979dw}.
 
 In the context of image processing, systems that over-estimate are punished with a low precision score, while systems that under-estimate are punished with a low recall score \citep{Lucas:2003iw}. Therefore, precision is the number of correct candidates ($c$) divided by the number of total estimates found ($E$):
 \begin{equation*}
   p = \frac{c}{\lvert\;E\;\rvert}
 \end{equation*}
-
-And recall is defined as the number of correct estimates divided by the total number of ground-set truth targets ($T$):
+and recall is defined as the number of correct estimates divided by the total number of ground-set truth targets ($T$):
 \begin{equation*}
   r = \frac{c}{\lvert\;T\;\rvert}
 \end{equation*}
