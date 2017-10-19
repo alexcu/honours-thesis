@@ -3,6 +3,7 @@
 
 Let us consider the motivating case study of marathon races and determine the model of our dataset. What features do we want to capture from images within our dataset? To answer this question, we need to consider what information we see as relevant in a standard marathon photo (such as \cref{fig:introduction:background:sample_rbns}). We will consider five distinct features in the following sections.
 
+\clearpage
 \subsection{Feature 1: Image-Level Features}
 
 There are two features to describe components of the entire photo that we call \textit{Image-level} features:
@@ -35,14 +36,14 @@ There are two features to describe components of the entire photo that we call \
   \label{fig:dataset:image_features}
 \end{figure}
 
-We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any potential bias tat the \gls{ai} could learn. We can only tag runners on the condition that the photo is not marked as crowded (\cref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (\cref{fig:dataset:image_features:rbns_cropped,fig:dataset:image_features:no_rbns}). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, an \textit{derived attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
+We train a \gls{nn} based on photos that are not crowded; photos that are considered crowded are typically not desirable as runners prefer photos where they are the key subject. We therefore discard these photos to remove any potential bias that the \gls{ai} could learn. We can only tag runners on the condition that the photo is not marked as crowded (\cref{fig:dataset:image_features:crowded}). Additionally, in some photos, all \glspl{rbn} are missing within the photo (e.g., hidden behind other runners, cropped out of view) and some photos contain no runners at all (\cref{fig:dataset:image_features:rbns_cropped,fig:dataset:image_features:no_rbns}, respectively). We therefore identify this as an \textit{optional} collection as we must associate an \gls{rbn} to a runner---the photo is not crowded, but there are no runners to tag, thereby making the annotation optional. Thus, a \textit{derived attribute} exists with such a collection: the \textit{count} of the runners in a photo is something we can automatically count.
 
 \subsection{Feature 2: Bibs}
 
 We identify the following two annotations of what we would label for a given runner's bib sheet. This is summarised in \cref{fig:dataset:bib_sheet_features}. Within this feature we identify the following annotations for \glspl{rbn}:
 
 \begin{enumerate}
-  \item a polygon around the runner's \textbf{bib sheet} that contains the $x$ and $y$ coordinates, given that there are exactly four vertices of this polygon
+  \item a polygon around the runner's \textbf{bib sheet} that contains the $x$ and $y$ coordinates, given that there are exactly four vertices of this polygon, and
   \item a string with the runner's \textbf{\gls{rbn}}, once the bib sheet is tagged (exists).
 \end{enumerate}
 
@@ -66,10 +67,10 @@ We identify the following two annotations of what we would label for a given run
 
 \subsection{Feature 3: Faces}
 
-A further feature that is important is the runner's face region (\cref{fig:dataset:face_features}), which could compromise of five annotations:
+A further feature that is important is the runner's face region (\cref{fig:dataset:face_features}), which compromises of five annotations:
 
 \begin{enumerate}
-  \item a rectangle around the runner's \textbf{face} that contains the two $x$ and $y$ coordinates of the two opposite vertices, given that the $bottom$ of this rectangle are above the $top$ of the bib sheet,
+  \item a rectangle around the runner's \textbf{face} that contains the two $x$ and $y$ coordinates of the two opposite vertices, given that the $bottom$ of this rectangle is above the $top$ of the bib sheet,
 \end{enumerate}
 
 \noindent
@@ -82,7 +83,7 @@ and once this face bounds has been tagged, more annotations can be extracted:
   \item the \textbf{gender} of the runner (\textsc{male}, \textsc{female}, or \textsc{unsure}).
 \end{enumerate}
 
-The bib sheet polygon would contain four \textit{explicit attributes} required as input by the tagger: the coordinates of its four vertices, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}), (x_{4}, y_{4}) \}$. Similarly, there are two explicit attributes required for the runner's face rectangle: the coordinates of the top left and the bottom right of the rectangle (i.e., the two opposite vertices) of the runner's face bounds, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}) \}$. As both of these are shapes, we can automatically calculate the derived attributes from these coordinates:  $\{ top, left, bottom, right, width, height \}$.
+The bib sheet polygon would contain four \textit{explicit attributes} required as input by the tagger: the coordinates of its four vertices, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}), (x_{3}, y_{3}), (x_{4}, y_{4}) \}$. Similarly, there are two explicit attributes required for the runner's face rectangle: the coordinates of the top left and the bottom right of the rectangle (i.e., the two opposite vertices) of the runner's face bounds, $\{ (x_{1}, y_{1}), (x_{2}, y_{2}) \}$. As both of these are shapes, we can automatically calculate derived attributes from these coordinates:  $\{ top, left, bottom, right, width, height \}$.
 
 \begin{figure}[p]
   \centering
@@ -108,15 +109,15 @@ The bib sheet polygon would contain four \textit{explicit attributes} required a
 
 \subsection{Feature 4: Prominence}
 
-We can now identify another feature, the prominence of the runner within the photo. These would consist of three annotations:
+We identify another feature, the prominence of the runner within the photo. These consist of three annotations:
 
 \begin{enumerate}
   \item whether or not the runner's \textbf{face} is \textbf{visible} (\textsc{true} or \textsc{false}),
-  \item whether or not the runner is \textbf{blurry} (\textsc{true} or \textsc{false}),
-  \item the \textbf{\gls{lop}} that the runner buys the photo (\textsc{no}, \textsc{maybe}, \textsc{yes}),
+  \item whether or not the runner is \textbf{blurry} (\textsc{true} or \textsc{false}), and
+  \item the \textbf{\gls{lop}} that the runner buys the photo (\textsc{no}, \textsc{maybe}, \textsc{yes}).
 \end{enumerate}
 
-A runner's face is considered `invisible' if it is obstructed by another object, cropped out of the image, or if the runner is looking down. See \cref{fig:dataset:face_prominence}. Runners are more likely purchase a photo if they are looking at the camera, and likewise if they are blurry in the image; these therefore have a significant impact on their prominence. We also define the \glsx{lop} value as a qualitative metric. We ask the data tagger to `picture' themselves as runner, and if so, we ask if they would purchase it. We then use this metric to train positive samples of good photos (\gls{lop} = \textsc{yes}) and samples of bad photos (\gls{lop} = \textsc{no}). Where \textsc{maybe} is provided, the runner is ignored to prevent training the network with indeterminate samples. Refer to \cref{fig:dataset:lop_prominence} for examples of the varying \gls{lop} values. 
+A runner's face is considered `invisible' if it is obstructed by another object, cropped out of the image, or if the runner is looking down. See \cref{fig:dataset:face_prominence}. Runners are more likely purchase a photo if they are looking at the camera, and likewise if they are not blurry in the image; these therefore have a significant impact on their prominence. We also define the \glsx{lop} value as a qualitative metric. We ask the data tagger to `picture' themselves as runner, and we ask if they would purchase it. We then use this metric to train positive samples of good photos (\gls{lop} = \textsc{yes}) and samples of bad photos (\gls{lop} = \textsc{no}). Where \textsc{maybe} is provided, the runner is ignored to prevent training the network with indeterminate samples. Refer to \cref{fig:dataset:lop_prominence} for examples of the varying \gls{lop} values. 
 
 \begin{figure}[p]
   \centering
@@ -136,7 +137,7 @@ A runner's face is considered `invisible' if it is obstructed by another object,
     \caption{Face looking down}
   \end{subfigure}
   \hspace{\fill}
-  \caption[Face visibility and its effect on prominence]{The $FaceVisible$ plays a significant impact on the prominence feature. Above are cases where the face would be marked as not visible.}
+  \caption[Face visibility and its effect on prominence]{The $FaceVisible$ annotation plays a significant impact on the prominence feature. Above are cases where the face would be marked as not visible.}
   \label{fig:dataset:face_prominence}
 \end{figure}
 
@@ -164,7 +165,7 @@ A runner's face is considered `invisible' if it is obstructed by another object,
 
 \subsection{Feature 5: Colours}
 
-Another feature we can capture is a way to identify runners by the colour of their clothing. (Within our dataset, various clothing items of distinct colours are given to runners for particular races.) These features comprise of four annotations:
+Another feature we can capture is a way to identify runners by the colour of their clothing. (Within our dataset, various clothing items of distinct colours are given to runners for particular races.) This feature comprises of four annotations:
 
 \begin{enumerate}
   \item an \textit{optional} \textbf{colour} of the runner's \textbf{hat}, given that they were annotated as wearing a hat,
@@ -173,11 +174,24 @@ Another feature we can capture is a way to identify runners by the colour of the
   \item an \textit{optional} \textbf{colour} of the runner's \textbf{shoes}.
 \end{enumerate}
 
-The colour of a runner's shirt is required, as we expect that a bib would be detected on the shirt of a runner (which would be tagged). The other colour annotations are all optional, as it is likely that some of these clothing items may be cropped out of the photo or is not visible. Furthermore, the hat colour can only be specified on the condition that the tagger has marked the runner has wearing a hat.
+The colour of a runner's shirt is required, as we expect that a bib would be detected on the shirt of a runner (which would be tagged). The other colour annotations are all optional, as it is likely that some of these clothing items may be cropped out of the photo or are not visible. Furthermore, the hat colour can only be specified on the condition that the tagger has marked the runner has wearing a hat.
 
-We can segment groups of the annotations we extract into features of two categories: annotations that feature at the \textit{image}-level and those that do not, which we call \textit{segment}-level features. The image-level features are those which apply to the entire image (i.e., $PhotoCrowded$, $Runners$). Those that apply at the segment level can be grouped into what types of features we are extracting: the runner's bib, face, their prominence and their colour identification.
+\subsection{Overview of Features}
 
-In summary, we have identified a total of 5 features of 15 annotations, which are summarised within \cref{tab:dataset:annotation_summary}. Each of these annotations can be classified with a name and type, conditions for the annotation to be valid, dependencies on other annotations to exist before the annotation can be made, explicit attributes which the tagger must specify, derived attributes which we can automatically compute, possible values which limit the range of data for that annotation, and whether or not the annotation is optional.
+We segment groups of the annotations we extract into features of two categories: annotations that feature at the \textit{image}-level and those that are not, which we call \textit{segment}-level features. The image-level features are those which apply to the entire image (i.e., $PhotoCrowded$, $Runners$). Those that apply at the segment level can be grouped into what types of features we are extracting: the runner's bib, face, their prominence and their colour identification.
+
+In summary, we have identified a total of 5 features of 15 annotations, which are summarised within \cref{tab:dataset:annotation_summary}. Each of these annotations can be classified with:
+
+\begin{itemize}
+\item a name and type,
+\item conditions for the annotation to be valid,
+\item dependencies on other annotations to exist before the annotation can be made,
+\item explicit attributes that the tagger must specify,
+\item derived attributes that we can automatically compute,
+\item possible values that limit the range of data for that annotation, and
+\item whether or not the annotation is optional.  
+\end{itemize}
+
 
 \input{mainmatter/dataset/architecture/annotation_summary_table.tex}
 

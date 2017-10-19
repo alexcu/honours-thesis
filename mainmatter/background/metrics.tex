@@ -8,7 +8,7 @@ In the \gls{icdar} competitions, two metrics are used: the initial \gls{icdar} 2
 \subsection{Precision and Recall}
 \label{sec:background:metrics:precision_and_recall}
 
-Generally in information retrieval, the precision ($p$) and recall ($r$) metrics are used. They were first defined in the six evaluation criteria for information retrieval systems by \citet{Cleverdon:1966vd}. Precision refers to the proportion of relevant matches actually retrieved in the results, while recall refers to the proportion of relevant matches retrieved in total relevant instances. We use recall and precision metrics to assess the \textit{effectiveness} of an information retrieval system \citep{Rijsbergen:1979dw}.
+Generally in information retrieval, the precision ($p$) and recall ($r$) metrics are used. First defined in the six evaluation criteria for information retrieval systems by \citet{Cleverdon:1966vd}, precision refers to the proportion of relevant matches actually retrieved in the results, while recall refers to the proportion of relevant matches retrieved in total relevant instances. We use recall and precision metrics to assess the \textit{effectiveness} of an information retrieval system \citep{Rijsbergen:1979dw}.
 
 In the context of image processing, systems that over-estimate are punished with a low precision score, while systems that under-estimate are punished with a low recall score \citep{Lucas:2003iw}. Therefore, precision is the number of correct candidates ($c$) divided by the number of total estimates found ($E$):
 \begin{equation*}

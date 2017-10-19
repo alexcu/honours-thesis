@@ -4,7 +4,7 @@
 % Conceptualise what we have in our workflow as a meta model.
 % What are the components, and constraints? Discuss why we needed to add in constraints... Feedback from India
 
-In the example given in \cref{tab:dataset:annotation_summary}, we describe a model which was derived using information discovered from Argus' incremental development. In this section, we generalise this information and develop a metamodel . This metamodel is represented as a \gls{uml} class diagram, shown in \cref{fig:dataset:metamodel_class_diagram}.
+In the example given in \cref{tab:dataset:annotation_summary}, we describe a model that was derived using information discovered from Argus' incremental development. In this section, we generalise this information and develop a metamodel . This metamodel is represented as a \gls{uml} class diagram, shown in \cref{fig:dataset:metamodel_class_diagram}.
 
 \begin{figure}[h]
   \centering
@@ -13,9 +13,9 @@ In the example given in \cref{tab:dataset:annotation_summary}, we describe a mod
   \label{fig:dataset:metamodel_class_diagram}
 \end{figure}
 
-The core concept of this metamodel is an \textit{Annotation}, which (collectively) describe a feature within an image. Annotations may contain additional attributes to further extend what information they contain, and are governed by a set constrictions that we call \textit{Construction Rules}.
+The core concept of this metamodel is an \textit{Annotation} that (collectively) describe a feature within an image. Annotations may contain additional attributes to further extend what information they contain, and are governed by a set constrictions that we call \textit{Construction Rules}.
 
-These form layers of data within images that we annotate, which can be represented in a hierarchical data format (e.g., a tree) that describes the layering of a fully annotated photo's features. These classes have further depth that are captured via inheritance models, presented in \cref{ch:metamodel_class_diagrams}.
+These form layers of data within images that we annotate that can be represented in a hierarchical data format (e.g., a tree), thereby describing the layering of a fully annotated photo's features. These classes have further depth that are captured via inheritance models, presented in \cref{ch:metamodel_class_diagrams}.
 
 We describe each of these classes in the following sections.
 
@@ -25,15 +25,23 @@ An image frame is any visual representation of a graphic. We extend the possibil
 
 \subsection{Feature}
 
-Image frames contain a certain number of features. These features are the key `concepts' within the image that we want to capture. There are two main features: (1) image-level features, and (2) segment-level features. Image-level features are those that apply to the entire frame and do not exist in a broken down context---we can't break down these features into their own subjects. This contrasts to segment-level features, which are features that only apply to a segmented region of the image. We identified four segment-level features in our example (all of which relate to one runner): Bib, Face, Prominence and Colours.
+Image frames contain a certain number of features. These features are the key `concepts' within the image that we want to capture. There are two main features: (1) image-level features, and (2) segment-level features. Image-level features are those that apply to the entire frame and do not exist in a broken down context---we can't break down these features into their own subjects. This contrasts to segment-level features: features that only apply to a segmented region of the image. We identified four segment-level features in our example (all of which relate to one runner): Bib, Face, Prominence and Colours.
 
 \subsection{Annotation}
 
-Annotations are a set of feature descriptors that describes what the feature is compromised of. From \cref{tab:dataset:annotation_summary}, we describe a simple type system consisting of the following: \textit{Boolean}s, a restricted form of the \textit{Category} type (where possible values are $\{ \textsc{true}, \textsc{false} \}$); \textit{Polygon}s and \textit{Rectangle}s, generalised into a high-level \textit{Boundary} type; and \textit{Colour}s, represented as an RGB represented hexadecimal \textit{Label} (a generic labelling type). This only leaves our \textit{Collection} of runners: a data type which encompasses multiple annotations. Attributes can therefore be described by a type system that is generalisable from \textit{Labels}, \textit{Boundaries}, \textit{Collections} and \textit{Categories}. We model this as a type tree (\cref{fig:metamodel_class_diagrams:annotation}).
+Annotations are a set of feature descriptors that describes what the feature is comprised of. From \cref{tab:dataset:annotation_summary}, we describe a simple type system consisting of the following: \textit{Boolean}s, a restricted form of the \textit{Category} type (where possible values are $\{ \textsc{true}, \textsc{false} \}$); \textit{Polygon}s and \textit{Rectangle}s, generalised into a high-level \textit{Boundary} type; and \textit{Colour}s, represented as an RGB represented hexadecimal \textit{Label} (a generic labelling type). This only leaves our \textit{Collection} of runners: a data type that encompasses multiple annotations. Attributes can therefore be described by a type system that is generalisable from \textit{Labels}, \textit{Boundaries}, \textit{Collections} and \textit{Categories}. We model this as a type tree (\cref{fig:metamodel_class_diagrams:annotation}).
 
 \subsection{Construction Rules} 
 
-Construction Rules govern how attributes can be made. We break these down into four types: Dependencies, Conditions, Optionality and Restrictions (\cref{fig:metamodel_class_diagrams:construction_rules}). Some annotations are dependent on others existing---these are rules that we name \textit{Dependencies}. For instance, we cannot annotate an \gls{rbn} if there is no $BibSheet$ annotated. Likewise, a $FaceBounds$ is dependent on where the $BibSheet$ is, and so the $BibSheet$ must be marked up first. These dependencies add order in which features are being extracted, which is important to the tagger marking up the photo. A \textit{Condition} is a construction rule that disallows a data tagger to create an annotation until a condition is met by the annotator. For instance, we can never have a $BibSheet$ above a $FaceBounds$, so when we can specify this as a condition. These are not bound to just geometric constraints; we also see that we cannot tag $Runners$ if the $PhotoCrowded$ annotation is marked as \textsc{true}. Not all annotations are needed---in these cases the annotation is restricted by an \textit{Optional} construction rule; by default, all annotations are required, but we can specify these to be optional using such a rule. Lastly, \textit{Restrictions} exist to prevent invalid data from being tagged. In our example, we implemented two restrictions in Argus: (1) a face region must be tagged within an aspect ratio of $3 \times BibSheet_{width} : 5 \times BibSheet_{height}$, and (2) the opposite edges of a face region must be at least 15 pixels apart. This helps prevent issues shown in \cref{fig:dataset:issues_with_tagging}.
+Construction Rules govern how attributes can be made. We break these down into four types: Dependencies, Conditions, Optionality and Restrictions (\cref{fig:metamodel_class_diagrams:construction_rules}).
+
+Some annotations are dependent on others existing---these are rules that we name \textit{Dependencies}. For instance, we cannot annotate an \gls{rbn} if there is no $BibSheet$ annotated. Likewise, a $FaceBounds$ is dependent on where the $BibSheet$ is, and so the $BibSheet$ must be annotated first. These dependencies add \textit{order} to what features are being extracted and is important to the tagger marking up the photo by structuring a workflow.
+
+A \textit{Condition} is a construction rule that disallows a data tagger to create an annotation until a condition is met by the annotator. For instance, we can never have a $BibSheet$ above a $FaceBounds$, so when we can specify this as a condition. These are not bound to just geometric constraints; we also see that we cannot tag $Runners$ if the $PhotoCrowded$ annotation is marked as \textsc{true}. 
+
+Not all annotations are needed---in these cases the annotation is restricted by an \textit{Optional} construction rule; by default, all annotations are required, but we can specify these to be optional using such a rule. 
+
+Lastly, \textit{Restrictions} exist to prevent invalid data from being tagged. In our example, we implemented two restrictions in Argus: (1) a face region must be tagged within an aspect ratio of $3 \times BibSheet_{width} : 5 \times BibSheet_{height}$, and (2) the opposite edges of a face region must be at least 15 pixels apart. This helps prevent issues shown in \cref{fig:dataset:issues_with_tagging}.
 
 \begin{figure}[p]
   \centering
@@ -62,4 +70,4 @@ Construction Rules govern how attributes can be made. We break these down into f
 
 \subsection{Attributes}
 
-Attributes exist as a means to capture further information about an annotation. We represent attributes in our metamodel as either derived or explicit. As stated in \cref{sec:dataset:architecture:what_to_capture}, those attributes which are required for the tagger to manually markup are explicit (i.e., manually must be added) whereas those that can be computed by the system are derived (i.e., inferred from explicit attributes). A useful example of derived attributes may be the bounding box and area that inferred from a polygon, both of which are key values required in training \glspl{nn}.
+Attributes exist as a means to capture further information about an annotation. We represent attributes in our metamodel as either derived or explicit. As stated in \cref{sec:dataset:architecture:what_to_capture}, those attributes that are required for the tagger to manually markup are explicit (i.e., manually must be added) whereas those that can be computed by the system are derived (i.e., inferred from explicit attributes). A useful example of derived attributes may be the bounding box and area that inferred from a polygon, both of which are key values required in training \glspl{nn}.
