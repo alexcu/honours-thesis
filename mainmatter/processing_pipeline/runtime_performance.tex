@@ -1,0 +1,12 @@
+\section{Runtime Performance}
+
+Our pipeline's runtime takes, on average, 23 seconds end-to-end per image (determined over all evaluations given in \cref{ch:evaluation}). \gls{ocr} and person detection runs in less than a second. The algorithmic complexity of our pipeline bottlenecks typically at the bib and text detection stages: when cropping is introduced in the pipeline, bib detection increases by a range of 2 to 10 extra seconds. Given the wide samples used to train the text detection network, this is the slowest stage, at an average of 13 seconds. Further breakdowns of the runtime performance is given in \cref{tab:results:summary:runtime}.
+
+The engineering limitations of the \frcnn{} implementation may be improved architecturally by running the system at scale on a cloud cluster such as \gls{aws}. While memory complexity is not an issue, the time complexity is. We leave the improvements to our pipeline's runtime up to future works in systems architecture literature.
+
+% Algorithm complexity...
+% Person Detection, Bib Detection, Text Detection, Character Detection + OCR
+% Discuss engineering limitations here of Keras FRCNN and talk about how we could improve it architecturally... time complexity just waft a bit about scale it up on AWS. Handball to architecture land/literature (future works). Memory complexity is also not an issue.
+
+% Find paper that discusses OCR via NNs using Tesseract 4 alpha.
+% Could discuss Luis's fallback pipeline?
