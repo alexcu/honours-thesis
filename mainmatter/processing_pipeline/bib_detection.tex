@@ -45,7 +45,7 @@ To implement this detection pipeline, we chose a Keras \citep{chollet2015keras} 
 
 As described in \cref{sec:processing_pipeline:bib_detection:existing_approaches}, a heuristic-based method explored was to apply visual transformation on a person detection to extract the \gls{rbn}. The person detection component used a pre-trained network built on the \gls{yolo} object detection system running on a customised implementation of Darknet\footnoteurl{https://github.com/alexcu/darknet}{21 August 2017}.
 
-We were able to utilise a similar method by extracting people from an image using \gls{yolo} (\cref{fig:processing_pipeline:person_filtering:yolo_crop_person_detection}), and cropping each image to the respective bounding box of the detected areas. Using weights from the Tiny \gls{yolo} model\footnoteurl{https://pjreddie.com/darknet/yolo/\#tiny}{5 September 2017}, \gls{yolo} was able to detect the most prominent runners in the image, with which we found desirable considering the aims of the project. We then ran our \frcnn{} prediction model on each cropped image (\cref{fig:processing_pipeline:person_filtering:yolo_crop_aggregated_detections}). As these images had reduced noise, accuracies of bib detections increased with fewer false positives. 
+We were able to utilise a similar method by extracting people from an image using \gls{yolo} (\cref{fig:processing_pipeline:person_filtering:yolo_crop_person_detection}), and cropping each image to the respective bounding box of the detected areas. Using weights from the Tiny \gls{yolo} model\footnoteurl{https://pjreddie.com/darknet/yolo/\#tiny}{5 September 2017}, \gls{yolo} was able to detect the most prominent runners in the image, with which we found desirable considering the aims of the project. We then ran our \frcnn{} prediction model on each cropped image (\cref{fig:processing_pipeline:person_filtering:yolo_crop_bib_detection}). As these images had reduced noise, accuracies of bib detections increased with fewer false positives. 
 
 The last stage of the bib detection was to aggregate all detections of separate runners back into one image (\cref{fig:processing_pipeline:person_filtering:yolo_crop_aggregated_detections}), and union overlapping predicted regions (\cref{fig:processing_pipeline:person_filtering:yolo_crop_unioned_detections}). (We found that in some cases, two or more bibs would be detected in a single person crop due to runner's in the background.) In some cases, however, it was unwise to union \textit{all} overlapping regions, such as that shown in \cref{fig:processing_pipeline:hand}. Using $a(r)$ to denote the area of a region, we only formed the union of both regions, $r_{1} \cup r_{2}$, if the area of the intersection region, $a(r_{1} \cap r_{2})$, was more than 75\% of the area of one of the area of one of the regions.
 
@@ -66,8 +66,6 @@ R_{u} &= \{\ r_{1} \cup r_{2}\ |\ (r_{1}, r_{2}) \in R \ \wedge\ r_{1} \neq r_{2
 R_{i} &= \{\ r \ |\ (\exists r \in R)(\forall r_{x} \in R)[\ r \neq r_{x}\ \wedge\  A(r, r_{x})\ ]\ \}\\
 R_{f} &= \{\ r\ |\ r \in R \wedge r \in R_{u} \wedge r \not\in R_{i}\ \}
 \end{align*}
-
-These overlaps increased the likelihood of extracting the \gls{rbn} given a larger extraction image.
 
 \begin{landscape}
   \begin{figure}[p]

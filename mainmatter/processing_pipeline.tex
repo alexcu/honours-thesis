@@ -1,7 +1,7 @@
 \chapter{Processing Pipeline}
 \label{ch:processing_pipeline}
 
-\cref{ch:dataset,ch:argus} discussed methods to can curate and augment datasets. This chapter describes how the data processing pipeline and training method were used, applying them to detect bib sheets `in-the-wild' on any given marathon photo. Lastly, we explain our method of \gls{ocr} to convert our \gls{rbn} candidates into text.  An overview of our pipeline is shown in \cref{fig:processing_pipeline:pipeline} and the source code is available online\footnoteurl{http://github.com/alexcu/hermes-bib-detect}{25 September 2017}.
+\cref{ch:dataset,ch:argus} discuss methods to curate and augment datasets. Using these datasets, we train a \gls{nn} to develop a processing pipeline. This chapter describes this process and how we developed our pipeline to detect bib sheets `in-the-wild' on any given marathon photo. Lastly, we explain our method of \gls{ocr} to convert our \gls{rbn} candidates into text.  An overview of our pipeline is shown in \cref{fig:processing_pipeline:pipeline} and the source code is made available online\footnoteurl{http://github.com/alexcu/hermes-bib-detect}{25 September 2017}.
 
 \begin{figure}[h]
   \centering
@@ -17,7 +17,7 @@
 
 \section{Summary}
 
-This chapter presents an end-to-end pipeline that solely uses \glspl{nn} for object detection and text recognition to find the \glspl{rbn} in a given marathon photo. We successfully utilised transfer-learning on \frcnn{} to train it to detect both bibs sheets and text regions within those bib sheets. To improve our results, we use the \gls{yolo} object detection system to reduce background noise and only check for bib sheets on a given crop of a detected human's bounding box region. We evaluate this pipeline in the following chapter.
+This chapter presents an end-to-end pipeline that solely uses \glspl{nn} for object detection and text recognition to find the \glspl{rbn} in a given marathon photo. We successfully utilise transfer-learning on \frcnn{} to train it to detect both bibs sheets and text regions within those bib sheets. To reduce background noise, we use the \gls{yolo} object detection system and only check for bib sheets on a given crop of a detected human's bounding box region. We evaluate this pipeline in the following chapter.
 
 \bigskip
 
@@ -25,7 +25,7 @@ This chapter presents an end-to-end pipeline that solely uses \glspl{nn} for obj
 The primary contributions of this chapter are:
 
 \begin{itemize}
-  \item an end-to-end \gls{nn}-based pipeline to detect and recognise \gls{rbn} in a natural scene, and
+  \item an end-to-end \gls{nn}-based pipeline to detect and recognise \glspl{rbn} in a natural scene, and
   \item a proposed method to increase accuracies by human extraction within photos.
 \end{itemize}
 
