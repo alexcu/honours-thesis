@@ -5,7 +5,7 @@ We analysed seven popular datasets recently used in literature seen as benchmark
 
 \vspace*{\fill}
 \begin{table}[h]
-  \caption[Various datasets and respective annotation formats]{Various datasets and their respective annotation formats which we have assessed for comparison with our metamodel. See \cref{ch:dataset_schemas} for serialisable annotation formats.}
+  \caption[Datasets and respective annotation formats]{Differing datasets and their respective annotation formats which we have assessed for comparison with our metamodel. See \cref{ch:dataset_schemas} for serialisable annotation formats.}
   \label{tab:dataset:metamodel_evaluation:datasets}
   \tablefit{
     \begin{tabular}{@{}ll|p{0.21\textwidth}p{0.24\textwidth}lp{0.25\textwidth}@{}}
@@ -168,13 +168,13 @@ We analysed seven popular datasets recently used in literature seen as benchmark
 \vspace*{\fill}
 \clearpage
 
-For each of these datasets, the annotation capturing strategies differed and, similarly, the annotation was either encoded as a binary MATLAB\footnote{MATLAB is a registered trademark of The MathWorks, Inc.} file or serialised in plain text (either as \gls{xml} or \glsac{json}). In the case where annotations were serialised in \gls{xml}, a popular format was the \glsac{pascal}\footnote{\gls{pascal}}-\gls{voc} \citep{Everingham:2009dq} format. This format was made popular with the various \glsac{pascal} \gls{voc} Challenges \citep{Everingham:2015tv,Everingham:2010wz,Everingham:2005vr,Everingham:2009dq}, though custom annotation formats in \gls{xml} are also present (e.g., \gls{icdar}).
+For each of these datasets, the annotation capturing strategies differed and, similarly, the annotation was either encoded as a binary MATLAB\footnote{MATLAB is a registered trademark of The MathWorks, Inc.} file or serialised in plain text (either as \gls{xml} or \glsac{json}). In the case where annotations were serialised in \gls{xml}, a popular format was the \glsac{pascal}\footnote{\gls{pascal}}-\gls{voc} \citep{Everingham:2009dq} format. This format was made popular with the \glsac{pascal} \gls{voc} Challenges \citep{Everingham:2015tv,Everingham:2010wz,Everingham:2005vr,Everingham:2009dq}, though custom annotation formats in \gls{xml} are also present (e.g., \gls{icdar}).
 
 \subsection{MS COCO and COCO-Text JSON Format}
 
 The Microsoft \gls{coco} \citep{Lin:2014vma} dataset and its image captions extension \citep{Chen:2015ur} require all annotations to be labelled to one of 91 specified categories. This is done using a three-step annotation pipeline consisting of: (1) labelling all categories of objects in the image, (2) spotting all instances of these characters, and (3) segmenting the instances using a polygon. For our analysis, we focus only on the Object Keypoint and Image Caption Annotation challenges.
 
-We mapped the annotation concepts from both MS \gls{coco} (and its text-reading equivalent \gls{coco}-Text) and mapped components to the \gls{adf}. As shown in \cref{fig:dataset:metamodel_evaluation:mapping:coco}, these high-level components are largely complete when expressed in \gls{adf}, and the mapping is powerful enough to compute required components of the \gls{coco}-based annotation formats to derived calculations within \gls{adf}.
+We mapped the annotation concepts from both MS \gls{coco} (and its text-reading equivalent \gls{coco}-Text) and mapped components to the \gls{adf}. As shown in \cref{fig:dataset:metamodel_evaluation:mapping:coco}, these high-level components are complete when expressed in \gls{adf}, and the mapping is powerful enough to compute required components of the \gls{coco}-based annotation formats to derived calculations within \gls{adf}.
 
 Our metamodel did not consider using \gls{rle} to encode multiple boundaries (polygons), as is used when \textit{Is Crowd} is set to 1 to indicate multiple instances in the image. However, we still capture this concept under the a form of a \textit{Boundary}. Additionally, we found that the \textit{Is Crowd} is the only mapping of all the formats that relates to an \gls{adf} \textit{Image-Level Feature}.
 

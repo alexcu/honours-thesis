@@ -1,7 +1,7 @@
 \section{Metrics}
 \label{sec:background:metrics}
 
-Within the field of text detection, various evaluation protocols exist. For an extensive survey of these protocols, see \citep{Wolf:2006gv,Ye:2014bs}. Throughout our survey, we note the standard the evaluation scheme for text extraction first proposed for use in image processing in the \glsx{icdar} competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq, Karatzas:2013by, Karatzas:2015tj}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' that a text extraction pipeline can achieve. 
+Within the field of text detection, different evaluation protocols exist. For an extensive survey of these protocols, see \citep{Wolf:2006gv,Ye:2014bs}. Throughout our survey, we note the standard the evaluation scheme for text extraction first proposed for use in image processing in the \glsx{icdar} competitions \citep{Lucas:2003iw, Lucas:2005bq, Shahab:2011hq, Karatzas:2013by, Karatzas:2015tj}. This scheme was designed to be easy to understand and compute, reward text extraction useful for natural scenes, and heavily punish trivial solutions. The intention behind these metrics were to develop a measure of `robustness' that a text extraction pipeline can achieve. 
 
 In the \gls{icdar} competitions, two metrics are used: the initial \gls{icdar} 2003 evaluation protocol proposed by \citet{Lucas:2003iw}, and, more recently, the \textit{DetEval} evaluation protocol \citep{Shivakumara:2011dn} (based on \citep{Wolf:2006gv}), as used in the \gls{icdar} 2011 and 2013 robust reading competitions. The simplicity and continued wide use of the \gls{icdar} 2003 for text localisation evaluation is chosen over the \textit{DetEval} approach.
 
@@ -40,7 +40,7 @@ One issue with the calculation is that it assumes a rectangular bounding box. Wo
 \subsection{The \fscore}
 \label{sec:background:metrics:fscore}
 
-A common metric used when developing text extraction pipelines is the \fscore, a single measure of quality that combines both precision and recall values. We are able to compute this metric using the standard measure across many studies, as contrasted in \cref{tab:background:metrics:survey}.
+A common metric used when developing text extraction pipelines is the \fscore, a single measure of quality that combines both precision and recall values. We are able to compute this metric using the standard measure across different studies, as contrasted in \cref{tab:background:metrics:survey}.
 
 The \fscore{} algorithm is given in the context of image processing in \citet{Lucas:2003iw}. Relative weights controlled by an $\alpha$ value of 0.5 give equal weight to both precision and recall metrics:
 \begin{equation*}

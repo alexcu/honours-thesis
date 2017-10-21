@@ -13,7 +13,7 @@ This chapter discusses our evaluation strategies to test the performance of our 
 
 In this chapter, we have presented an evaluation strategy of our pipeline that extends that of previous literature. Using previous evaluation strategies, discussed in \cref{sec:background:metrics}, a comparison of a higher \fscore{} metric of 0.59 by \citet{Benami:2012jf} is noted, compared to our best of 0.17. This said, we suggest that this may be due to randomly sampled photos chosen from our dataset. An evaluation of the dataset and pipeline used by \citeauthor{Benami:2012jf} against our own is not possible, since neither are publicly available. We cannot comment for the other metrics of text and character performance defined in this chapter as such metrics have not been applied in other works. 
 
-Bib detection in general is largely accurate, and we have successfully applied \frcnn{} to recognise bib sheets with an accuracy larger than 95\%. However, limitations showing a general decline in the performance of our pipeline following bib detection (71\% for text; 45\% for characters) can be mitigated through means that we discuss in the conclusion of this thesis.
+Bib detection in general is mostly accurate, and we have successfully applied \frcnn{} to recognise bib sheets with an accuracy larger than 95\%. However, limitations showing a general decline in the performance of our pipeline following bib detection (71\% for text; 45\% for characters) can be mitigated through means that we discuss in the conclusion of this thesis.
 
 \bigskip
 
@@ -36,7 +36,7 @@ Minor contributions in this chapter include:
 
 % Discuss the breakdown of results
 
-% We found that, even though we trained the NN for bib detectedtion only, the NN learned to link the bib with an actual person. Therefore, without the added padding on the person crops, we noticed that the bib detection would largely fail. If we added the padding, the detection was good.
+% We found that, even though we trained the NN for bib detectedtion only, the NN learned to link the bib with an actual person. Therefore, without the added padding on the person crops, we noticed that the bib detection would fail. If we added the padding, the detection was good.
 
 % Limitations: poor image quality sampled randomly.
 

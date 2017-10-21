@@ -44,7 +44,7 @@ Argus is therefore told what it is that the annotator needs to capture, and---by
 \subsection{Extracting Features}
 \label{sec:dataset:process:extracting}
 
-Raw images are loaded into an `Annotate' mode of Argus, whereby the user interface is generated using the constraints discussed in \cref{sec:dataset:process:informing}. Additionally, errors are now detected when conditions or restrictions are not met. Each of the specific features can now be extracted using several elements within the generated \gls{ui} as per those shown in \cref{tab:dataset:process:ui_elements}, whereby the annotator follows the required steps (i.e., in dependency order) to carry out annotations. This, therefore, becomes the workflow of extraction which the annotator runs through---an example of such a workflow for our case is shown in \cref{fig:dataset:process:argus_workflow}, represented as a \gls{uml} state diagram.
+Raw images are loaded into an `Annotate' mode of Argus, whereby the user interface is generated using the constraints discussed in \cref{sec:dataset:process:informing}. Additionally, errors are now detected when conditions or restrictions are not met. Each of the specific features can now be extracted using elements within the generated \gls{ui} as per those shown in \cref{tab:dataset:process:ui_elements}, whereby the annotator follows the required steps (i.e., in dependency order) to carry out annotations. This, therefore, becomes the workflow of extraction which the annotator runs through---an example of such a workflow for our case is shown in \cref{fig:dataset:process:argus_workflow}, represented as a \gls{uml} state diagram.
 
 \begin{table}
   \centering
@@ -166,11 +166,11 @@ A sample of an \gls{adf} in a language-agnostic tree format is shown in \cref{fi
 \subsection{Load}
 \label{sec:dataset:process:load}
 
-Once the data is transformed into a consistent format (i.e., an \gls{adf}), we are able to supply it to several different tools. In our research, we process the \gls{adf} in four tools:
+Once the data is transformed into a consistent format (i.e., an \gls{adf}), we are able to supply it to different tools. In our research, we process the \gls{adf} in four tools:
 
 \begin{enumerate}
   \item Argus is executed in `Review' mode, whereby a second annotator reviews the parsed annotations by loading a directory containing multiple \glspl{adf}. There, they can run through a number checks to ensure the annotated data is accurate for training the \gls{ai} models.
-  \item Custom augmenters load the \glspl{adf} as well as the source images to produce several variations on the image, essentially turning one image and its respective \gls{adf} into many variant images and \glspl{adf}. This is imperative when training our \glsx{nn}, as explained in \cref{sec:dataset:postprocessing:augmentation}.
+  \item Custom augmenters load the \glspl{adf} as well as the source images to produce variations on the image, essentially turning one image and its respective \gls{adf} into variant images and \glspl{adf}. This is imperative when training our \glsx{nn}, as explained in \cref{sec:dataset:postprocessing:augmentation}.
   \item An adapter created for our \gls{nn} is used to load in an \gls{adf} and convert it into a \glsac{csv} of file paths to images, bounding boxes and labels. The \gls{nn} reads this file and uses it to learn where bib locations are in an image. This is later discussed in \cref{ch:processing_pipeline}.
   \item We used Git\footnoteurl{https://git-scm.com}{11 Aug 2017} to track changes within our \gls{adf}. The benefit of serialising the data into a text file is that any version control management software can handle provenance for us (as suggested in \cref{sec:dataset:architecture}), thereby sourcing changes in our \gls{ai} models easier by sourcing how the training data (i.e., \gls{adf} files) has derived over time.
 \end{enumerate}

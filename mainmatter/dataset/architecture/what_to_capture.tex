@@ -32,7 +32,7 @@ There are two features to describe components of the entire photo that we call \
     \caption{\footnotesize A photo where there are no \glspl{rbn} present.}
     \label{fig:dataset:image_features:no_rbns}
   \end{subfigure} 
-  \caption[Various image-level features]{Image-level features. In (a), the $PhotoCrowded$ annotation would be marked as \textsc{true}. Note the obstruction of all \glspl{rbn} in this photo. In (b) and (c), $PhotoCrowded$ is \textsc{false}, but there are no $Runners$ to tag.}
+  \caption[Image-level features]{Image-level features. In (a), the $PhotoCrowded$ annotation would be marked as \textsc{true}. Note the obstruction of all \glspl{rbn} in this photo. In (b) and (c), $PhotoCrowded$ is \textsc{false}, but there are no $Runners$ to tag.}
   \label{fig:dataset:image_features}
 \end{figure}
 
@@ -159,13 +159,13 @@ A runner's face is considered `invisible' if it is obstructed by another object,
     \caption{\gls{lop} = \textsc{no}}
   \end{subfigure}
   \hspace{\fill}
-  \caption[Variant Purchase Likelihoods]{Various examples of the $\gls{lop}$ values. In (a), the woman is clearly posing and is the primary subject of the photo. In (b), the runner is in focus in a pose, but is behind another runner and there are other runners behind him. In (c), the woman is out of focus, is blurry, and this photo has very poor lighting conditions.}
+  \caption[Variant Purchase Likelihoods]{Examples of the $\gls{lop}$ values. In (a), the woman is posing and is the primary subject of the photo. In (b), the runner is in focus in a pose, but is behind another runner and there are other runners behind him. In (c), the woman is out of focus, is blurry, and this photo has poor lighting conditions.}
   \label{fig:dataset:lop_prominence}
 \end{figure}
 
 \subsection{Feature 5: Colours}
 
-Another feature we can capture is a way to identify runners by the colour of their clothing. (Within our dataset, various clothing items of distinct colours are given to runners for particular races.) This feature comprises of four annotations:
+Another feature we can capture is a way to identify runners by the colour of their clothing. (Within our dataset, clothing items of distinct colours are given to runners for particular races.) This feature comprises of four annotations:
 
 \begin{enumerate}
   \item an \textit{optional} \textbf{colour} of the runner's \textbf{hat}, given that they were annotated as wearing a hat,

@@ -1,7 +1,7 @@
 \section{Data Postprocessing}
 \label{sec:dataset:postprocessing}
 
-Once our dataset is annotated, several actions can be applied---our images and annotations undergo a series of post-processing and eventually are used by the \gls{ai} model to make predictions on new datasets. We can broadly categorise these into two sections: flagging the annotations/predictions and augmenting the data. The overall process is illustrated within \cref{fig:dataset:postprocessing:overal_data_processing}.
+Once our dataset is annotated, actions can be applied---our images and annotations undergo a series of post-processing and eventually are used by the \gls{ai} model to make predictions on new datasets. We can broadly categorise these into two sections: flagging the annotations/predictions and augmenting the data. The overall process is illustrated within \cref{fig:dataset:postprocessing:overal_data_processing}.
 
 \subsection{Flagging}
 \label{sec:dataset:postprocessing:flagging}
@@ -15,7 +15,7 @@ Flagging helps indicate `check'-states that the annotated or predicted \gls{adf}
   \label{fig:dataset:postprocessing:state_diagram_flagging}
 \end{figure}
 
-Ground truth annotations encompasses the general process that data taggers annotate data. This process is largely the initial data capture that occurs within our dataset, described by the process outlined in \cref{sec:dataset:process}. As mentioned in \cref{sec:dataset:process:load}, once data is annotated, a second parse is done on the annotations by another reviewer to check for any mistakes. Some of our data is also annotated multiple times, and thus multiple \glspl{adf} are produced. A reviewer will check these files and use the best matches to merge the best data together---for instance, in a single photo, if three annotators mark a given runner's \gls{lop} as \textsc{yes} whereas one annotator marks it as \textsc{maybe}, the reviewer may choose to update the \textsc{maybe} to the more likely value.
+Ground truth annotations encompasses the general process that data taggers annotate data. This process is the initial data capture that occurs within our dataset, described by the process outlined in \cref{sec:dataset:process}. As mentioned in \cref{sec:dataset:process:load}, once data is annotated, a second parse is done on the annotations by another reviewer to check for any mistakes. Some of our data is also annotated multiple times, and thus multiple \glspl{adf} are produced. A reviewer will check these files and use the best matches to merge the best data together---for instance, in a single photo, if three annotators mark a given runner's \gls{lop} as \textsc{yes} whereas one annotator marks it as \textsc{maybe}, the reviewer may choose to update the \textsc{maybe} to the more likely value.
 
 Once ground truth annotations are inspected for a second time, the annotations in the \gls{adf} file are \textit{flagged} as `\textsc{reviewed}'. We only allow reviewed data to be augmented (\cref{sec:dataset:postprocessing:augmentation}) and thus trained in our \gls{ai} model. This method allows us to maintain a high level of quality and integrity of input data.
 
@@ -66,7 +66,7 @@ Our augmentation strategy consisted of the following:
 
 Our affine transformations consisted of translations in both the $x$ and $y$ axes shifted between $\pm35\%$, rotated between $\pm45\degree$, and sheared between $\pm5\%$. These transformations were implemented using the \textit{imgaug} library\footnoteurl{https://github.com/aleju/imgaug}{11 August 2017} for Python. See \cref{fig:dataset:postprocessing:augmentation} for examples.
 
-As these transformations occur randomly, there are cases where translation, shearing and rotation occur extremely (e.g., \cref{fig:dataset:postprocessing:augmentation:crop1,fig:dataset:postprocessing:augmentation:crop2}). This causes some bibs to be cropped off the image. Therefore, we remove these from the transformed \gls{adf} file as we cannot have a bounding box referencing outside the image.
+As these transformations occur randomly, there are cases where translation, shearing and rotation occur at extreme values (e.g., \cref{fig:dataset:postprocessing:augmentation:crop1,fig:dataset:postprocessing:augmentation:crop2}). This causes some bibs to be cropped off the image. Therefore, we remove these from the transformed \gls{adf} file as we cannot have a bounding box referencing outside the image.
 
 \begin{figure}[h!]
   \centering
@@ -111,6 +111,6 @@ As these transformations occur randomly, there are cases where translation, shea
   \hspace{\fill}
   \bigskip
   \\ 
-  \caption[Various augmented images from our dataset]{Various instances of our augmented dataset. Here the \gls{adf} annotation files are drawn directly onto the source image, with the $BibSheet$ polygon shown in green and its respective derived bounding box attribute in red, dotted.}
+  \caption[Augmented images from our dataset]{Instances of our augmented dataset. Here the \gls{adf} annotation files are drawn directly onto the source image, with the $BibSheet$ polygon shown in green and its respective derived bounding box attribute in red, dotted.}
   \label{fig:dataset:postprocessing:augmentation}
 \end{figure}
