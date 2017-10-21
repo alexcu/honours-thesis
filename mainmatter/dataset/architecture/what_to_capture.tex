@@ -9,7 +9,7 @@ Let us consider the motivating case study of marathon races and determine the mo
 There are two features to describe components of the entire photo that we call \textit{Image-level} features:
 
 \begin{enumerate}
-  \item whether or not the photo is considered as \textbf{crowded} (\textsc{true} or \textsc{false}), and
+  \item whether the photo is considered as \textbf{crowded} (\textsc{true} or \textsc{false}), and
   \item an \textit{optional} collection of \textbf{runners} in the photo, given that the photo is not crowded.
 \end{enumerate}
 
@@ -78,8 +78,8 @@ and once this face bounds has been tagged, more annotations can be extracted:
 
 \begin{enumerate}
   \setcounter{enumi}{1}
-  \item whether or not the runner is \textbf{wearing} a \textbf{hat} (\textsc{true} or \textsc{false}),
-  \item whether or not the runner is \textbf{wearing} \textbf{(sun)glasses} (\textsc{true} or \textsc{false}), and
+  \item whether the runner is \textbf{wearing} a \textbf{hat} (\textsc{true} or \textsc{false}),
+  \item whether the runner is \textbf{wearing} \textbf{(sun)glasses} (\textsc{true} or \textsc{false}), and
   \item the \textbf{gender} of the runner (\textsc{male}, \textsc{female}, or \textsc{unsure}).
 \end{enumerate}
 
@@ -112,8 +112,8 @@ The bib sheet polygon would contain four \textit{explicit attributes} required a
 We identify another feature, the prominence of the runner within the photo. These consist of three annotations:
 
 \begin{enumerate}
-  \item whether or not the runner's \textbf{face} is \textbf{visible} (\textsc{true} or \textsc{false}),
-  \item whether or not the runner is \textbf{blurry} (\textsc{true} or \textsc{false}), and
+  \item whether the runner's \textbf{face} is \textbf{visible} (\textsc{true} or \textsc{false}),
+  \item whether the runner is \textbf{blurry} (\textsc{true} or \textsc{false}), and
   \item the \textbf{\gls{lop}} that the runner buys the photo (\textsc{no}, \textsc{maybe}, \textsc{yes}).
 \end{enumerate}
 
@@ -189,7 +189,7 @@ In summary, we have identified a total of 5 features of 15 annotations, which ar
 \item explicit attributes that the tagger must specify,
 \item derived attributes that we can automatically compute,
 \item possible values that limit the range of data for that annotation, and
-\item whether or not the annotation is optional.  
+\item whether the annotation is optional.  
 \end{itemize}
 
 
