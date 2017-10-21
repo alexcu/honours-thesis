@@ -14,7 +14,7 @@ Previous work required the use of a scanning window \citep{XiangrongChen:2004ha,
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth]{images/background/subramanian2007_intensity}
+  \includegraphics[width=0.75\textwidth]{images/background/subramanian2007_intensity}
   \caption[Stroke analysis from \citet{Subramanian:2007tf}]{A study from \citet{Subramanian:2007tf} showed that stroke width could be determined from (a) the original image; (b) intensity plots of the image to determine stroke regions ($\tau$ is the intensity threshold and $\Delta$ is the stroke width); (c) the intensity at an optimal threshold; (d) the final thresholded image after morphological operations and \gls{cc} analysis.}
   \label{fig:background:detection:cc:subramanian2007_intensity}
 \end{figure}
@@ -23,7 +23,7 @@ A study by \citet{Epshtein:2010tj} (and coincidentally \citet{Zhang:2011cl}) bui
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{images/background/epshtein2010_swt}
+  \includegraphics[width=0.47\textwidth]{images/background/epshtein2010_swt}
   \caption[Stroke Width Transformation from \citet{Epshtein:2010tj}]{The \glsx{swt} approach introduced in \citep{Epshtein:2010tj}. The original image (a) is converted to a binarised array with the most likely stroke width per-pixel (b), piping the information into geometric filtering (c) as text maintains fixed stroke width (excluding false positives such as foliage). The resulting detected text is shown in (d).}
   \label{fig:background:detection:cc:epshtein2010_swt}
 \end{figure}
@@ -90,23 +90,23 @@ This has since led to the rise of enhanced \glspl{cnn} such as FICS+++ \citep{Li
 
 These methods are increasingly improving per-pixel classification of objects within natural scenes. However, applicability of these deep-learning networks in the sole context of \textit{text extraction} is yet to be widely explored, though a \citeyear{Jaderberg:2016wj} paper by \citet{Jaderberg:2016wj} did show the viability of a real-time text reading pipeline based on \glspl{cnn} (\cref{fig:background:detection:learning:jaderberg2016_cnn}) that successfully extracts any text query from 2.3 million frames of BBC News footage\footnoteurl{http://zeus.robots.ox.ac.uk/textsearch}{14 August 2017}.
 
-\begin{figure}[h]
+\begin{figure}[p]
   \centering 
-  \includegraphics[width=\textwidth]{images/background/jaderberg2016_cnn}
+  \includegraphics[width=0.9\textwidth]{images/background/jaderberg2016_cnn}
   \caption[A pipeline for text extraction using CNNs]{The pipeline for text extraction proposed in \citep{Jaderberg:2016wj}.}
   \label{fig:background:detection:learning:jaderberg2016_cnn}
 \end{figure}
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{images/background/he2017_maskrcnnframework}
+  \includegraphics[width=0.9\textwidth]{images/background/he2017_maskrcnnframework}
   \caption[The Mask R-CNN framework for instance segmentation]{The Mask \gls{rcnn} framework for instance segmentation \citep{He:2017ud}.}
   \label{fig:background:detection:learning:he2017_maskrcnnframework}
 \end{figure}
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{images/background/he2017_maskrcnn}
+  \includegraphics[width=0.9\textwidth]{images/background/he2017_maskrcnn}
   \caption[Use of CNNs for object detection]{Use of \glspl{cnn} have recently been shown to have accurate per-pixel object detection and classification. \textit{Top row:} FCIS+++ \citep{Li:2016uj}. \textit{Bottom row:} Mask \gls{rcnn} \citep{He:2017ud}. Mask \gls{rcnn} outperforms FICIS+++ for overlapping instance segmentation.}
   \label{fig:background:detection:learning:he2017_maskrcnn}
 \end{figure}

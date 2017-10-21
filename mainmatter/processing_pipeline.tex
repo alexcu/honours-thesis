@@ -39,7 +39,6 @@ We applied \frcnn{} to the context of bib detection by the process of transfer l
 To implement this detection pipeline, we chose a Keras \citep{chollet2015keras} Python implementation of \frcnn{}\footnoteurl{https://github.com/alexcu/keras-frcnn}{21 August 2017} that runs on top of the TensorFlow \citep{tensorflow2015-whitepaper} library. To reduce false positives, we reject any candidate that is predicted with an accuracy of less than 50\%. However, while we were able to extract a large amount of bibs from many images, there were cases of shoes, signs and hands being detected with accuracies above 90\%. There were also some false negatives due to excessive noise in the photo. \cref{fig:processing_pipeline:bib_only} shows this in further detail. We decided to amend this by cropping each image down to detected people using the \gls{yolo} system.
 
 \begin{figure}[h]
-  % TODO: Make the image more noticable
   \includegraphics[width=\textwidth]{images/processing/bib_only}
   \caption[Bib detection results using FRCNN]{Results from using \frcnn{} Keras implementation running on TensorFlow. Note the false negative for the third runner from the right and the false positive on the second runner's shoe from the left.}
   \label{fig:processing_pipeline:bib_only}
