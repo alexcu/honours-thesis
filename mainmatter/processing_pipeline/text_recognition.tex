@@ -1,4 +1,5 @@
 \section{Text Recognition}
+\label{sec:processing_pipeline:text_recognition}
 
 Before we feed the text area into an \gls{ocr} engine, we preprocess the extracted text images to optimise their recognition (\cref{fig:processing_pipeline:ocr_postprocessing}). We produce three preprocessed optimal candidates: greyscale, inverse greyscale, and threshold binary. For images with black and white numbers, we use the statistical median of the image's colour range: where the median is greater than 128, we assume a white number is detected (i.e., white on a darker background, such as \cref{fig:processing_pipeline:ocr_postprocessing:white_on_dark_original}) and apply a binarised inverse threshold on the image. Otherwise, we assume a black number is detected, where we threshold without the inverse. Greyscale and inverse greyscale are most suitable for text regions where \glspl{rbn} are not in a black or white typeface (\cref{fig:processing_pipeline:ocr_postprocessing:color_original}).
 

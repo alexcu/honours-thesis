@@ -1,0 +1,13 @@
+\section{Primary Contributions}
+
+\glsx{cc}-based detection straties have been investigated within this study  (see \cref{sec:background:detection:cc}), and we overcome its limitations by only using deep-learning \glspl{nn} for learning-based object detection. We find that detection with learning-based methods for object detection can achieve up to 97\% accuracy using transfer-learning on pre-existing \glsx{rcnn} (\frcnn{} \citep{Ren:2017ug}) for visual processing given context of the desired object to be detected (i.e., racing bibs). We also find that transfer-learning can achieve partially similar results of up to 82\% accuracy in detection of alphanumeric regions within those extracted features by changing the dataset and desired feature to text regions. Refer to \cref{sec:evaluation:results}.
+
+This thesis also aimed to tackle the issue of different \glsx{ocr} strategies. We have shown that our pipeline is able to use \gls{nn}-based \gls{ocr} to recognise the alphanumeric sequences of a \glsx{rbn} without character segmentation. We also show that preprocessing these images are a requirement for non-binarised text (i.e., red \glspl{rbn}) into pre-existing \gls{ocr} engines such as Tesseract. This is shown in \cref{sec:processing_pipeline:text_recognition}.
+
+We define an approach to quantify the prominence of a given runner within a photo using a data-collection system, \textit{Argus} (see \cref{ch:argus}), that was used to curate labels for a large dataset in order to train the network. As a side research tangent of this thesis, we developed a metamodel proposing how such applications can be used for further contexts (see \cref{sec:dataset:architecture:metamodel}), and not just marathon photography. Additionally, we contribute a metamodel development methodology to create metamodels using a quasi-experimental design and observational studies of prototype systems (see \cref{sec:dataset:architecture:methodology}).
+
+% RQ -> Contributon
+
+% This is what I started with, relate back to introduction and research questions
+% What were the main contributions that solved the RQs?
+% Everything in the pipeline is generally reusable, except for training images and OCR NN font training.

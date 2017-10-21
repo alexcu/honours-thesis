@@ -1,0 +1,18 @@
+\section{Wider Applicability}
+
+Alphanumeric character recognition goes far beyond \gls{rbn} recognition. Other contexts in the area of self-driving vehicle literature, such as \gls{lpr} and \glsx{tsr}, is imperative for the realisation of these vehicles. Similar areas include meter reading of electronic and water meters, or street sign numbers as discussed in \cref{ch:background}. 
+
+The objective is to change the feature of interest: if one is interested in training a network about license plates, then train the network as we have done with racing bib numbers, but with an annotated dataset labelled with license plates. Additionally, training a text detection network with typeface specificity in mind (i.e., if one knows the typeface of a license plate or electronic meter), swapping out the text recognition portion of our pipeline with this trained network is achievable. This can be done to not only improve our \gls{ocr} bottleneck, but to improve context-specific cases.
+
+% Runtime speed improvements
+%% Where was the biggest bottleneck? Engineering of Keras FRCNN to be improved architecturally to always be running on a all image basis, not spin up one per image
+
+% OCR improvements
+%% Use a NN to detect text better on a per-character basis.
+%% Train a NN with domain-specific font. E.g., Vic License Plate typeface, typeface for electric box readers
+
+% Wider applicability (other contexts)
+%% Speed limit signs
+%% License plate recognition
+%% Electric box/water meters
+%% Use a NN to train the OCR for font-specific applicability
